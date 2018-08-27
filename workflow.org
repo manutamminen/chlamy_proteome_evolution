@@ -204,7 +204,8 @@ Convert into a proper csv:
 
 **** shell
  #+BEGIN_SRC sh
- awk '{print $1","$2}' id_conversion_raw.txt | awk -F'=' '{print $2","$3}' | awk '{gsub("\\|UniProtKB", ""); print $0}' | awk -F, 'NF == 3' > id_conversion.csv
+ awk '{print $1","$2}' id_conversion_raw.txt | awk -F'=' '{print $2","$3}' \
+   | awk '{gsub("\\|UniProtKB", ""); print $0}' | awk -F, 'NF == 3' > id_conversion.csv
  #+END_SRC
 
 Download the KEGG annotations for chromosomal genes...
@@ -293,9 +294,17 @@ Download the KEGG annotations for chromosomal genes...
 
  acc2 = [{key: val.replace(u'\xa0', u' ') for key, val in i.items()} for i in acc]
  annot_table = pd.DataFrame(acc2)
- annot_table['Gene_ID'] = annot_table['Other DBs'].str.split("NCBI").apply(lambda x: x[1]).str.split(" ").apply(lambda x: x[1])
- annot_table['Protein_ID'] = annot_table['Other DBs'].str.split("NCBI").apply(lambda x: x[2]).str.split(" ").apply(lambda x: x[1]).str.split("UniProt").apply(lambda x: x[0])
- annot_table['UniProt'] = annot_table['Other DBs'].str.split("NCBI").apply(lambda x: x[2]).str.split(" ").apply(lambda x: x[-1])
+ annot_table['Gene_ID'] = annot_table['Other DBs'] \
+                          .str \
+                          .split("NCBI").apply(lambda x: x[1]).str \
+                          .split(" ").apply(lambda x: x[1])
+ annot_table['Protein_ID'] = annot_table['Other DBs'] \
+                          .str.split("NCBI").apply(lambda x: x[2]).str \
+                          .split(" ").apply(lambda x: x[1]).str \
+                          .split("UniProt").apply(lambda x: x[0])
+ annot_table['UniProt'] = annot_table['Other DBs'].str \
+                          .split("NCBI").apply(lambda x: x[2]).str \
+                          .split(" ").apply(lambda x: x[-1])
  annot_table.to_csv("annotation_table.csv")
  #+END_SRC
 
@@ -315,9 +324,15 @@ Download the KEGG annotations for chromosomal genes...
 
  acc2 = [{key: val.replace(u'\xa0', u' ') for key, val in i.items()} for i in acc]
  annot_table = pd.DataFrame(acc2)
- annot_table['Gene_ID'] = annot_table['Other DBs'].str.split("NCBI").apply(lambda x: x[1]).str.split("?").apply(lambda x: x[1])
- annot_table['Protein_ID'] = annot_table['Other DBs'].str.split("JGI").apply(lambda x: x[0]).str.split("?").apply(lambda x: x[2]).str.split("UniProt").apply(lambda x: x[0])
- annot_table['UniProt'] = annot_table['Other DBs'].str.split("?").apply(lambda x: x[-1])
+ annot_table['Gene_ID'] = annot_table['Other DBs'] \
+                          .str.split("NCBI").apply(lambda x: x[1]) \
+                          .str.split("?").apply(lambda x: x[1])
+ annot_table['Protein_ID'] = annot_table['Other DBs'].str \
+                             .split("JGI").apply(lambda x: x[0]).str \
+                             .split("?").apply(lambda x: x[2]).str \
+                             .split("UniProt").apply(lambda x: x[0])
+ annot_table['UniProt'] = annot_table['Other DBs'].str \
+                          .split("?").apply(lambda x: x[-1])
  annot_table.to_csv("annotation_table_chr.csv")
  #+END_SRC
 
