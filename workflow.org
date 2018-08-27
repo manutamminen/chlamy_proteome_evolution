@@ -1,6 +1,6 @@
 * Chlamy proteomics workflow
 
-For interactive code and other delights, this file is best viewed on Org 9.1.13 mode on Emacs 25.3.1.
+For interactive code and other delights, view this file on Org mode 9.1.13 on Emacs 25.3.1.
 
 ** System information
 
@@ -24,7 +24,7 @@ R session information is provided at the end of this file.
 
 - pandas
 - beautifulsoup4
-- epride
+- epride (available at https://github.com/manutamminen/epride)
 
 * Download the C. reinhardtii reference genome from Phytozome
 
