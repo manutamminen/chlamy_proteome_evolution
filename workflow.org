@@ -49,6 +49,7 @@ Requires registration. Be sure to download the files
 | Creinhardtii_281_v5.0.fa                                        |                 |
 |-----------------------------------------------------------------+-----------------|
 
+**** python
 #+BEGIN_SRC python
 import pandas as pd
 import epride as ep
@@ -58,7 +59,8 @@ annot_genes = annot[annot[2] == "gene"]
 annot_genes[9] = annot_genes[8].str.split(";").apply(lambda x: x[1]).str.split("=").apply(lambda x: x[1])
 annot_genes.to_csv("annot_genes.csv")
 
-conversion = pd.read_csv("ChlamydomonasTranscriptNameConversionBetweenReleases.Mch12b.txt", comment="#", sep=r"\s*", header=None)
+conversion = pd.read_csv("ChlamydomonasTranscriptNameConversionBetweenReleases.Mch12b.txt",
+                         comment="#", sep=r"\s*", header=None)
 conversion.to_csv("conversion.csv", index=None)
 #+END_SRC
 
@@ -78,7 +80,8 @@ conversion.to_csv("conversion.csv", index=None)
 |                               | full_prot_table_organelles.csv          |
 |-------------------------------+-----------------------------------------|
   
-#+BEGIN_SRC ipython :session
+**** python
+#+BEGIN_SRC python
 import pandas as pd
 
 def process_raw(input_file, output_file, sep=",", cols=False, full=False):
@@ -108,10 +111,16 @@ def table_convert(input_file, output_file):
     gphn.index = [i.split()[4] for i in list(gphn.index)]
     gphn.to_csv(output_file)
 
-columns_names = process_raw("proteinGroupsGoodColNames.csv", "good_prot_hits_norm.csv")
-process_raw("proteinGroups.txt", "good_prot_hits_norm_organelles.csv", sep="\t", cols=columns_names)
-process_raw("proteinGroupsGoodColNames.csv", "full_good_prot_hits_norm.csv", full=True)
-process_raw("proteinGroups.txt", "full_good_prot_hits_norm_organelles.csv", sep="\t", cols=columns_names, full=True)
+columns_names = process_raw("proteinGroupsGoodColNames.csv",
+                            "good_prot_hits_norm.csv")
+process_raw("proteinGroups.txt",
+            "good_prot_hits_norm_organelles.csv",
+            sep="\t", cols=columns_names)
+process_raw("proteinGroupsGoodColNames.csv",
+            "full_good_prot_hits_norm.csv", full=True)
+process_raw("proteinGroups.txt",
+            "full_good_prot_hits_norm_organelles.csv",
+            sep="\t", cols=columns_names, full=True)
 
 table_convert("good_prot_hits_norm.csv", "prot_table.csv")
 table_convert("good_prot_hits_norm_organelles.csv", "prot_table_organelles.csv")
@@ -135,7 +144,8 @@ table_convert("full_good_prot_hits_norm_organelles.csv", "full_prot_table_organe
 |                                | full_median_corrected_organelles.csv |
 |--------------------------------+--------------------------------------|
 
-#+BEGIN_SRC ipython :session
+**** python
+#+BEGIN_SRC python
 import pandas as pd
 
 def subtract_means(input_file, mean_output_file, median_output_file):
@@ -187,6 +197,7 @@ subtract_means("full_prot_table_organelles.csv",
 |                       | id_conversion.csv        |
 |-----------------------+--------------------------|
   
+**** shell
 #+BEGIN_SRC sh
 awk -F, '{print $3}' conversion.csv | grep XM > ids.txt
 #+END_SRC
@@ -194,128 +205,133 @@ awk -F, '{print $3}' conversion.csv | grep XM > ids.txt
 Upload this to the pantherdb and download the resulting table as id_conversion_raw.txt.
 Convert into a proper csv:
 
-#+BEGIN_SRC sh
-awk '{print $1","$2}' id_conversion_raw.txt | awk -F'=' '{print $2","$3}' | awk '{gsub("\\|UniProtKB", ""); print $0}' | awk -F, 'NF == 3' > id_conversion.csv
-#+END_SRC
+**** shell
+ #+BEGIN_SRC sh
+ awk '{print $1","$2}' id_conversion_raw.txt | awk -F'=' '{print $2","$3}' | awk '{gsub("\\|UniProtKB", ""); print $0}' | awk -F, 'NF == 3' > id_conversion.csv
+ #+END_SRC
 
 Download the KEGG annotations for chromosomal genes...
-#+BEGIN_SRC ipython :session
-import os
-import pandas as pd
+**** python
+ #+BEGIN_SRC ipython :session
+ import os
+ import pandas as pd
 
-os.chdir("KEGG_Chr")
-pid = str(os.getpid())
+ os.chdir("KEGG_Chr")
+ pid = str(os.getpid())
 
-with open("../id_conversion.csv") as ids:
-    entries = [entr.split(",")[0] for entr in ids]
+ with open("../id_conversion.csv") as ids:
+     entries = [entr.split(",")[0] for entr in ids]
 
-with open("log_chr.txt", "a") as f:
-    acc = []
-    f.write(pid + "\n")
-    for entry in entries:
-        try:
-            page = pd.read_html("http://www.genome.jp/dbget-bin/www_bget?cre:" + entry)
-            page[0].to_csv(entry + ".koe")
-            f.write(entry + "passed\n")
-            f.flush()
-        except Exception as e:
-            print(e) # For debugging
-            f.write(entry + "failed\n")
-            f.flush()
-#+END_SRC
+ with open("log_chr.txt", "a") as f:
+     acc = []
+     f.write(pid + "\n")
+     for entry in entries:
+         try:
+             page = pd.read_html("http://www.genome.jp/dbget-bin/www_bget?cre:" + entry)
+             page[0].to_csv(entry + ".koe")
+             f.write(entry + "passed\n")
+             f.flush()
+         except Exception as e:
+             print(e) # For debugging
+             f.write(entry + "failed\n")
+             f.flush()
+ #+END_SRC
 
-...and chloroplast-encoded genes.
-#+BEGIN_SRC ipython :session
-import os
-import pandas as pd
+ ...and chloroplast-encoded genes.
+**** python
+ #+BEGIN_SRC ipython :session
+ import os
+ import pandas as pd
 
-os.chdir("../KEGG_Cp")
-pid = str(os.getpid())
+ os.chdir("../KEGG_Cp")
+ pid = str(os.getpid())
 
-with open("log_cp.txt", "a") as f:
-    acc = []
-    f.write(pid + "\n")
-    for i in range(1, 71):
-        entry_id = 'ChreCp{num:03d}'.format(num=i)
-        try:
-            page = pd.read_html("http://www.genome.jp/dbget-bin/www_bget?cre:" + entry_id)
-            page[0].to_csv(entry_id + ".koe")
-            f.write(entry_id + "passed\n")
-            f.flush()
-        except Exception as e:
-            print(e) # For debugging
-            f.write(entry_id + "failed\n")
-            f.flush()
-#+END_SRC
+ with open("log_cp.txt", "a") as f:
+     acc = []
+     f.write(pid + "\n")
+     for i in range(1, 71):
+         entry_id = 'ChreCp{num:03d}'.format(num=i)
+         try:
+             page = pd.read_html("http://www.genome.jp/dbget-bin/www_bget?cre:" + entry_id)
+             page[0].to_csv(entry_id + ".koe")
+             f.write(entry_id + "passed\n")
+             f.flush()
+         except Exception as e:
+             print(e) # For debugging
+             f.write(entry_id + "failed\n")
+             f.flush()
+ #+END_SRC
 
-And parse this annotation data into a single table for chromosomally encoded and organelle genomes
-#+BEGIN_SRC ipython :session
-import pandas as pd
-import os
+ And parse this annotation data into a single table for chromosomally encoded and organelle genomes
+**** python
+ #+BEGIN_SRC ipython :session
+ import pandas as pd
+ import os
 
-os.chdir("../KEGG_Cp")
+ os.chdir("../KEGG_Cp")
 
-files = [i for i in os.listdir() if ".koe" in i]
+ files = [i for i in os.listdir() if ".koe" in i]
 
-def parse_entry(entry):
-    acc = {}
-    file_name = entry.split(".")[0]
-    entry = pd.read_csv(entry)
-    it = entry.iloc[0].items()
-    acc['Ensembl'] = file_name
-    for _, line in it:
-        if str(line) == "Entry":
-            _, acc['Entry'] = next(it)
-        if str(line) == "KO":
-            _, acc['KO'] = next(it)
-        if str(line) == "Motif":
-            _, acc['Motif'] = next(it)
-        if str(line) == "Definition":
-            _, acc['Definition'] = next(it)
-        if str(line) == "Brite":
-            _, acc['Brite'] = next(it)
-        if str(line) == "Molecule":
-            _, acc['Motif'] = next(it)
-        if str(line) == "Other DBs":
-            _, acc['Other DBs'] = next(it)
-        if str(line) == "Pathway":
-            _, acc['Pathway'] = next(it)
-        if str(line) == "Module":
-            _, acc['Module'] = next(it)
-    return acc
+ def parse_entry(entry):
+     acc = {}
+     file_name = entry.split(".")[0]
+     entry = pd.read_csv(entry)
+     it = entry.iloc[0].items()
+     acc['Ensembl'] = file_name
+     for _, line in it:
+         if str(line) == "Entry":
+             _, acc['Entry'] = next(it)
+         if str(line) == "KO":
+             _, acc['KO'] = next(it)
+         if str(line) == "Motif":
+             _, acc['Motif'] = next(it)
+         if str(line) == "Definition":
+             _, acc['Definition'] = next(it)
+         if str(line) == "Brite":
+             _, acc['Brite'] = next(it)
+         if str(line) == "Molecule":
+             _, acc['Motif'] = next(it)
+         if str(line) == "Other DBs":
+             _, acc['Other DBs'] = next(it)
+         if str(line) == "Pathway":
+             _, acc['Pathway'] = next(it)
+         if str(line) == "Module":
+             _, acc['Module'] = next(it)
+     return acc
 
-acc = []
-for file in files:
-    acc.append(parse_entry(file))
+ acc = []
+ for file in files:
+     acc.append(parse_entry(file))
 
-acc2 = [{key: val.replace(u'\xa0', u' ') for key, val in i.items()} for i in acc]
-annot_table = pd.DataFrame(acc2)
-annot_table['Gene_ID'] = annot_table['Other DBs'].str.split("NCBI").apply(lambda x: x[1]).str.split(" ").apply(lambda x: x[1])
-annot_table['Protein_ID'] = annot_table['Other DBs'].str.split("NCBI").apply(lambda x: x[2]).str.split(" ").apply(lambda x: x[1]).str.split("UniProt").apply(lambda x: x[0])
-annot_table['UniProt'] = annot_table['Other DBs'].str.split("NCBI").apply(lambda x: x[2]).str.split(" ").apply(lambda x: x[-1])
-annot_table.to_csv("annotation_table.csv")
-#+END_SRC
+ acc2 = [{key: val.replace(u'\xa0', u' ') for key, val in i.items()} for i in acc]
+ annot_table = pd.DataFrame(acc2)
+ annot_table['Gene_ID'] = annot_table['Other DBs'].str.split("NCBI").apply(lambda x: x[1]).str.split(" ").apply(lambda x: x[1])
+ annot_table['Protein_ID'] = annot_table['Other DBs'].str.split("NCBI").apply(lambda x: x[2]).str.split(" ").apply(lambda x: x[1]).str.split("UniProt").apply(lambda x: x[0])
+ annot_table['UniProt'] = annot_table['Other DBs'].str.split("NCBI").apply(lambda x: x[2]).str.split(" ").apply(lambda x: x[-1])
+ annot_table.to_csv("annotation_table.csv")
+ #+END_SRC
 
-...and for organelle genomes
-#+BEGIN_SRC ipython :session
-import pandas as pd
-import os
+ ...and for organelle genomes
+**** python
+ #+BEGIN_SRC ipython :session
+ import pandas as pd
+ import os
 
-os.chdir("../KEGG_Chr")
+ os.chdir("../KEGG_Chr")
 
-files = [i for i in os.listdir() if ".koe" in i]
+ files = [i for i in os.listdir() if ".koe" in i]
 
-acc = []
-for file in files:
-    acc.append(parse_entry(file))
+ acc = []
+ for file in files:
+     acc.append(parse_entry(file))
 
-acc2 = [{key: val.replace(u'\xa0', u' ') for key, val in i.items()} for i in acc]
-annot_table = pd.DataFrame(acc2)
-annot_table['Gene_ID'] = annot_table['Other DBs'].str.split("NCBI").apply(lambda x: x[1]).str.split("?").apply(lambda x: x[1])
-annot_table['Protein_ID'] = annot_table['Other DBs'].str.split("JGI").apply(lambda x: x[0]).str.split("?").apply(lambda x: x[2]).str.split("UniProt").apply(lambda x: x[0])
-annot_table['UniProt'] = annot_table['Other DBs'].str.split("?").apply(lambda x: x[-1])
-annot_table.to_csv("annotation_table_chr.csv")
-#+END_SRC
+ acc2 = [{key: val.replace(u'\xa0', u' ') for key, val in i.items()} for i in acc]
+ annot_table = pd.DataFrame(acc2)
+ annot_table['Gene_ID'] = annot_table['Other DBs'].str.split("NCBI").apply(lambda x: x[1]).str.split("?").apply(lambda x: x[1])
+ annot_table['Protein_ID'] = annot_table['Other DBs'].str.split("JGI").apply(lambda x: x[0]).str.split("?").apply(lambda x: x[2]).str.split("UniProt").apply(lambda x: x[0])
+ annot_table['UniProt'] = annot_table['Other DBs'].str.split("?").apply(lambda x: x[-1])
+ annot_table.to_csv("annotation_table_chr.csv")
+ #+END_SRC
 
 
 * Import data into R and test the mean-median differences
