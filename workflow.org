@@ -5,67 +5,119 @@ This file is best viewed using Org 9.1.13 mode on Emacs 25.3.1.
 * Python session information
 
 Python version 3.6.3
+
 pandas version 0.21.0
+
 beautifulsoup4 version 4.6.3
+
 epride version 0.2dev (epride can be downloaded from https://github.com/manutamminen/epride)
 
 
 * R session information
 
 R version 3.4.3 (2017-11-30)
+
 Platform: x86_64-apple-darwin15.6.0 (64-bit)
+
 Running under: macOS High Sierra 10.13.6
 
+
+
 Matrix products: default
+
 BLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib
+
 LAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib
 
+
+
 locale:
+
 [1] C
 
+
+
 attached base packages:
+
 [1] stats4    parallel  stats     graphics  grDevices utils     datasets 
+
 [8] methods   base     
 
+
+
 other attached packages:
+
  [1] pathview_1.18.2      org.Hs.eg.db_3.5.0   AnnotationDbi_1.40.0
+
  [4] IRanges_2.12.0       S4Vectors_0.16.0     multcomp_1.4-8      
+
  [7] TH.data_1.0-9        MASS_7.3-50          survival_2.42-6     
+
 [10] mvtnorm_1.0-8        bindrcpp_0.2.2       gplots_3.0.1        
+
 [13] broom_0.5.0          multtest_2.34.0      Biobase_2.38.0      
+
 [16] BiocGenerics_0.24.0  profileR_0.3-5       lavaan_0.6-2        
+
 [19] reshape_0.8.7        RColorBrewer_1.1-2   vegan_2.5-2         
+
 [22] lattice_0.20-35      permute_0.9-4        nlme_3.1-137        
+
 [25] forcats_0.3.0        stringr_1.3.1        dplyr_0.7.6         
+
 [28] purrr_0.2.5          readr_1.1.1          tidyr_0.8.1         
+
 [31] tibble_1.4.2         ggplot2_3.0.0.9000   tidyverse_1.2.1     
 
+
+
 loaded via a namespace (and not attached):
+
  [1] bitops_1.0-6       bit64_0.9-7        lubridate_1.7.4    httr_1.3.1        
+
  [5] Rgraphviz_2.22.0   tools_3.4.3        backports_1.1.2    utf8_1.1.4        
+
  [9] R6_2.2.2           KernSmooth_2.23-15 DBI_1.0.0          lazyeval_0.2.1    
+
 [13] mgcv_1.8-24        colorspace_1.3-2   withr_2.1.2        tidyselect_0.2.4  
+
 [17] mnormt_1.5-5       bit_1.1-14         compiler_3.4.3     graph_1.56.0      
+
 [21] cli_1.0.0          rvest_0.3.2        xml2_1.2.0         sandwich_2.4-0    
+
 [25] labeling_0.3       KEGGgraph_1.38.0   caTools_1.17.1.1   scales_0.5.0      
+
 [29] digest_0.6.15      pbivnorm_0.6.0     XVector_0.18.0     pkgconfig_2.0.1   
+
 [33] rlang_0.2.1        readxl_1.1.0       RSQLite_2.1.1      rstudioapi_0.7    
+
 [37] bindr_0.1.1        zoo_1.8-3          jsonlite_1.5       gtools_3.8.1      
+
 [41] magrittr_1.5       Matrix_1.2-14      Rcpp_0.12.18       munsell_0.5.0     
+
 [45] fansi_0.2.3        stringi_1.2.4      zlibbioc_1.24.0    plyr_1.8.4        
+
 [49] blob_1.1.1         grid_3.4.3         gdata_2.18.0       crayon_1.3.4      
+
 [53] Biostrings_2.46.0  haven_1.1.2        splines_3.4.3      KEGGREST_1.18.1   
+
 [57] hms_0.4.2          pillar_1.3.0       tcltk_3.4.3        reshape2_1.4.3    
+
 [61] codetools_0.2-15   XML_3.98-1.12      glue_1.3.0         modelr_0.1.2      
+
 [65] png_0.1-7          cellranger_1.1.0   gtable_0.2.0       assertthat_0.2.0  
+
 [69] memoise_1.1.0      cluster_2.0.7-1   
+
 
 * Download the C. reinhardtii reference genome from Phytozome
 
 https://phytozome.jgi.doe.gov/pz/portal.html#!info?alias=Org_Creinhardtii  
 
 Requires registration. Be sure to download the files
+
 - Creinhardtii_281_v5.0.fa
+
 - Creinhardtii_281_v5.5.gene.gff3
 
 
