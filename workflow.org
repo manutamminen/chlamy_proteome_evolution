@@ -1,6 +1,6 @@
 * Chlamy proteomics workflow
 
-For interactive code and other delights, view this file on Org mode 9.1.13 on Emacs 25.3.1.
+For interactive code and other delights, please view this file on Org mode 9.1.13 on Emacs 25.3.1.
 
 ** System information
 
@@ -28,13 +28,15 @@ R session information is provided at the end of this file.
 
 * Download the C. reinhardtii reference genome from Phytozome
 
-https://phytozome.jgi.doe.gov/pz/portal.html#!info?alias=Org_Creinhardtii  
+Available at https://phytozome.jgi.doe.gov/pz/portal.html#!info?alias=Org_Creinhardtii.
 
 Requires registration. Be sure to download the files
 
 - Creinhardtii_281_v5.0.fa
 
 - Creinhardtii_281_v5.5.gene.gff3
+
+- ChlamydomonasTranscriptNameConversionBetweenReleases.Mch12b.txt
 
 
 * Extract the annotations and gene sequences
@@ -47,7 +49,7 @@ Requires registration. Be sure to download the files
 | Creinhardtii_281_v5.0.fa                                        |                 |
 |-----------------------------------------------------------------+-----------------|
 
-#+BEGIN_SRC ipython :session
+#+BEGIN_SRC python
 import pandas as pd
 import epride as ep
 
@@ -70,6 +72,10 @@ conversion.to_csv("conversion.csv", index=None)
 | proteinGroups.txt             | good_prot_hits_norm_organelles.csv      |
 | proteinGroupsGoodColNames.csv | full_good_prot_hits_norm.csv            |
 | proteinGroups.txt             | full_good_prot_hits_norm_organelles.csv |
+|                               | prot_table.csv                          |
+|                               | prot_table_organelles.csv               |
+|                               | full_prot_table.csv                     |
+|                               | full_prot_table_organelles.csv          |
 |-------------------------------+-----------------------------------------|
   
 #+BEGIN_SRC ipython :session
@@ -94,28 +100,6 @@ def process_raw(input_file, output_file, sep=",", cols=False, full=False):
         cols = list(good_prot_hits_norm.columns)
         return(cols)
 
-columns_names = process_raw("proteinGroupsGoodColNames.csv", "good_prot_hits_norm.csv")
-process_raw("proteinGroups.txt", "good_prot_hits_norm_organelles.csv", sep="\t", cols=columns_names)
-process_raw("proteinGroupsGoodColNames.csv", "full_good_prot_hits_norm.csv", full=True)
-process_raw("proteinGroups.txt", "full_good_prot_hits_norm_organelles.csv", sep="\t", cols=columns_names, full=True)
-#+END_SRC
-
-#+RESULTS:
-: # Out[11]:
-
-
-|-----------------------------------------+--------------------------------|
-| Inputs                                  | Outputs                        |
-|-----------------------------------------+--------------------------------|
-| good_prot_hits_norm.csv                 | prot_table.csv                 |
-| good_prot_hits_norm_organelles.csv      | prot_table_organelles.csv      |
-| full_good_prot_hits_norm.csv            | full_prot_table.csv            |
-| full_good_prot_hits_norm_organelles.csv | full_prot_table_organelles.csv |
-|-----------------------------------------+--------------------------------|
-
-#+BEGIN_SRC ipython :session
-import pandas as pd
-
 def table_convert(input_file, output_file):
     gphn = pd.read_csv(input_file)
     gphn.index = gphn.iloc[:,0]
@@ -123,16 +107,18 @@ def table_convert(input_file, output_file):
     gphn = gphn.transpose()
     gphn.index = [i.split()[4] for i in list(gphn.index)]
     gphn.to_csv(output_file)
-    
+
+columns_names = process_raw("proteinGroupsGoodColNames.csv", "good_prot_hits_norm.csv")
+process_raw("proteinGroups.txt", "good_prot_hits_norm_organelles.csv", sep="\t", cols=columns_names)
+process_raw("proteinGroupsGoodColNames.csv", "full_good_prot_hits_norm.csv", full=True)
+process_raw("proteinGroups.txt", "full_good_prot_hits_norm_organelles.csv", sep="\t", cols=columns_names, full=True)
+
 table_convert("good_prot_hits_norm.csv", "prot_table.csv")
 table_convert("good_prot_hits_norm_organelles.csv", "prot_table_organelles.csv")
 table_convert("full_good_prot_hits_norm.csv", "full_prot_table.csv")
 table_convert("full_good_prot_hits_norm_organelles.csv", "full_prot_table_organelles.csv")
+
 #+END_SRC
-
-#+RESULTS:
-: # Out[12]:
-
 
 * Subtract the control means from the data
   
