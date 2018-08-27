@@ -10,12 +10,14 @@ R session information is provided at the end of this file.
 ** R dependencies
 
 - tidyverse
+- data.table
 - nlme
 - vegan
 - profileR
 - stringr
 - multtest
 - broom
+- readxl
 - gplots
 - multcomp
 - pathview
@@ -25,6 +27,7 @@ R session information is provided at the end of this file.
 - pandas
 - beautifulsoup4
 - epride (available at https://github.com/manutamminen/epride)
+
 
 * Download the C. reinhardtii reference genome from Phytozome
 
@@ -82,8 +85,6 @@ conversion.to_csv("conversion.csv", index=None)
   
 **** python
 #+BEGIN_SRC python
-import pandas as pd
-
 def process_raw(input_file, output_file, sep=",", cols=False, full=False):
     protein_groups = pd.read_csv(input_file, sep=sep)
     good_prots = protein_groups[~(protein_groups['Protein IDs'].str.contains("CON")) &
@@ -129,6 +130,7 @@ table_convert("full_good_prot_hits_norm_organelles.csv", "full_prot_table_organe
 
 #+END_SRC
 
+
 * Subtract the control means from the data
   
 |--------------------------------+--------------------------------------|
@@ -146,8 +148,6 @@ table_convert("full_good_prot_hits_norm_organelles.csv", "full_prot_table_organe
 
 **** python
 #+BEGIN_SRC python
-import pandas as pd
-
 def subtract_means(input_file, mean_output_file, median_output_file):
     gphn = pd.read_csv(input_file, index_col=0)
     gphn['Strain'] = [i.split("_")[0] for i in list(gphn.index)]
@@ -182,9 +182,6 @@ subtract_means("full_prot_table_organelles.csv",
                "full_median_corrected_organelles.csv")
 #+END_SRC
 
-#+RESULTS:
-: # Out[9]:
-
 
 * Download annotations from Panther and KEGG
   
@@ -192,8 +189,8 @@ subtract_means("full_prot_table_organelles.csv",
 | Inputs                | Outputs                  |
 |-----------------------+--------------------------|
 | conversion.csv        | ids.txt                  |
-| id_conversion_raw.csv | annotation_table_chr.csv |
-|                       | annotation_table.csv     |
+| id_conversion_raw.csv | annotation_table.csv     |
+|                       | annotation_table_chr.csv |
 |                       | id_conversion.csv        |
 |-----------------------+--------------------------|
   
@@ -212,10 +209,7 @@ Convert into a proper csv:
 
 Download the KEGG annotations for chromosomal genes...
 **** python
- #+BEGIN_SRC ipython :session
- import os
- import pandas as pd
-
+ #+BEGIN_SRC python
  os.chdir("KEGG_Chr")
  pid = str(os.getpid())
 
@@ -239,10 +233,7 @@ Download the KEGG annotations for chromosomal genes...
 
  ...and chloroplast-encoded genes.
 **** python
- #+BEGIN_SRC ipython :session
- import os
- import pandas as pd
-
+ #+BEGIN_SRC python
  os.chdir("../KEGG_Cp")
  pid = str(os.getpid())
 
@@ -264,10 +255,7 @@ Download the KEGG annotations for chromosomal genes...
 
  And parse this annotation data into a single table for chromosomally encoded and organelle genomes
 **** python
- #+BEGIN_SRC ipython :session
- import pandas as pd
- import os
-
+ #+BEGIN_SRC python
  os.chdir("../KEGG_Cp")
 
  files = [i for i in os.listdir() if ".koe" in i]
@@ -313,7 +301,7 @@ Download the KEGG annotations for chromosomal genes...
 
  ...and for organelle genomes
 **** python
- #+BEGIN_SRC ipython :session
+ #+BEGIN_SRC python
  import pandas as pd
  import os
 
@@ -336,6 +324,7 @@ Download the KEGG annotations for chromosomal genes...
 
 * Import data into R and test the mean-median differences
   
+**** R
 #+BEGIN_SRC R :session
 library(tidyverse)
 library(nlme)
@@ -346,7 +335,7 @@ library(multtest)
 library(broom)
 library(gplots)
 library(multcomp)
-
+library(readxl)
 
 prot_table <- read_csv("full_prot_table.csv") %>%
     separate(X1, into=c("Strain", "Treatment"), sep="_")
@@ -418,6 +407,7 @@ dev.off()
 
 * Prepare RDA plots for Figure 1 and tests.
   
+**** R
 #+BEGIN_SRC R :session
 spe <- dplyr::select(prot_table, -Treatment, -Strain)
 FULL.cap <- capscale(spe ~ Treatment + Condition(Strain), data=prot_table)
@@ -455,7 +445,8 @@ Res.dim_str$Treatment <- prot_table$Treatment
 names(Res.dim_str)[1:2] <- c("RDA1_str", "RDA2_str")
 pdf("rda_centroid_eb_strain.pdf", useDingbats=FALSE)
 group_by(Res.dim_str, Strain) %>%
-    summarise(RDA1_strmean=mean(RDA1_str), RDA2_strmean=mean(RDA2_str), RDA1_strsd=sd(RDA1_str), RDA2_strsd=sd(RDA2_str)) %>%
+    summarise(RDA1_strmean=mean(RDA1_str), RDA2_strmean=mean(RDA2_str),
+              RDA1_strsd=sd(RDA1_str), RDA2_strsd=sd(RDA2_str)) %>%
     ggplot(aes(x=RDA1_strmean, y=RDA2_strmean, color=Strain)) +
     geom_point(data=Res.dim_str, aes(x=RDA1_str, y=RDA2_str, color=Strain)) +
     geom_errorbarh(aes(xmin = RDA1_strmean - RDA1_strsd, xmax = RDA1_strmean + RDA1_strsd)) +
@@ -529,7 +520,11 @@ rda_norm <- rbind(rda_norm, rda_norm[1,])
 rda_norm[length(rda_norm$Angle),'Angle'] <- 0
 rda_norm[length(rda_norm$Angle),'Dist'] <- 0
 pdf("polar_plot_mean.pdf", useDingbats = FALSE)
-ggplot(rda_norm, aes(x=Angle, y=Dist, color=Treatment)) + geom_point() + geom_point(data=rda_means, aes(x=Mean_angle, y=Mean_dist, color=Treatment, size=5)) + coord_polar(theta="x", start=0) + scale_colour_manual(values=cbbPalette) + theme_bw()
+ggplot(rda_norm, aes(x=Angle, y=Dist, color=Treatment)) +
+    geom_point(data=rda_means,
+               aes(x=Mean_angle, y=Mean_dist, color=Treatment, size=5)) +
+    coord_polar(theta="x", start=0) +
+    scale_colour_manual(values=cbbPalette) + theme_bw()
 dev.off()
 
 ## Replicate with medians instead of means
@@ -555,7 +550,11 @@ rda_norm <- rbind(rda_norm, rda_norm[1,])
 rda_norm[length(rda_norm$Angle),'Angle'] <- 0
 rda_norm[length(rda_norm$Angle),'Dist'] <- 0
 pdf("polar_plot_median.pdf", useDingbats = FALSE)
-ggplot(rda_norm, aes(x=Angle, y=Dist, color=Treatment)) + geom_point() + geom_point(data=rda_means, aes(x=Mean_angle, y=Mean_dist, color=Treatment, size=5)) + coord_polar(theta="x", start=0) + scale_colour_manual(values=cbbPalette) + theme_bw()
+ggplot(rda_norm, aes(x=Angle, y=Dist, color=Treatment)) +
+    geom_point(data=rda_means,
+               aes(x=Mean_angle, y=Mean_dist, color=Treatment, size=5)) +
+    coord_polar(theta="x", start=0) +
+    scale_colour_manual(values=cbbPalette) + theme_bw()
 dev.off()
 
 ## Test whether the group angles are significantly different
@@ -593,6 +592,7 @@ dev.off()
 
 * Find those proteins which are significantly different from the Ancestors. Prepare the heatmaps for Figure 3.
   
+**** R
 #+BEGIN_SRC R :session
 P_VAL <- 0.05
 
@@ -601,29 +601,32 @@ long_corrected <- gather(corrected, key=Gene, value=Expr_level, -Treatment, -Str
     filter(Treatment != "control")
 
 corrected_organelles <- read_csv("full_mean_corrected_organelles.csv")
-long_corrected_organelles <- gather(corrected_organelles, key=Gene, value=Expr_level, -Treatment, -Strain) %>%
+long_corrected_organelles <- gather(corrected_organelles, key=Gene,
+                                   value=Expr_level, -Treatment, -Strain) %>%
     filter(Treatment != "control")
 
 # Prepare t-tests to test which groups significantly differ from zero
-non_zeros <- group_by(long_corrected, Gene) %>% summarise(sig=t.test(Expr_level)$p.value) %>%
+non_zeros <- group_by(long_corrected, Gene) %>%
+    summarise(sig=t.test(Expr_level)$p.value) %>%
     filter(sig < 0.01)
 sig_long_corrected <- long_corrected[long_corrected$Gene %in% non_zeros$Gene,]
 
-non_zeros_organelles <- group_by(long_corrected_organelles, Gene) %>% summarise(sig=t.test(Expr_level)$p.value) %>%
+non_zeros_organelles <- group_by(long_corrected_organelles, Gene) %>%
+    summarise(sig=t.test(Expr_level)$p.value) %>%
     filter(sig < P_VAL)
 sig_long_corrected_organelles <- long_corrected[long_corrected$Gene %in% non_zeros$Gene,]
 
-
-
-
-unique(long_corrected_organelles$Gene) %>% .[grepl("sp", .)] %>% sapply(function(x) strsplit(x, "\\|")) %>% sapply(function(x) x[2]) %>% as.character %>% write("org_genes.txt")
-# Feed this file into PantherDB
+## Prepare the gene id file for Panther to recover the annotations
+unique(long_corrected_organelles$Gene) %>% .[grepl("sp", .)] %>%
+    sapply(function(x) strsplit(x, "\\|")) %>% sapply(function(x) x[2]) %>%
+    as.character %>% write("org_genes.txt")
+# Feed the resulting file "org_genes.txt" into PantherDB
 # Download the results as panther_annotations.txt
-
 
 # Test the significance of the detected number of proteins by a permutation test
 permute_matrix <- function() {
-    l_c <- mutate(long_corrected, Treatment=sample(Treatment), Strain=sample(Strain), Gene=sample(Gene))
+    l_c <- mutate(long_corrected, Treatment=sample(Treatment),
+                 Strain=sample(Strain), Gene=sample(Gene))
     non_zeros <- group_by(l_c, Gene) %>% summarise(sig=t.test(Expr_level)$p.value) %>%
 	filter(sig < 0.01)
     l_c[l_c$Gene %in% non_zeros$Gene,]
@@ -687,12 +690,17 @@ write_csv(dunnett_table, "dunnett_table_organelles.csv")
 
 
 dunnett_table <- read_csv("dunnett_table.csv")
-sig_dunnett_table <- group_by(dunnett_table, protein_id) %>% mutate(min_p_val=min(p.value)) %>% filter(min_p_val < P_VAL)
+sig_dunnett_table <- group_by(dunnett_table, protein_id) %>%
+    mutate(min_p_val=min(p.value)) %>%
+    filter(min_p_val < P_VAL)
 sig_proteins <- unique(sig_dunnett_table$protein_id)
-mean_corrected <- group_by(long_corrected, Treatment, Gene) %>% summarise(Mean_expr=mean(Expr_level))
+mean_corrected <- group_by(long_corrected, Treatment, Gene) %>%
+    summarise(Mean_expr=mean(Expr_level))
 dunnett_mean_corrected <- filter(mean_corrected, Gene %in% sig_proteins)
 dunnett_long_corrected <- filter(long_corrected, Gene %in% sig_proteins, Treatment != "C")
-spread(dunnett_mean_corrected, key=Treatment, value=Mean_expr) %>% dplyr::select(Gene, C, B, BS, L, N, P, S) %>% write_tsv("sig_pway_collage_expression.tsv", col_names=FALSE)
+spread(dunnett_mean_corrected, key=Treatment, value=Mean_expr) %>%
+    dplyr::select(Gene, C, B, BS, L, N, P, S) %>%
+    write_tsv("sig_pway_collage_expression.tsv", col_names=FALSE)
 
 
 # Check those dunnett-positives where the control is significantly different from zero
@@ -712,15 +720,23 @@ friedman_tests <- do.call(rbind, friedman_tests)
 my_palette <- colorRampPalette(c("blue", "white", "red"))(n = 299)
 
 # Based on Friedman tests, split the Dunnett-passing proteins into those that exhibit a parallel response (Friedman p >= 0.05)...
-parallel <- friedman_tests[friedman_tests$anova_p_val >= 0.1,] %>% .$Gene %>% unique
+parallel <- friedman_tests[friedman_tests$anova_p_val >= 0.1,] %>%
+    .$Gene %>% unique
 parallel_expr <- filter(dunnett_long_corrected_c, Gene %in% parallel)
-parallel_ids <- unique(parallel_expr$Gene) %>% strsplit("\\.") %>% lapply(function(x) paste(x[1], x[2], sep=".")) %>% do.call(rbind, .)
-parallel_wide <- group_by(parallel_expr, Treatment, Gene) %>% summarise(Mean_expr=mean(Expr_level)) %>%
+parallel_ids <- unique(parallel_expr$Gene) %>%
+    strsplit("\\.") %>%
+    lapply(function(x) paste(x[1], x[2], sep=".")) %>%
+    do.call(rbind, .)
+parallel_wide <- group_by(parallel_expr, Treatment, Gene) %>%
+    summarise(Mean_expr=mean(Expr_level)) %>%
     spread(key=Gene, value=Mean_expr)
 parallel_matrix <- as.matrix(parallel_wide[,-1])
 rownames(parallel_matrix) <- parallel_wide$Treatment
 parallel_matrix <- t(parallel_matrix)
-sig_dif_ctr <- filter(parallel_expr, Treatment == "C") %>% group_by(Gene) %>% summarise(sig=t.test(Expr_level)$p.value) %>% filter(sig < P_VAL)
+sig_dif_ctr <- filter(parallel_expr, Treatment == "C") %>%
+    group_by(Gene) %>%
+    summarise(sig=t.test(Expr_level)$p.value) %>%
+    filter(sig < P_VAL)
 sig_dif_loci <- match(sig_dif_ctr$Gene, rownames(parallel_matrix))
 parallel_rows <- rownames(parallel_matrix)
 row_frame <- data.frame(a=parallel_rows, b="", stringsAsFactors = FALSE)
@@ -743,13 +759,20 @@ dev.off()
 
 divergent <- friedman_tests[friedman_tests$anova_p_val < 0.1,] %>% .$Gene %>% unique
 divergent_expr <- filter(dunnett_long_corrected_c, Gene %in% divergent)
-divergent_ids <- unique(divergent_expr$Gene) %>% strsplit("\\.") %>% lapply(function(x) paste(x[1], x[2], sep=".")) %>% do.call(rbind, .)
-divergent_wide <- group_by(divergent_expr, Treatment, Gene) %>% summarise(Mean_expr=mean(Expr_level)) %>%
+divergent_ids <- unique(divergent_expr$Gene) %>%
+    strsplit("\\.") %>%
+    lapply(function(x) paste(x[1], x[2], sep=".")) %>%
+    do.call(rbind, .)
+divergent_wide <- group_by(divergent_expr, Treatment, Gene) %>%
+    summarise(Mean_expr=mean(Expr_level)) %>%
     spread(key=Gene, value=Mean_expr)
 divergent_matrix <- as.matrix(divergent_wide[,-1])
 rownames(divergent_matrix) <- divergent_wide$Treatment
 divergent_matrix <- t(divergent_matrix)
-sig_dif_ctr <- filter(divergent_expr, Treatment == "C") %>% group_by(Gene) %>% summarise(sig=t.test(Expr_level)$p.value) %>% filter(sig < P_VAL)
+sig_dif_ctr <- filter(divergent_expr, Treatment == "C") %>%
+    group_by(Gene) %>%
+    summarise(sig=t.test(Expr_level)$p.value) %>%
+    filter(sig < P_VAL)
 sig_dif_loci <- match(sig_dif_ctr$Gene, rownames(divergent_matrix))
 divergent_rows <- rownames(divergent_matrix)
 row_frame <- data.frame(a=divergent_rows, b="", stringsAsFactors = FALSE)
@@ -773,24 +796,31 @@ dev.off()
 
 * Prepare the plots for Figure 2; Circos configuration files provided on GitHub.
 
+**** R
 #+BEGIN_SRC R :session
 ### Prepare the histogram files for circos
 ### The configuration files reside in ~/Scratch/proteomics/Proteomics/circos/fig1
-chr_positions <- read_tsv("~/Scratch/chlamy/Creinhardtii_281_v5.5.gene.gff3", skip=2, col_names=FALSE) %>%
+chr_positions <- read_tsv("~/Scratch/chlamy/Creinhardtii_281_v5.5.gene.gff3",
+                         skip=2, col_names=FALSE) %>%
     filter(X3 == "gene") %>% separate(col=X9, sep=";", into="X10") %>%
-    separate(col=X10, sep="=", into=c("X11", "X12")) %>% dplyr::select(X1, X4, X5, X12) %>%
-    separate(col="X1", sep="_", into=c("X2", "X3")) %>% dplyr::select(X3, X4, X5, X12) %>%
+    separate(col=X10, sep="=", into=c("X11", "X12")) %>%
+    dplyr::select(X1, X4, X5, X12) %>%
+    separate(col="X1", sep="_", into=c("X2", "X3")) %>%
+    dplyr::select(X3, X4, X5, X12) %>%
     mutate(X3=paste("cr", X3, sep="")) %>%
     separate(col=X12, into=c("Chr", "Id"), sep="\\.") %>%
     mutate(Gene=paste(Chr, Id, sep=".")) %>% dplyr::select(-Chr, -Id)
 
 slcp <- separate(sig_long_corrected, col=Gene, into=c("Chr", "Id"), sep="\\.") %>%
-    mutate(Gene=paste(Chr, Id, sep=".")) %>% dplyr::select(-Chr, -Id) %>%
-    group_by(Treatment, Gene) %>% summarise(Mean_expr=mean(Expr_level)) %>%
+    mutate(Gene=paste(Chr, Id, sep=".")) %>%
+    dplyr::select(-Chr, -Id) %>%
+    group_by(Treatment, Gene) %>%
+    summarise(Mean_expr=mean(Expr_level)) %>%
     merge(chr_positions, by="Gene")
 
 for (treatment in unique(slcp$Treatment)) {
-    tmp <- filter(slcp, Treatment==treatment) %>% dplyr::select(X3, X4, X5, Mean_expr)
+    tmp <- filter(slcp, Treatment==treatment) %>%
+        dplyr::select(X3, X4, X5, Mean_expr)
     path <- "circos/"
     name <- paste(path, treatment, ".hist", sep="")
     write_tsv(tmp, name, col_names=FALSE)
@@ -804,18 +834,23 @@ slcp2[match(divergent_ids, slcp2$Gene), 'Cat'] <- "Divergent"
 slcp2 <- slcp2[slcp2$Cat != 'cat0',]
 slcp2 <- group_by(slcp2, X3, Cat) %>% summarise(n=n())
 pdf("chrom_distr.pdf")
-ggplot(slcp2, aes(x=X3, y=n)) + geom_bar(stat="identity", position="dodge") + facet_grid(Cat~X3, scales="free_x") + theme_bw()
+ggplot(slcp2, aes(x=X3, y=n)) +
+    geom_bar(stat="identity", position="dodge") +
+    facet_grid(Cat~X3, scales="free_x") +
+    theme_bw()
 dev.off()
 
 # Output positions for the parallel responses for Circos
-tmp <- strsplit(parallel_ids, "\\.") %>% sapply(function(x) paste(x[1], x[2], sep="."))
+tmp <- strsplit(parallel_ids, "\\.") %>%
+    sapply(function(x) paste(x[1], x[2], sep="."))
 sig_zeros <- filter(chr_positions, Gene %in% tmp)
 sig_zeros$Mean_expr <- 1
 dplyr::select(sig_zeros, X3, X4, X5, Mean_expr) %>%
     write_tsv("circos/parallels.highlight", col_names=FALSE)
 
 # Output positions for the divergent responses for Circos
-tmp <- strsplit(divergent_ids, "\\.") %>% sapply(function(x) paste(x[1], x[2], sep="."))
+tmp <- strsplit(divergent_ids, "\\.") %>%
+    sapply(function(x) paste(x[1], x[2], sep="."))
 sig_zeros <- filter(chr_positions, Gene %in% tmp)
 sig_zeros$Mean_expr <- 1
 dplyr::select(sig_zeros, X3, X4, X5, Mean_expr) %>%
@@ -823,7 +858,11 @@ dplyr::select(sig_zeros, X3, X4, X5, Mean_expr) %>%
 
 #Test the distribution of the changes across chromosomes; chi square test
 ## cat_tot <- c(cat2_tmp, cat3_tmp, cat4, cat5) %>% strsplit("\\.") %>% lapply(function(x) paste(x[1], x[2], sep=".")) %>% do.call(rbind, .) %>% as.character
-cat_tot <- c(divergent_ids, parallel_ids) %>% strsplit("\\.") %>% lapply(function(x) paste(x[1], x[2], sep=".")) %>% do.call(rbind, .) %>% as.character
+cat_tot <- c(divergent_ids, parallel_ids) %>%
+    strsplit("\\.") %>%
+    lapply(function(x) paste(x[1], x[2], sep=".")) %>%
+    do.call(rbind, .) %>%
+    as.character
 sig_slcp <- slcp[slcp$Gene %in% cat_tot,]
 table(sig_slcp$X3, sig_slcp$Gene) %>% chisq.test
 # p < 2.2e-16
@@ -832,47 +871,65 @@ table(sig_slcp$X3, sig_slcp$Gene) %>% chisq.test
 
 * Enrichment analysis. Prepare the enrichment pie charts for Figure 3.
 
+**** R
 #+BEGIN_SRC R :session
-
 panther <- read.csv("panther_annotations.txt", sep="\t", header=F)
-panther$KEGG <- panther$V1 %>% as.character %>% strsplit("\\=") %>% sapply(function(x) x[2]) %>% strsplit("\\|") %>% sapply(function(x) x[1])
+panther$KEGG <- panther$V1 %>%
+    as.character %>%
+    strsplit("\\=") %>%
+    sapply(function(x) x[2]) %>%
+    strsplit("\\|") %>%
+    sapply(function(x) x[1])
 conv <- read.csv("conversion.csv")
 panther_cre <- merge(panther, conv, by.x="V2", by.y="X2")
 
 ## Output the gene lists from parallel and divergent responses for enrichment analysis
 ## parallel
-parallel <- friedman_tests[friedman_tests$anova_p_val >= 0.1,] %>% .$Gene %>% unique
+parallel <- friedman_tests[friedman_tests$anova_p_val >= 0.1,] %>%
+    .$Gene %>% unique
 parallel_expr <- filter(dunnett_long_corrected_c, Gene %in% parallel)
-parallel_ids <- unique(parallel_expr$Gene) %>% strsplit("\\.") %>% lapply(function(x) paste(x[1], x[2], sep=".")) %>% do.call(rbind, .)
-parallel_wide <- group_by(parallel_expr, Treatment, Gene) %>% summarise(Mean_expr=mean(Expr_level)) %>%
+parallel_ids <- unique(parallel_expr$Gene) %>%
+    strsplit("\\.") %>%
+    lapply(function(x) paste(x[1], x[2], sep=".")) %>%
+    do.call(rbind, .)
+parallel_wide <- group_by(parallel_expr, Treatment, Gene) %>%
+    summarise(Mean_expr=mean(Expr_level)) %>%
     spread(key=Gene, value=Mean_expr)
 parallel_matrix <- as.matrix(parallel_wide[,-1])
 rownames(parallel_matrix) <- parallel_wide$Treatment
 parallel_matrix <- t(parallel_matrix)
-rownames(parallel_matrix) <- panther_cre[match(rownames(parallel_matrix), panther_cre$X0), 1]
-parallel_means <- parallel_matrix[,c('B', 'BS', 'L', 'N', 'P', 'S')] %>% apply(1, mean)
+rownames(parallel_matrix) <- panther_cre[match(rownames(parallel_matrix),
+                                              panther_cre$X0), 1]
+parallel_means <- parallel_matrix[,c('B', 'BS', 'L', 'N', 'P', 'S')] %>%
+    apply(1, mean)
 parallel_pos <- names(parallel_means[parallel_means > 0])
 write(parallel_pos[!is.na(parallel_pos)], "parallel_pos_ids.txt")
 parallel_pos <- names(parallel_means[parallel_means < 0])
 write(parallel_pos[!is.na(parallel_pos)], "parallel_neg_ids.txt")
 
 ## divergent
-divergent <- friedman_tests[friedman_tests$anova_p_val < 0.1,] %>% .$Gene %>% unique
+divergent <- friedman_tests[friedman_tests$anova_p_val < 0.1,] %>%
+    .$Gene %>%
+    unique
 divergent_expr <- filter(dunnett_long_corrected_c, Gene %in% divergent)
-divergent_ids <- unique(divergent_expr$Gene) %>% strsplit("\\.") %>% lapply(function(x) paste(x[1], x[2], sep=".")) %>% do.call(rbind, .)
-divergent_wide <- group_by(divergent_expr, Treatment, Gene) %>% summarise(Mean_expr=mean(Expr_level)) %>%
+divergent_ids <- unique(divergent_expr$Gene) %>%
+    strsplit("\\.") %>%
+    lapply(function(x) paste(x[1], x[2], sep=".")) %>%
+    do.call(rbind, .)
+divergent_wide <- group_by(divergent_expr, Treatment, Gene) %>%
+    summarise(Mean_expr=mean(Expr_level)) %>%
     spread(key=Gene, value=Mean_expr)
 divergent_matrix <- as.matrix(divergent_wide[,-1])
 rownames(divergent_matrix) <- divergent_wide$Treatment
 divergent_matrix <- t(divergent_matrix)
-rownames(divergent_matrix) <- panther_cre[match(rownames(divergent_matrix), panther_cre$X0), 1]
-divergent_means <- divergent_matrix[,c('B', 'BS', 'L', 'N', 'P', 'S')] %>% apply(1, mean)
+rownames(divergent_matrix) <- panther_cre[match(rownames(divergent_matrix),
+                                               panther_cre$X0), 1]
+divergent_means <- divergent_matrix[,c('B', 'BS', 'L', 'N', 'P', 'S')] %>%
+    apply(1, mean)
 divergent_pos <- names(divergent_means[divergent_means > 0])
 write(divergent_pos[!is.na(divergent_pos)], "divergent_pos_ids.txt")
 divergent_pos <- names(divergent_means[divergent_means < 0])
 write(divergent_pos[!is.na(divergent_pos)], "divergent_neg_ids.txt")
-
-
 
 ## Prepare the enrichment analyses of these files on
 ## https://david.ncifcrf.gov/
@@ -880,7 +937,10 @@ write(divergent_pos[!is.na(divergent_pos)], "divergent_neg_ids.txt")
 
 enriched_clusters <- read_csv("selected_clusters.csv")
 pdf("enrichment.pdf")
-ggplot(enriched_clusters, aes(x="", y=Count, fill=Term)) + geom_bar(width=1, stat="identity") + coord_polar("y", start=0) + facet_grid(.~Category)
+ggplot(enriched_clusters, aes(x="", y=Count, fill=Term)) +
+    geom_bar(width=1, stat="identity") +
+    coord_polar("y", start=0) +
+    facet_grid(.~Category)
 dev.off()
 
 #+END_SRC
@@ -888,23 +948,27 @@ dev.off()
 
 * Map the data on the metabolic pathways for Fig. 4
   
-
+**** R
 #+BEGIN_SRC R :session
 library(pathview)
 
 kegg_res <- rbind(read_csv("KEGG_Cp/annotation_table.csv"),
                  read_csv("KEGG_Chr/annotation_table_chr.csv"))
 kegg_conversion <- kegg_res[,c("Protein_ID", "Ensembl")]
-id_conversion <- read_csv("id_conversion.csv", col_names = c("KEGG", "UniProt", "Panther_handle"))
+id_conversion <- read_csv("id_conversion.csv",
+                         col_names = c("KEGG", "UniProt", "Panther_handle"))
 conversion <- read.csv("conversion.csv")
-conversion$ID <- strsplit(as.character(conversion$X0), "\\.") %>% sapply(function(x) paste(x[1], x[2], sep="."))
-conversion <- dplyr::select(conversion, ID, X2) %>% filter(X2 != "--")
+conversion$ID <- strsplit(as.character(conversion$X0), "\\.") %>%
+    sapply(function(x) paste(x[1], x[2], sep="."))
+conversion <- dplyr::select(conversion, ID, X2) %>%
+    filter(X2 != "--")
 names(conversion) <- c("Genome_handle", "Panther_handle")
 
 #This is for cytoscape and KEGG visualization
 mean_corr <- read_csv("mean_corrected.csv")
 long_corrected <- gather(mean_corr, key=Gene, value=Expr_level, -Treatment, -Strain)
-mean_corrected <- group_by(long_corrected, Treatment, Gene) %>% summarise(Mean_expr=mean(Expr_level))
+mean_corrected <- group_by(long_corrected, Treatment, Gene) %>%
+    summarise(Mean_expr=mean(Expr_level))
 mean_corrected <- merge(mean_corrected, conversion, by.x='Gene', by.y='Genome_handle')
 mean_corrected <- merge(mean_corrected, id_conversion, by="Panther_handle")
 
@@ -912,33 +976,52 @@ mean_corrected <- merge(mean_corrected, id_conversion, by="Panther_handle")
 mean_corr_org <- read_csv("mean_corrected_organelles.csv")
 org_genes <- mean_corr_org[,c(1:2, 3366:3417)]
 long_corrected_org <- gather(org_genes, key=Gene, value=Expr_level, -Treatment, -Strain)
-mean_corrected_org <- group_by(long_corrected_org, Treatment, Gene) %>% summarise(Mean_expr=mean(Expr_level))
+mean_corrected_org <- group_by(long_corrected_org, Treatment, Gene) %>%
+    summarise(Mean_expr=mean(Expr_level))
 
 chloroplast_genes <- read_csv("KEGG_Cp/annotation_table.csv")
 names(chloroplast_genes)[4] <- "KEGG"
-mean_corrected_org$KEGG <- mean_corrected_org$Gene %>% sapply(function(x) strsplit(x, "\\|")) %>% sapply(function(x) x[2]) %>% match(.,chloroplast_genes$UniProt) %>% chloroplast_genes[.,] %>% .$KEGG
+mean_corrected_org$KEGG <- mean_corrected_org$Gene %>%
+    sapply(function(x) strsplit(x, "\\|")) %>%
+    sapply(function(x) x[2]) %>%
+    match(.,chloroplast_genes$UniProt) %>%
+    chloroplast_genes[.,] %>%
+    .$KEGG
 
 mean_corrected_org <- dplyr::select(mean_corrected_org, Treatment, Mean_expr, KEGG)
-mean_corrected_org <- dplyr::select(mean_corrected, Treatment, Mean_expr, KEGG) %>% rbind(., data.frame(mean_corrected_org))
+mean_corrected_org <- dplyr::select(mean_corrected, Treatment, Mean_expr, KEGG) %>%
+    rbind(., data.frame(mean_corrected_org))
 
 #And include Dunnett test corrections
 dunnett_table_organelles <- read_csv("dunnett_table_organelles.csv")
-sig_dunnett_table_organelles <- group_by(dunnett_table_organelles, protein_id) %>% mutate(min_p_val=min(p.value)) %>% filter(min_p_val < P_VAL)
+sig_dunnett_table_organelles <- group_by(dunnett_table_organelles, protein_id) %>%
+    mutate(min_p_val=min(p.value)) %>%
+    filter(min_p_val < P_VAL)
 sig_proteins_organelles <- unique(sig_dunnett_table_organelles$protein_id)
-mean_corrected_organelles <- group_by(long_corrected_organelles, Treatment, Gene) %>% summarise(Mean_expr=mean(Expr_level))
-dunnett_mean_corrected_organelles <- filter(mean_corrected_organelles, Gene %in% sig_proteins_organelles)
+mean_corrected_organelles <- group_by(long_corrected_organelles, Treatment, Gene) %>%
+    summarise(Mean_expr=mean(Expr_level))
+dunnett_mean_corrected_organelles <- filter(mean_corrected_organelles,
+                                           Gene %in% sig_proteins_organelles)
 
 #And count how many instances differ from control
-sig_count <- filter(sig_dunnett_table_organelles, p.value < P_VAL) %>% group_by(protein_id) %>% summarise(n=n())
+sig_count <- filter(sig_dunnett_table_organelles, p.value < P_VAL) %>%
+    group_by(protein_id) %>%
+    summarise(n=n())
 sig_chr <- sig_count[1:404,]
-sig_chr$protein_id <- strsplit(sig_chr$protein_id, "\\.") %>% sapply(function(x) paste(x[[1]], x[[2]], sep="."))
+sig_chr$protein_id <- strsplit(sig_chr$protein_id, "\\.") %>%
+    sapply(function(x) paste(x[[1]], x[[2]], sep="."))
 sig_chr <- merge(sig_chr, conversion, by.x='protein_id', by.y='Genome_handle')
 sig_chr <- merge(sig_chr, id_conversion, by="Panther_handle")
 
 tmp <- sig_chr
 sig_chr <- sig_chr[,c(4,3)]
 sig_org <- sig_count[405:418,]
-sig_org$protein_id <- sig_org$protein_id %>% sapply(function(x) strsplit(x, "\\|")) %>% sapply(function(x) x[2]) %>% match(.,chloroplast_genes$UniProt) %>% chloroplast_genes[.,] %>% .$KEGG
+sig_org$protein_id <- sig_org$protein_id %>%
+    sapply(function(x) strsplit(x, "\\|")) %>%
+    sapply(function(x) x[2]) %>%
+    match(.,chloroplast_genes$UniProt) %>%
+    chloroplast_genes[.,] %>%
+    .$KEGG
 sig_org <- sig_org[-8,]
 names(sig_org)[1] <- "KEGG"
 sig_count <- rbind(sig_chr, sig_org)
@@ -948,8 +1031,13 @@ names(sig_matrix) <- sig_count$KEGG
 # Dunnett-tested proteins...
 ## dunnett_mean_corrected_org <- tail(dunnett_mean_corrected_organelles, 14)
 dunnett_mean_corrected_org <- dunnett_mean_corrected_organelles
-dunnett_mean_corrected_org$Gene <- dunnett_mean_corrected_org$Gene %>% sapply(function(x) strsplit(x, "\\|")) %>% sapply(function(x) x[2]) %>% as.character
-dunnett_mean_corrected_org <- merge(dunnett_mean_corrected_org, chloroplast_genes, by.x="Gene", by.y="UniProt") %>% dplyr::select(Treatment, Mean_expr, KEGG)
+dunnett_mean_corrected_org$Gene <- dunnett_mean_corrected_org$Gene %>%
+    sapply(function(x) strsplit(x, "\\|")) %>%
+    sapply(function(x) x[2]) %>%
+    as.character
+dunnett_mean_corrected_org <- merge(dunnett_mean_corrected_org, chloroplast_genes,
+                                   by.x="Gene", by.y="UniProt") %>%
+    dplyr::select(Treatment, Mean_expr, KEGG)
 dun_mean_corrected <- merge(dunnett_mean_corrected, conversion, by.x='Gene', by.y='Genome_handle')
 dun_mean_corrected <- merge(dun_mean_corrected, id_conversion, by="Panther_handle")
 dun_mean_corrected <- dplyr::select(dun_mean_corrected, Treatment, Mean_expr, KEGG)
@@ -958,17 +1046,26 @@ dunnett_corrected <- rbind(dunnett_mean_corrected_org, dun_mean_corrected)
 #Treatment, Mean_expr, KEGG
 
 # KEGG visualization by pathview
-pw_df <- filter(mean_corrected, Treatment != "control") %>% group_by(KEGG, Treatment) %>% summarise(m_e=mean(Mean_expr)) %>% spread(Treatment, value=m_e)
+pw_df <- filter(mean_corrected, Treatment != "control") %>%
+    group_by(KEGG, Treatment) %>%
+    summarise(m_e=mean(Mean_expr)) %>%
+    spread(Treatment, value=m_e)
 pw_matrix <- as.matrix(pw_df[,-1])
 rownames(pw_matrix) <- pw_df$KEGG
 pw_matrix <- pw_matrix[,c('C', 'B', 'BS', 'L', 'N', 'P', 'S')]
 
-pw_df_organelles <- filter(mean_corrected_org, Treatment != "control") %>% group_by(KEGG, Treatment) %>% summarise(m_e=mean(Mean_expr)) %>% spread(Treatment, value=m_e)
+pw_df_organelles <- filter(mean_corrected_org, Treatment != "control") %>%
+    group_by(KEGG, Treatment) %>%
+    summarise(m_e=mean(Mean_expr)) %>%
+    spread(Treatment, value=m_e)
 pw_matrix_organelles <- as.matrix(pw_df_organelles[,-1])
 rownames(pw_matrix_organelles) <- pw_df_organelles$KEGG
 pw_matrix_organelles <- pw_matrix_organelles[,c('C', 'B', 'BS', 'L', 'N', 'P', 'S')]
 
-pw_dunnett_organelles <- filter(dunnett_corrected, Treatment != "control") %>% group_by(KEGG, Treatment) %>% summarise(m_e=mean(Mean_expr)) %>% spread(Treatment, value=m_e)
+pw_dunnett_organelles <- filter(dunnett_corrected, Treatment != "control") %>%
+    group_by(KEGG, Treatment) %>%
+    summarise(m_e=mean(Mean_expr)) %>%
+    spread(Treatment, value=m_e)
 pw_dunnett_matrix_organelles <- as.matrix(pw_dunnett_organelles[,-1])
 rownames(pw_dunnett_matrix_organelles) <- pw_dunnett_organelles$KEGG
 pw_dunnett_matrix_organelles <- pw_dunnett_matrix_organelles[,c('C', 'B', 'BS', 'L', 'N', 'P', 'S')]
@@ -1189,6 +1286,192 @@ pv.out <- pathview(gene.data = pw_dunnett_matrix*1000,
 #+END_SRC
 
 
+
+* Respiration
+  
+**** R
+#+BEGIN_SRC R :session
+
+xls <- read_excel("ChlamEE_140218_stoich_growthrates.xlsx") %>%
+    mutate(Ancestor = gsub(" ", "_", Ancestor))
+names(xls) <- names(xls) %>% gsub(" ", "_", .)
+xls <- mutate(xls, Ratio = (2*Cass) / Respiration,
+             Selection_Treatment = factor(Selection_Treatment,
+                                          levels=c("A", "C", "L", "N",
+                                                   "P", "B", "S", "BS"))) %>%
+    gather(variable, value, Cass_Chl, Respiration_Chl, Ratio)
+
+xls_wilcox <- read_excel("ChlamEE_140218_stoich_growthrates.xlsx") %>%
+    mutate(Ancestor = gsub(" ", "_", Ancestor))
+names(xls_wilcox) <- names(xls_wilcox) %>% gsub(" ", "_", .)
+xls_wilcox <- mutate(xls_wilcox, Ratio = (2*Cass) / Respiration,
+             Selection_Treatment = factor(Selection_Treatment,
+                                          levels=c("A", "C", "L", "N",
+                                                   "P", "B", "S", "BS")))
+
+xls_cell_size <- read_excel("ChlamEE_dataset_12072018_updated.xlsx") %>%
+    mutate(Ancestor = gsub(" ", "_", Ancestor))
+names(xls_cell_size) <- names(xls_cell_size) %>% gsub(" ", "_", .)
+xls_cell_size <- mutate(xls_cell_size,
+                       Selection_Treatment = factor(Selection_Treatment,
+                                          levels=c("A", "C", "L", "N",
+                                                   "P", "B", "S", "BS"))) %>%
+    gather(variable, value, Cell_diameter, Cell_Volume,
+           SD_Diameter, Cell_density, Total_Biovolume)
+
+xls_cell_size_wilcox <- read_excel("ChlamEE_dataset_12072018_updated.xlsx") %>%
+    mutate(Ancestor = gsub(" ", "_", Ancestor))
+names(xls_cell_size_wilcox) <- names(xls_cell_size_wilcox) %>% gsub(" ", "_", .)
+xls_cell_size_wilcox <- mutate(xls_cell_size_wilcox,
+                       Selection_Treatment = factor(Selection_Treatment,
+                                          levels=c("A", "C", "L", "N",
+                                                   "P", "B", "S", "BS")))
+
+## Plot the Cass_Chl, Respiration_Chl and their Ratio
+cols <- c("#CC5A9F", "#FF0000", "#2F8C55", "#E9EF28", "#26549C", "#333333", "#DB3C01", "#01A0C6")
+
+draw_bp <- function(Treatment) filter(xls, variable == Treatment) %>%
+    ggplot(aes(x=Selection_Treatment, y=value, color=Selection_Treatment)) +
+    geom_boxplot() +
+    geom_point(aes(size=2)) +
+    theme(strip.text.y = element_text(angle = 0),
+          axis.title.x=element_blank(),
+          axis.title.y=element_blank(),
+          legend.position = "none",
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          axis.line = element_line(colour = "black")) +
+    scale_color_manual(values=cols)
+pdf("cass_chl.pdf", useDingbats = FALSE)
+draw_bp("Cass_Chl")
+dev.off()
+pdf("ratio.pdf", useDingbats = FALSE)
+draw_bp("Ratio")
+dev.off()
+pdf("respiration_chl.pdf", useDingbats = FALSE)
+draw_bp("Respiration_Chl")
+dev.off()
+
+## Check the significantly different responses
+get_wilcox_growth <- function(treatment, stoich)
+{
+    control <- filter(xls_wilcox, Selection_Treatment == "A")[[stoich]]
+    tmt <- filter(xls_wilcox, Selection_Treatment == treatment)[[stoich]]
+    tidy(wilcox.test(x=control, y=tmt)) %>%
+        mutate(Treatment = treatment, Stoich = stoich) %>%
+        select(-method, -alternative, -statistic)
+}
+
+tmts <- c("B", "BS", "C", "L", "N", "P", "S")
+
+bind_rows(map_df(tmts, ~get_wilcox_growth(., "Respiration")),
+          map_df(tmts, ~get_wilcox_growth(., "Cass")),
+          map_df(tmts, ~get_wilcox_growth(., "Ratio"))) %>%
+    filter(p.value <= 0.1)
+
+get_wilcox_density <- function(treatment, stoich)
+{
+    control <- filter(xls_cell_size_wilcox, Selection_Treatment == "A")[[stoich]]
+    tmt <- filter(xls_cell_size_wilcox, Selection_Treatment == treatment)[[stoich]]
+    tidy(wilcox.test(x=control, y=tmt)) %>%
+        mutate(Treatment = treatment, Stoich = stoich) %>%
+        select(-method, -alternative, -statistic)
+}
+
+tmts <- c("B", "BS", "C", "L", "N", "P", "S")
+
+map_df(tmts, ~get_wilcox_density(., "Total_Biovolume"))
+
+bind_rows(map_df(tmts, ~get_wilcox_growth(., "Respiration")),
+          map_df(tmts, ~get_wilcox_growth(., "Cass")),
+          map_df(tmts, ~get_wilcox_growth(., "Ratio"))) %>%
+    filter(p.value <= 0.1)
+#+END_SRC
+
+* Stoichiometry
+
+**** R
+#+BEGIN_SRC R :session
+xls <- read_excel("ChlamEE_140218_stoich_growthrates.xlsx")
+names(xls) <- names(xls) %>% gsub(" ", "_", .)
+xls$Ancestor <- xls$Ancestor %>% gsub(" ", "_", .)
+
+for_r1 <- dplyr::select(xls, Ancestor, Selection_Treatment, Biomass, NO3, NH4, PO4) %>%
+    mutate(NO3toBiomass = NO3 / Biomass,
+           PO4toBiomass = PO4 / Biomass) %>%
+    select(-NO3, -NH4, -PO4)
+
+for_r1$Selection_Treatment <- factor(for_r1$Selection_Treatment, levels=c("A", "C", "L", "N", "P", "B", "S", "BS"))
+
+## Plot the biomass and the ratios of NO3 and PO4 to biomass
+cols <- c("#CC5A9F", "#FF0000", "#2F8C55", "#E9EF28", "#26549C", "#333333", "#DB3C01", "#01A0C6")
+
+pdf("biomass.pdf", useDingbats = FALSE)
+ggplot(for_r1, aes(x=Selection_Treatment, y=Biomass, color=Selection_Treatment)) +
+    geom_boxplot() +
+    geom_point(aes(size=2)) +
+    theme_bw() + 
+    theme(strip.text.y = element_text(angle = 0),
+          axis.title.x=element_blank(),
+          axis.title.y=element_blank(),
+          legend.position = "none",
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          axis.line = element_line(colour = "black")) +
+    scale_color_manual(values=cols)
+dev.off()
+
+pdf("no3tobiomass.pdf", useDingbats = FALSE)
+ggplot(for_r1, aes(x=Selection_Treatment, y=NO3toBiomass, color=Selection_Treatment)) +
+    geom_boxplot() +
+    geom_point(aes(size=2)) +
+    theme_bw() + 
+    theme(strip.text.y = element_text(angle = 0),
+          axis.title.x=element_blank(),
+          axis.title.y=element_blank(),
+          legend.position = "none",
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          axis.line = element_line(colour = "black")) +
+    scale_color_manual(values=cols)
+dev.off()
+
+pdf("po4tobiomass.pdf", useDingbats = FALSE)
+ggplot(for_r1, aes(x=Selection_Treatment, y=PO4toBiomass, color=Selection_Treatment)) +
+    geom_boxplot() +
+    geom_point(aes(size=2)) +
+    theme_bw() + 
+    theme(strip.text.y = element_text(angle = 0),
+          axis.title.x=element_blank(),
+          axis.title.y=element_blank(),
+          legend.position = "none",
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          axis.line = element_line(colour = "black")) +
+    scale_color_manual(values=cols)
+dev.off()
+
+## Test the signficance of the responses
+get_wilcox_growth <- function(treatment, stoich)
+{
+    control <- filter(for_r1, Selection_Treatment == "A")[[stoich]]
+    tmt <- filter(for_r1, Selection_Treatment == treatment)[[stoich]]
+    tidy(wilcox.test(x=control, y=tmt)) %>%
+        mutate(Treatment = treatment, Stoich = stoich) %>%
+        select(-method, -alternative, -statistic)
+}
+
+tmts <- c("B", "BS", "C", "L", "N", "P", "S")
+
+bind_rows(map_df(tmts, ~get_wilcox_growth(., "Biomass")),
+          map_df(tmts, ~get_wilcox_growth(., "NO3toBiomass")),
+          map_df(tmts, ~get_wilcox_growth(., "PO4toBiomass"))) %>%
+    filter(p.value <= 0.1)
+#+END_SRC
 
 * Python session information
 
