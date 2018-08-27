@@ -2,11 +2,11 @@
 
 This file is best viewed using Org 9.1.13 mode on Emacs 25.3.1.
 
-
 * Python session information
 
 Python version 3.6.3
 pandas version 0.21.0
+beautifulsoup4 version 4.6.3
 epride version 0.2dev (epride can be downloaded from https://github.com/manutamminen/epride)
 
 
@@ -59,8 +59,6 @@ loaded via a namespace (and not attached):
 [61] codetools_0.2-15   XML_3.98-1.12      glue_1.3.0         modelr_0.1.2      
 [65] png_0.1-7          cellranger_1.1.0   gtable_0.2.0       assertthat_0.2.0  
 [69] memoise_1.1.0      cluster_2.0.7-1   
-> 
-
 
 * Download the C. reinhardtii reference genome from Phytozome
 
@@ -385,24 +383,33 @@ prot_table <- read_csv("full_prot_table.csv") %>%
 
 prot_table_replicates <- read_csv("full_prot_table.csv") %>%
     separate(X1, into=c("Strain", "Treatment", "Replicate"), sep="_")
-prot_table_replicates[prot_table_replicates$Treatment == "control", "Treatment"] <- prot_table_replicates[prot_table_replicates$Treatment == "control", c("Strain", "Treatment")] %>% with(., paste(Strain, Treatment))
+prot_table_replicates[prot_table_replicates$Treatment == "control",
+                      "Treatment"] <- prot_table_replicates[prot_table_replicates$Treatment == "control",
+                                                           c("Strain", "Treatment")] %>%
+    with(., paste(Strain, Treatment))
 
 long_prot_table <- gather(prot_table, key=Gene, value=Expression, -Strain, -Treatment)
 
 annot_genes <- read.csv("annot_genes.csv")
 conversion <- read.csv("conversion.csv")
 
-conversion$ID <- strsplit(as.character(conversion$X0), "\\.") %>% sapply(function(x) paste(x[1], x[2], sep="."))
-conversion <- merge(annot_genes, conversion, by.x="X9", by.y="ID") %>% dplyr::select(X9, X0.x, X3.x, X2.y) %>% filter(X2.y != "--")
+conversion$ID <- strsplit(as.character(conversion$X0), "\\.") %>%
+    sapply(function(x) paste(x[1], x[2], sep="."))
+conversion <- merge(annot_genes, conversion, by.x="X9", by.y="ID") %>%
+    dplyr::select(X9, X0.x, X3.x, X2.y) %>% filter(X2.y != "--")
 conversion$Locus <- with(conversion, paste(X0.x, X3.x, sep="X"))
 conversion <- dplyr::select(conversion, X9, X2.y, Locus)
 names(conversion) <- c("Genome_handle", "Panther_handle", "Locus")
 
 mean_corrected <- read_csv("full_mean_corrected.csv")
-mean_long_corrected <- gather(mean_corrected, key=Gene, value=Expr_level, -Treatment, -Strain) %>% filter(Treatment != "control")
+mean_long_corrected <- gather(mean_corrected, key=Gene, value=Expr_level,
+                             -Treatment, -Strain) %>%
+    filter(Treatment != "control")
 
 median_corrected <- read_csv("full_median_corrected.csv")
-median_long_corrected <- gather(median_corrected, key=Gene, value=Expr_level, -Treatment, -Strain) %>% filter(Treatment != "control")
+median_long_corrected <- gather(median_corrected, key=Gene, value=Expr_level,
+                               -Treatment, -Strain) %>%
+    filter(Treatment != "control")
 
 median_control_long_corrected <- gather(median_corrected, key=Gene,
                                        value=Expr_level, -Treatment, -Strain) %>%
