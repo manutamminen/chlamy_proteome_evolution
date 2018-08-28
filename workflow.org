@@ -57,11 +57,13 @@ Requires registration. Be sure to download the files
 import pandas as pd
 import epride as ep
 
+## Convert the C. reinhardtii gff3 annotation file into a csv
 annot = pd.read_csv("Creinhardtii_281_v5.5.gene.gff3", sep="\t", comment="#", header=None)
 annot_genes = annot[annot[2] == "gene"]
 annot_genes[9] = annot_genes[8].str.split(";").apply(lambda x: x[1]).str.split("=").apply(lambda x: x[1])
 annot_genes.to_csv("annot_genes.csv")
 
+## Convert the C. reinhardtii annotation transcript file into a csv
 conversion = pd.read_csv("ChlamydomonasTranscriptNameConversionBetweenReleases.Mch12b.txt",
                          comment="#", sep=r"\s*", header=None)
 conversion.to_csv("conversion.csv", index=None)
@@ -85,6 +87,9 @@ conversion.to_csv("conversion.csv", index=None)
   
 **** python
 #+BEGIN_SRC python
+
+## Define a function which extracts the Razor columns from the MaxQuant output and optionally
+## truncates the gene IDs. Output in csv.
 def process_raw(input_file, output_file, sep=",", cols=False, full=False):
     protein_groups = pd.read_csv(input_file, sep=sep)
     good_prots = protein_groups[~(protein_groups['Protein IDs'].str.contains("CON")) &
@@ -104,6 +109,8 @@ def process_raw(input_file, output_file, sep=",", cols=False, full=False):
         cols = list(good_prot_hits_norm.columns)
         return(cols)
 
+## Define a function which transposes the peptide count tables and truncates the row 
+## names, leaving only the Strain, Treatment and Replicate IDs.
 def table_convert(input_file, output_file):
     gphn = pd.read_csv(input_file)
     gphn.index = gphn.iloc[:,0]
@@ -112,6 +119,7 @@ def table_convert(input_file, output_file):
     gphn.index = [i.split()[4] for i in list(gphn.index)]
     gphn.to_csv(output_file)
 
+## Process the MaxQuant output
 columns_names = process_raw("proteinGroupsGoodColNames.csv",
                             "good_prot_hits_norm.csv")
 process_raw("proteinGroups.txt",
@@ -123,6 +131,7 @@ process_raw("proteinGroups.txt",
             "full_good_prot_hits_norm_organelles.csv",
             sep="\t", cols=columns_names, full=True)
 
+## Transpose the tables and tidy up the row names.
 table_convert("good_prot_hits_norm.csv", "prot_table.csv")
 table_convert("good_prot_hits_norm_organelles.csv", "prot_table_organelles.csv")
 table_convert("full_good_prot_hits_norm.csv", "full_prot_table.csv")
@@ -148,6 +157,9 @@ table_convert("full_good_prot_hits_norm_organelles.csv", "full_prot_table_organe
 
 **** python
 #+BEGIN_SRC python
+
+## Define a function which subtracts control means and medians from each Treatment in
+## each Strain. Output as csvs.
 def subtract_means(input_file, mean_output_file, median_output_file):
     gphn = pd.read_csv(input_file, index_col=0)
     gphn['Strain'] = [i.split("_")[0] for i in list(gphn.index)]
@@ -168,6 +180,8 @@ def subtract_means(input_file, mean_output_file, median_output_file):
     mean_corrected.drop('Treatment', 1).drop_duplicates().to_csv(mean_output_file)
     median_corrected.drop('Treatment', 1).drop_duplicates().to_csv(median_output_file)
 
+## Prepare this for all proteome tables, organelle-encoded peptides included and excluded
+## and truncated as well as non-truncated gene IDs.
 subtract_means("prot_table.csv",
                "mean_corrected.csv",
                "median_corrected.csv")
@@ -214,9 +228,12 @@ Download the KEGG annotations for chromosomal genes...
  os.chdir("KEGG_Chr")
  pid = str(os.getpid())
 
+ ## Extract all relevant gene IDs from the file id_conversion.csv
  with open("../id_conversion.csv") as ids:
      entries = [entr.split(",")[0] for entr in ids]
 
+ ## Download the KEGG entries for the relevant gene IDs. Save these
+ ## with suffix '.koe'.
  with open("log_chr.txt", "a") as f:
      acc = []
      f.write(pid + "\n")
@@ -237,12 +254,14 @@ Download the KEGG annotations for chromosomal genes...
  #+BEGIN_SRC python
  os.chdir("../KEGG_Cp")
  pid = str(os.getpid())
-
+ 
+ ## Download the KEGG entries for all the chloroplast-encoded gene IDs. Save these
+ ## with suffix '.koe'.
  with open("log_cp.txt", "a") as f:
      acc = []
      f.write(pid + "\n")
      for i in range(1, 71):
-         entry_id = 'ChreCp{num:03d}'.format(num=i)
+         entry_id = 'ChreCp{num:03d}'.format(num=i) # Construct the chloroplast gene IDs.
          try:
              page = pd.read_html("http://www.genome.jp/dbget-bin/www_bget?cre:" + entry_id)
              page[0].to_csv(entry_id + ".koe")
@@ -259,8 +278,9 @@ Download the KEGG annotations for chromosomal genes...
  #+BEGIN_SRC python
  os.chdir("../KEGG_Cp")
 
- files = [i for i in os.listdir() if ".koe" in i]
-
+ ## Define a parser function for the KEGG entries. Extract fields such as
+ ## 'Entry', 'KO', 'Motif', 'Definition', 'Brite', 'Molecule', 'Other DBs'
+ ## 'Pathway' and 'Module'.
  def parse_entry(entry):
      acc = {}
      file_name = entry.split(".")[0]
@@ -288,11 +308,11 @@ Download the KEGG annotations for chromosomal genes...
              _, acc['Module'] = next(it)
      return acc
 
- acc = []
- for file in files:
-     acc.append(parse_entry(file))
+ ## Parse each file with the '.koe' suffix using the parse_entry function.
+ parsed = [parse_entry(i) for i in os.listdir() if ".koe" in i]
 
- acc2 = [{key: val.replace(u'\xa0', u' ') for key, val in i.items()} for i in acc]
+ ## Extract the Gene_ID, Protein_ID and UniProt columns and save as a csv.
+ acc2 = [{key: val.replace(u'\xa0', u' ') for key, val in i.items()} for i in parsed]
  annot_table = pd.DataFrame(acc2)
  annot_table['Gene_ID'] = annot_table['Other DBs'] \
                           .str \
@@ -316,13 +336,11 @@ Download the KEGG annotations for chromosomal genes...
 
  os.chdir("../KEGG_Chr")
 
- files = [i for i in os.listdir() if ".koe" in i]
+ ## Parse each file with the '.koe' suffix using the parse_entry function.
+ parsed = [parse_entry(i) for i in os.listdir() if ".koe" in i]
 
- acc = []
- for file in files:
-     acc.append(parse_entry(file))
-
- acc2 = [{key: val.replace(u'\xa0', u' ') for key, val in i.items()} for i in acc]
+ ## Extract the Gene_ID, Protein_ID and UniProt columns and save as a csv.
+ acc2 = [{key: val.replace(u'\xa0', u' ') for key, val in i.items()} for i in parsed]
  annot_table = pd.DataFrame(acc2)
  annot_table['Gene_ID'] = annot_table['Other DBs'] \
                           .str.split("NCBI").apply(lambda x: x[1]) \
