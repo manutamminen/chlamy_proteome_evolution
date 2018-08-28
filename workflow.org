@@ -1487,45 +1487,46 @@ pv.out <- pathview(gene.data = pw_dunnett_matrix*1000,
 #+END_SRC
 
 
-* Stoichiometry; Supplementary Fig. 8
+* Stoichiometry and Respiration; Supplementary Figs. 8 and 9
   
-|----------------------------------------+----------|
-| Inputs                                 | Outputs  |
-|----------------------------------------+----------|
-| ChlamEE_140218_stoich_growthrates.xlsx | ctop.pdf |
-|                                        | cton.pdf |
-|----------------------------------------+----------|
+|--------------------------------------+---------------------|
+| Inputs                               | Outputs             |
+|--------------------------------------+---------------------|
+| ChlamEE_phenotypic_measurements.xlsx | ctop.pdf            |
+|                                      | cton.pdf            |
+|                                      | cass_chl.pdf        |
+|                                      | ratio.pdf           |
+|                                      | respiration_chl.pdf |
+|--------------------------------------+---------------------|
 
 ** This part produces the following figures / figure components
 
-|----------+-----------------------|
-| PDF name | Corresponding figure  |
-|----------+-----------------------|
-| ctop.pdf | Supplementary Fig. 8B |
-| cton.pdf | Supplementary Fig. 8C |
-|----------+-----------------------|
+|---------------------+-----------------------|
+| PDF name            | Corresponding figure  |
+|---------------------+-----------------------|
+| ctop.pdf            | Supplementary Fig. 8B |
+| cton.pdf            | Supplementary Fig. 8C |
+| respiration_chl.pdf | Supplementary Fig. 9A |
+| cass_chl.pdf        | Supplementary Fig. 9B |
+| ratio.odf           | Supplementary Fig. 9C |
+|---------------------+-----------------------|
 
 **** R
 #+BEGIN_SRC R :session
-xls <- read_excel("ChlamEE_phenotypic_measurements.xlsx")
-for_r1 <- dplyr::select(xls, Ancestor, Selection_Treatment, Biomass, NO3, PO4) %>%
-    mutate(NO3toBiomass = NO3 / Biomass,
-           PO4toBiomass = PO4 / Biomass) %>%
-    select(-NO3, -PO4)
-
-for_r1$Selection_Treatment <- factor(for_r1$Selection_Treatment, levels=c("A", "C", "L", "N", "P", "B", "S", "BS"))
-
-## Plot the biomass and the ratios of NO3 and PO4 to biomass
+## Read in the phenotype data and prepare for plotting and Wilcoxon tests
+xls <- read_excel("ChlamEE_phenotypic_measurements.xlsx") %>%
+    mutate(Ratio = (2*Cass) / Respiration,
+           Selection_Treatment = factor(Selection_Treatment,
+                                        levels=c("A", "C", "L", "N",
+                                                 "P", "B", "S", "BS")))
+xls_long <- gather(xls, key=variable, value=value, Respiration, Ratio,
+                  Cass, CtoP_Molar, CtoN_Molar, Cass_Chl, Respiration_Chl)
 cols <- c("#CC5A9F", "#FF0000", "#2F8C55", "#E9EF28", "#26549C", "#333333", "#DB3C01", "#01A0C6")
 
-xls_long <- gather(xls, key=variable, value=value, Biomass, NO3,
-                  PO4, Respiration, Cass, CtoP_Molar, CtoN_Molar)
-
-xls_long <- mutate(xls_long, Selection_Treatment = factor(Selection_Treatment,
-                                          levels=c("A", "C", "L", "N",
-                                                   "P", "B", "S", "BS")))
-
-draw_bp <- function(Treatment) filter(xls_long, variable == Treatment) %>%
+## Define a plotting function to prepare boxplots for each variable
+draw_bp <- function(Treatment)
+{
+    filter(xls_long, variable == Treatment) %>%
     ggplot(aes(x=Selection_Treatment, y=value, color=Selection_Treatment)) +
     geom_boxplot() +
     geom_point(aes(size=2)) +
@@ -1538,6 +1539,7 @@ draw_bp <- function(Treatment) filter(xls_long, variable == Treatment) %>%
           panel.background = element_blank(),
           axis.line = element_line(colour = "black")) +
     scale_color_manual(values=cols)
+}
 
 pdf("ctop.pdf", useDingbats = FALSE)
 draw_bp("CtoP_Molar")
@@ -1545,79 +1547,6 @@ dev.off()
 pdf("cton.pdf", useDingbats = FALSE)
 draw_bp("CtoN_Molar")
 dev.off()
-
-## Test the signficance of the responses
-get_wilcox_growth <- function(treatment, stoich)
-{
-    control <- filter(for_r1, Selection_Treatment == "A")[[stoich]]
-    tmt <- filter(for_r1, Selection_Treatment == treatment)[[stoich]]
-    tidy(wilcox.test(x=control, y=tmt)) %>%
-        mutate(Treatment = treatment, Stoich = stoich) %>%
-        select(-method, -alternative, -statistic)
-}
-
-tmts <- c("B", "BS", "C", "L", "N", "P", "S")
-
-bind_rows(map_df(tmts, ~get_wilcox_growth(., "Biomass")),
-          map_df(tmts, ~get_wilcox_growth(., "NO3toBiomass")),
-          map_df(tmts, ~get_wilcox_growth(., "PO4toBiomass"))) %>%
-    filter(p.value <= 0.1)
-#+END_SRC
-
-
-* Respiration; Supplementary Fig. 9
-  
-|---------------------------------------------+---------------------|
-| Inputs                                      | Outputs             |
-|---------------------------------------------+---------------------|
-| ChlamEE_140218_stoich_growthrates_resp.xlsx | cass_chl.pdf        |
-| ChlamEE_dataset_12072018_updated.xlsx       | ratio.pdf           |
-|                                             | respiration_chl.pdf |
-|---------------------------------------------+---------------------|
-
-** This part produces the following figures / figure components
-
-|---------------------+-----------------------|
-| PDF name            | Corresponding figure  |
-|---------------------+-----------------------|
-| respiration_chl.pdf | Supplementary Fig. 9A |
-| cass_chl.pdf        | Supplementary Fig. 9B |
-| ratio.odf           | Supplementary Fig. 9C |
-|---------------------+-----------------------|
-  
-**** R
-#+BEGIN_SRC R :session
-xls <- read_excel("ChlamEE_phenotypic_measurements.xlsx") %>%
-    mutate(Ratio = (2*Cass) / Respiration,
-           Selection_Treatment = factor(Selection_Treatment,
-                                        levels=c("A", "C", "L", "N",
-                                                 "P", "B", "S", "BS"))) %>%
-    gather(variable, value, Cass_Chl, Respiration_Chl, Ratio)
-
-xls_wilcox <- read_excel("ChlamEE_phenotypic_measurements.xlsx") %>%
-    mutate(Ancestor = gsub(" ", "_", Ancestor))
-names(xls_wilcox) <- names(xls_wilcox) %>% gsub(" ", "_", .)
-xls_wilcox <- mutate(xls_wilcox, Ratio = (2*Cass) / Respiration,
-             Selection_Treatment = factor(Selection_Treatment,
-                                          levels=c("A", "C", "L", "N",
-                                                   "P", "B", "S", "BS")))
-
-## Plot the Cass_Chl, Respiration_Chl and their Ratio
-cols <- c("#CC5A9F", "#FF0000", "#2F8C55", "#E9EF28", "#26549C", "#333333", "#DB3C01", "#01A0C6")
-
-draw_bp <- function(Treatment) filter(xls, variable == Treatment) %>%
-    ggplot(aes(x=Selection_Treatment, y=value, color=Selection_Treatment)) +
-    geom_boxplot() +
-    geom_point(aes(size=2)) +
-    theme(strip.text.y = element_text(angle = 0),
-          axis.title.x=element_blank(),
-          axis.title.y=element_blank(),
-          legend.position = "none",
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          panel.background = element_blank(),
-          axis.line = element_line(colour = "black")) +
-    scale_color_manual(values=cols)
 pdf("cass_chl.pdf", useDingbats = FALSE)
 draw_bp("Cass_Chl")
 dev.off()
@@ -1628,11 +1557,11 @@ pdf("respiration_chl.pdf", useDingbats = FALSE)
 draw_bp("Respiration_Chl")
 dev.off()
 
-## Check the significantly different responses
+## Define a function to test the signficance of the responses
 get_wilcox_growth <- function(treatment, stoich)
 {
-    control <- filter(xls_wilcox, Selection_Treatment == "A")[[stoich]]
-    tmt <- filter(xls_wilcox, Selection_Treatment == treatment)[[stoich]]
+    control <- filter(xls, Selection_Treatment == "A")[[stoich]]
+    tmt <- filter(xls, Selection_Treatment == treatment)[[stoich]]
     tidy(wilcox.test(x=control, y=tmt)) %>%
         mutate(Treatment = treatment, Stoich = stoich) %>%
         select(-method, -alternative, -statistic)
@@ -1640,7 +1569,9 @@ get_wilcox_growth <- function(treatment, stoich)
 
 tmts <- c("B", "BS", "C", "L", "N", "P", "S")
 
-bind_rows(map_df(tmts, ~get_wilcox_growth(., "Respiration")),
+bind_rows(map_df(tmts, ~get_wilcox_growth(., "CtoN_Molar")),
+          map_df(tmts, ~get_wilcox_growth(., "CtoP_Molar")),
+          map_df(tmts, ~get_wilcox_growth(., "Respiration")),
           map_df(tmts, ~get_wilcox_growth(., "Cass")),
           map_df(tmts, ~get_wilcox_growth(., "Ratio"))) %>%
     filter(p.value <= 0.1)
