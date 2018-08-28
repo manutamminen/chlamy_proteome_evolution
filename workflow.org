@@ -1271,219 +1271,111 @@ pw_dunnett_matrix_organelles <- as.matrix(pw_dunnett_organelles[,-1])
 rownames(pw_dunnett_matrix_organelles) <- pw_dunnett_organelles$KEGG
 pw_dunnett_matrix_organelles <- pw_dunnett_matrix_organelles[,c('C', 'B', 'BS', 'L', 'N', 'P', 'S')]
 
-#Carbon fixation in photosynthetic organisms
-pv.out <- pathview(gene.data = pw_matrix*1000,
-                pathway.id = "00710",
-                species = "cre",
-                out.suffix = "Photos_fixation",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
 
-pv.out <- pathview(gene.data = pw_matrix_organelles*1000,
-                pathway.id = "00710",
-                species = "cre",
-                out.suffix = "Photos_fixation_org",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
+plot_paths <- function(gene_data, pathway_id, out_suffix, coef=1000)
+{
+    pathview(gene.data=gene_data*coef,
+             pathway.id=pathway_id,
+             species="cre",
+             out.suffix=out_suffix,
+             low=list(gene="blue"),
+             gene.idtype="KEGG")
+}
 
-pv.out <- pathview(gene.data = pw_dunnett_matrix_organelles*1000,
-                pathway.id = "00710",
-                species = "cre",
-                out.suffix = "Photos_fixation_dunnett_org",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
+## Carbon fixation in photosynthetic organisms
+pathview(gene_data=pw_matrix,
+         pathway_id = "00710",
+         out_suffix = "Photos_fixation")
+pathview(gene_data=pw_matrix_organelles,
+         pathway_id = "00710",
+         out_suffix = "Photos_fixation_org")
+pathview(gene_data=pw_dunnett_matrix_organelles,
+         pathway_id = "00710",
+         out_suffix = "Photos_fixation_dunnett_org")
+pathview(gene_data=sig_matrix,
+         pathway_id = "00710",
+         out_suffix = "Photos_sigs")
 
-pv.out <- pathview(gene.data = sig_matrix,
-                pathway.id = "00710",
-                species = "cre",
-                out.suffix = "Photos_sigs",
-                low = list(gene = "blue"),
-                mid = list(gene = "green"),
-                limit=c(0,10),
-                gene.idtype = "KEGG")
-
-#Photosynthesis
-pv.out <- pathview(gene.data = pw_matrix_organelles*1000,
-                pathway.id = "00195",
-                species = "cre",
-                out.suffix = "Photos_org",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG",
-                key.pos="bottomright")
-
-pv.out <- pathview(gene.data = pw_dunnett_matrix_organelles*1000,
-                pathway.id = "00195",
-                species = "cre",
-                out.suffix = "Photos_dunnett_org",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG",
-                key.pos="bottomright")
-
-pv.out <- pathview(gene.data = pw_matrix_organelles*1000,
-                pathway.id = "00196",
-                species = "cre",
-                out.suffix = "Photos2_org",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG",
-                key.pos="bottomright")
-
-pv.out <- pathview(gene.data = pw_dunnett_matrix_organelles*1000,
-                pathway.id = "00196",
-                species = "cre",
-                out.suffix = "Photos2_dunnett_org",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG",
-                key.pos="bottomright")
-
-pv.out <- pathview(gene.data = sig_matrix,
-                pathway.id = "00196",
-                species = "cre",
-                out.suffix = "Photos2_sigs",
-                low = list(gene = "blue"),
-                mid = list(gene = "green"),
-                limit=c(0,10),
-                gene.idtype = "KEGG")
+## Photosynthesis
+pathview(gene_data=pw_matrix_organelles,
+         pathway_id = "00195",
+         out_suffix = "Photos_org")
+pathview(gene_data=pw_dunnett_matrix_organelles,
+         pathway_id = "00195",
+         out_suffix = "Photos_dunnett_org")
+pathview(gene_data=pw_matrix_organelles,
+         pathway_id = "00196",
+         out_suffix = "Photos2_org")
+pathview(gene_data=pw_dunnett_matrix_organelles,
+         pathway_id = "00196",
+         out_suffix = "Photos2_dunnett_org")
+pathview(gene_data=sig_matrix,
+         pathway_id = "00196",
+         out_suffix = "Photos2_sigs")
 
 #Glycolysis/Gluconeogenesis
-pv.out <- pathview(gene.data = pw_matrix*1000,
-                pathway.id = "00010",
-                species = "cre",
-                out.suffix = "Glycolysis",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
-
-pv.out <- pathview(gene.data = pw_matrix_organelles*1000,
-                pathway.id = "00010",
-                species = "cre",
-                out.suffix = "Glycolysis_org",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
-
-pv.out <- pathview(gene.data = pw_dunnett_matrix_organelles*1000,
-                pathway.id = "00010",
-                species = "cre",
-                out.suffix = "Glycolysis_dunnett_org",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
-
-pv.out <- pathview(gene.data = sig_matrix,
-                pathway.id = "00010",
-                species = "cre",
-                out.suffix = "Glycolysis_sigs",
-                low = list(gene = "blue"),
-                mid = list(gene = "green"),
-                limit=c(0,6),
-                gene.idtype = "KEGG")
+pathview(gene_data=pw_matrix,
+         pathway_id = "00010",
+         out_suffix = "Glycolysis")
+pathview(gene_data=pw_matrix_organelles,
+         pathway_id = "00010",
+         out_suffix = "Glycolysis_org")
+pathview(gene_data=pw_dunnett_matrix_organelles,
+         pathway_id = "00010",
+         out_suffix = "Glycolysis_dunnett_org")
+pathview(gene_data=sig_matrix,
+         pathway_id = "00010",
+         out_suffix = "Glycolysis_sigs")
 
 #TCA cycle
-pv.out <- pathview(gene.data = pw_matrix*1000,
-                pathway.id = "00020",
-                species = "cre",
-                out.suffix = "TCA",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
-
-pv.out <- pathview(gene.data = pw_matrix_organelles*1000,
-                pathway.id = "00020",
-                species = "cre",
-                out.suffix = "TCA_org",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
-
-pv.out <- pathview(gene.data = pw_dunnett_matrix_organelles*1000,
-                pathway.id = "00020",
-                species = "cre",
-                out.suffix = "TCA_dunnett_org",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
-
-pv.out <- pathview(gene.data = sig_matrix,
-                pathway.id = "00020",
-                species = "cre",
-                out.suffix = "TCA_sigs",
-                low = list(gene = "blue"),
-                mid = list(gene = "green"),
-                limit=c(0,10),
-                gene.idtype = "KEGG")
+pathview(gene_data=pw_matrix,
+         pathway_id = "00020",
+         out_suffix = "TCA")
+pathview(gene_data=pw_matrix_organelles,
+         pathway_id = "00020",
+         out_suffix = "TCA_org")
+pathview(gene_data=pw_dunnett_matrix_organelles,
+         pathway_id = "00020",
+         out_suffix = "TCA_dunnett_org")
+pathview(gene_data=sig_matrix,
+         pathway_id = "00020",
+         out_suffix = "TCA_sigs")
 
 #Pentose phosphate pathway
-pv.out <- pathview(gene.data = pw_matrix*1000,
-                pathway.id = "00030",
-                species = "cre",
-                out.suffix = "Pentose",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
-
-pv.out <- pathview(gene.data = pw_matrix_organelles*1000,
-                pathway.id = "00030",
-                species = "cre",
-                out.suffix = "Pentose_org",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
-
-pv.out <- pathview(gene.data = pw_dunnett_matrix_organelles*1000,
-                pathway.id = "00030",
-                species = "cre",
-                out.suffix = "Pentose_dunnett_org",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
-
-pv.out <- pathview(gene.data = sig_matrix,
-                pathway.id = "00030",
-                species = "cre",
-                out.suffix = "Pentose_sigs",
-                low = list(gene = "blue"),
-                mid = list(gene = "green"),
-                limit=c(0,10),
-                gene.idtype = "KEGG")
+pathview(gene_data=pw_matrix,
+         pathway_id = "00030",
+         out_suffix = "Pentose")
+pathview(gene_data=pw_matrix_organelles,
+         pathway_id = "00030",
+         out_suffix = "Pentose_org")
+pathview(gene_data=pw_dunnett_matrix_organelles,
+         pathway_id = "00030",
+         out_suffix = "Pentose_dunnett_org")
+pathview(gene_data=sig_matrix,
+         pathway_id = "00030",
+         out_suffix = "Pentose_sigs")
 
 #Starch and sucrose metabolism
-pv.out <- pathview(gene.data = pw_matrix*1000,
-                pathway.id = "00500",
-                species = "cre",
-                out.suffix = "Starch",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
-
-pv.out <- pathview(gene.data = pw_matrix_organelles*1000,
-                pathway.id = "00500",
-                species = "cre",
-                out.suffix = "Starch_org",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
-
-pv.out <- pathview(gene.data = pw_dunnett_matrix_organelles*1000,
-                pathway.id = "00500",
-                species = "cre",
-                out.suffix = "Starch_dunnett_org",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
-
-pv.out <- pathview(gene.data = sig_matrix,
-                pathway.id = "00500",
-                species = "cre",
-                out.suffix = "Starch_sigs",
-                low = list(gene = "blue"),
-                mid = list(gene = "green"),
-                limit=c(0,10),
-                gene.idtype = "KEGG")
+pathview(gene_data=pw_matrix,
+         pathway_id = "00500",
+         out_suffix = "Starch")
+pathview(gene_data=pw_matrix_organelles,
+         pathway_id = "00500",
+         out_suffix = "Starch_org")
+pathview(gene_data=pw_dunnett_matrix_organelles,
+         pathway_id = "00500",
+         out_suffix = "Starch_dunnett_org")
+pathview(gene_data=sig_matrix,
+         pathway_id = "00500",
+         out_suffix = "Starch_sigs")
 
 #Nitrogen metabolism
-pv.out <- pathview(gene.data = pw_matrix*1000,
-                pathway.id = "00910",
-                species = "cre",
-                out.suffix = "Nitrogen",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
-
-
-pv.out <- pathview(gene.data = pw_dunnett_matrix*1000,
-                pathway.id = "00910",
-                species = "cre",
-                out.suffix = "Nitrogen_dunnett",
-                low = list(gene = "blue"),
-                gene.idtype = "KEGG")
-
+pathview(gene_data=pw_matrix,
+         pathway_id = "00910",
+         out_suffix = "Nitrogen")
+pathview(gene_data=pw_dunnett_matrix,
+         pathway_id = "00910",
+         out_suffix = "Nitrogen_dunnett")
 #+END_SRC
 
 
