@@ -1307,7 +1307,7 @@ pv.out <- pathview(gene.data = pw_dunnett_matrix*1000,
 **** R
 #+BEGIN_SRC R :session
 
-xls <- read_excel("ChlamEE_140218_stoich_growthrates.xlsx") %>%
+xls <- read_excel("ChlamEE_140218_stoich_growthrates_resp.xlsx") %>%
     mutate(Ancestor = gsub(" ", "_", Ancestor))
 names(xls) <- names(xls) %>% gsub(" ", "_", .)
 xls <- mutate(xls, Ratio = (2*Cass) / Respiration,
@@ -1316,7 +1316,7 @@ xls <- mutate(xls, Ratio = (2*Cass) / Respiration,
                                                    "P", "B", "S", "BS"))) %>%
     gather(variable, value, Cass_Chl, Respiration_Chl, Ratio)
 
-xls_wilcox <- read_excel("ChlamEE_140218_stoich_growthrates.xlsx") %>%
+xls_wilcox <- read_excel("ChlamEE_140218_stoich_growthrates_resp.xlsx") %>%
     mutate(Ancestor = gsub(" ", "_", Ancestor))
 names(xls_wilcox) <- names(xls_wilcox) %>% gsub(" ", "_", .)
 xls_wilcox <- mutate(xls_wilcox, Ratio = (2*Cass) / Respiration,
