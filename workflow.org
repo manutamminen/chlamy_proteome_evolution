@@ -663,16 +663,18 @@ dev.off()
 |                                    | dunnett_table_organelles.csv |
 |                                    | parallel.pdf                 |
 |                                    | divergent.pdf                |
+|                                    | opposites.txt                |
 |------------------------------------+------------------------------|
 
 ** This part produces the following figures / figure components
 
-|---------------+----------------------|
-| PDF name      | Corresponding figure |
-|---------------+----------------------|
-| parallel.pdf  | Part of Fig. 3       |
-| divergent.pdf | Part of Fig. 3       |
-|---------------+----------------------|
+|---------------+------------------------------|
+| PDF name      | Corresponding figure         |
+|---------------+------------------------------|
+| parallel.pdf  | Part of Fig. 3               |
+| divergent.pdf | Part of Fig. 3               |
+| opposite.pdf  | Part of Supplementary Fig. 6 |
+|---------------+------------------------------|
   
 **** R
 #+BEGIN_SRC R :session
@@ -870,6 +872,45 @@ heatmap.2(divergent_matrix[,c('C', 'B', 'BS', 'L', 'N', 'P', 'S')],
   dendrogram="row",     # only draw a row dendrogram
   Colv="NA")            # turn off column clustering
 dev.off()
+
+
+all_prots <- c(parallel, divergent)
+opposite_expr <- filter(dunnett_long_corrected_c, Gene %in% all_prots)
+divergent_wide <- group_by(opposite_expr, Treatment, Gene) %>% summarise(Mean_expr=mean(Expr_level)) %>%
+    spread(key=Gene, value=Mean_expr) %>%
+    filter(Treatment != "C")
+treatment_labels <- divergent_wide$Treatment
+opposites <- colSums(divergent_wide < 0)
+opposite_matrix <- as.matrix(divergent_wide[opposites != 6 & opposites != 0])
+rownames(opposite_matrix) <- treatment_labels
+opposite_matrix <- t(opposite_matrix)
+opposite_prot_ids <- rownames(opposite_matrix)
+rownames(opposite_matrix) <- panther_cre[match(rownames(opposite_matrix), panther_cre$X0), 15]
+rownames(opposite_matrix)[rownames(opposite_matrix) == ""] <- NA
+opposite_rows <- rownames(opposite_matrix)
+pdf("opposite.pdf")
+heatmap.2(opposite_matrix[,c('B', 'BS', 'L', 'N', 'P', 'S')],
+  main = "Category 2", # heat map title
+  notecol="black",      # change font color of cell labels to black
+  density.info="none",  # turns off density plot inside color legend
+  trace="none",         # turns off trace lines inside the heat map
+  margins =c(3,25),     # widens margins around plot
+  col=my_palette,       # use on color palette defined earlier
+  cexRow=0.5,
+  cexCol=0.5,
+  dendrogram="row",     # only draw a row dendrogram
+  Colv="NA")            # turn off column clustering
+dev.off()
+
+
+sapply(opposite_prot_ids, function(x) strsplit(x, "\\.")) %>%
+    sapply(function(x) paste(x[1], x[2], sep=".")) %>%
+    match(., conversion$Genome_handle) %>%
+    conversion[., 'Panther_handle'] %>%
+    as.character %>%
+    .[!is.na(.)] %>%
+    write("opposites.txt")
+
 #+END_SRC
 
 
@@ -975,15 +1016,17 @@ table(sig_slcp$X3, sig_slcp$Gene) %>% chisq.test
 | selected_clusters.csv   | divergent_pos_ids.txt |
 |                         | divergent_neg_ids.txt |
 |                         | enrichment.pdf        |
+|                         | opposite_pie.pdf      |
 |-------------------------+-----------------------|
 
 ** This part produces the following figures / figure components
 
-|----------------+----------------------|
-| PDF name       | Corresponding figure |
-|----------------+----------------------|
-| enrichment.pdf | Part of Fig. 3       |
-|----------------+----------------------|
+|------------------+------------------------------|
+| PDF name         | Corresponding figure         |
+|------------------+------------------------------|
+| enrichment.pdf   | Part of Fig. 3               |
+| opposite_pie.pdf | Part of Supplementary Fig. 6 |
+|------------------+------------------------------|
 
 **** R
 #+BEGIN_SRC R :session
@@ -1055,6 +1098,13 @@ ggplot(enriched_clusters, aes(x="", y=Count, fill=Term)) +
     geom_bar(width=1, stat="identity") +
     coord_polar("y", start=0) +
     facet_grid(.~Category)
+dev.off()
+
+opposite_enrichment <- read_excel("david_opposites.xlsx")
+pdf("opposite_pie.pdf")
+ggplot(opposite_enrichment, aes(x="", y=Count, fill=Term)) +
+    geom_bar(width=1, stat="identity") +
+    coord_polar("y", start=0)
 dev.off()
 
 #+END_SRC
