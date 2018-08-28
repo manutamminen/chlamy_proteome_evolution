@@ -1,4 +1,4 @@
-# Code and data for the _Chlamydomonas reinhardtii_ proteomic evolution experiment
+# Code and data for the _Chlamydomonas reinhardtii_ proteome evolution experiment
 
 ## The project code is available at
 
