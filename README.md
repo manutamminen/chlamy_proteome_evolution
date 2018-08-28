@@ -1,6 +1,6 @@
 # Code and data for the _Chlamydomonas reinhardtii_ proteomic evolution experiment
 
-## The project code is available as __workflow.org__ at 
+## The project code is available at
 
 https://github.com/manutamminen/chlamy_proteome_evolution/blob/master/workflow.org
 
