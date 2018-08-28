@@ -1507,21 +1507,20 @@ pv.out <- pathview(gene.data = pw_dunnett_matrix*1000,
 
 **** R
 #+BEGIN_SRC R :session
-xls <- read_excel("ChlamEE_140218_stoich_growthrates.xlsx")
-names(xls) <- names(xls) %>% gsub(" ", "_", .)
-xls$Ancestor <- xls$Ancestor %>% gsub(" ", "_", .)
-
-for_r1 <- dplyr::select(xls, Ancestor, Selection_Treatment, Biomass, NO3, NH4, PO4) %>%
+xls <- read_excel("ChlamEE_phenotypic_measurements.xlsx")
+for_r1 <- dplyr::select(xls, Ancestor, Selection_Treatment, Biomass, NO3, PO4) %>%
     mutate(NO3toBiomass = NO3 / Biomass,
            PO4toBiomass = PO4 / Biomass) %>%
-    select(-NO3, -NH4, -PO4)
+    select(-NO3, -PO4)
 
 for_r1$Selection_Treatment <- factor(for_r1$Selection_Treatment, levels=c("A", "C", "L", "N", "P", "B", "S", "BS"))
 
 ## Plot the biomass and the ratios of NO3 and PO4 to biomass
 cols <- c("#CC5A9F", "#FF0000", "#2F8C55", "#E9EF28", "#26549C", "#333333", "#DB3C01", "#01A0C6")
 
-xls_long <- melt(xls, id.vars=c(1:12, 15:20))
+xls_long <- gather(xls, key=variable, value=value, Biomass, NO3,
+                  PO4, Respiration, Cass, CtoP_Molar, CtoN_Molar)
+
 xls_long <- mutate(xls_long, Selection_Treatment = factor(Selection_Treatment,
                                           levels=c("A", "C", "L", "N",
                                                    "P", "B", "S", "BS")))
@@ -1539,6 +1538,7 @@ draw_bp <- function(Treatment) filter(xls_long, variable == Treatment) %>%
           panel.background = element_blank(),
           axis.line = element_line(colour = "black")) +
     scale_color_manual(values=cols)
+
 pdf("ctop.pdf", useDingbats = FALSE)
 draw_bp("CtoP_Molar")
 dev.off()
@@ -1562,7 +1562,6 @@ bind_rows(map_df(tmts, ~get_wilcox_growth(., "Biomass")),
           map_df(tmts, ~get_wilcox_growth(., "NO3toBiomass")),
           map_df(tmts, ~get_wilcox_growth(., "PO4toBiomass"))) %>%
     filter(p.value <= 0.1)
-
 #+END_SRC
 
 
@@ -1588,39 +1587,18 @@ bind_rows(map_df(tmts, ~get_wilcox_growth(., "Biomass")),
   
 **** R
 #+BEGIN_SRC R :session
-
-xls <- read_excel("ChlamEE_140218_stoich_growthrates_resp.xlsx") %>%
-    mutate(Ancestor = gsub(" ", "_", Ancestor))
-names(xls) <- names(xls) %>% gsub(" ", "_", .)
-xls <- mutate(xls, Ratio = (2*Cass) / Respiration,
-             Selection_Treatment = factor(Selection_Treatment,
-                                          levels=c("A", "C", "L", "N",
-                                                   "P", "B", "S", "BS"))) %>%
+xls <- read_excel("ChlamEE_phenotypic_measurements.xlsx") %>%
+    mutate(Ratio = (2*Cass) / Respiration,
+           Selection_Treatment = factor(Selection_Treatment,
+                                        levels=c("A", "C", "L", "N",
+                                                 "P", "B", "S", "BS"))) %>%
     gather(variable, value, Cass_Chl, Respiration_Chl, Ratio)
 
-xls_wilcox <- read_excel("ChlamEE_140218_stoich_growthrates_resp.xlsx") %>%
+xls_wilcox <- read_excel("ChlamEE_phenotypic_measurements.xlsx") %>%
     mutate(Ancestor = gsub(" ", "_", Ancestor))
 names(xls_wilcox) <- names(xls_wilcox) %>% gsub(" ", "_", .)
 xls_wilcox <- mutate(xls_wilcox, Ratio = (2*Cass) / Respiration,
              Selection_Treatment = factor(Selection_Treatment,
-                                          levels=c("A", "C", "L", "N",
-                                                   "P", "B", "S", "BS")))
-
-xls_cell_size <- read_excel("ChlamEE_dataset_12072018_updated.xlsx") %>%
-    mutate(Ancestor = gsub(" ", "_", Ancestor))
-names(xls_cell_size) <- names(xls_cell_size) %>% gsub(" ", "_", .)
-xls_cell_size <- mutate(xls_cell_size,
-                       Selection_Treatment = factor(Selection_Treatment,
-                                          levels=c("A", "C", "L", "N",
-                                                   "P", "B", "S", "BS"))) %>%
-    gather(variable, value, Cell_diameter, Cell_Volume,
-           SD_Diameter, Cell_density, Total_Biovolume)
-
-xls_cell_size_wilcox <- read_excel("ChlamEE_dataset_12072018_updated.xlsx") %>%
-    mutate(Ancestor = gsub(" ", "_", Ancestor))
-names(xls_cell_size_wilcox) <- names(xls_cell_size_wilcox) %>% gsub(" ", "_", .)
-xls_cell_size_wilcox <- mutate(xls_cell_size_wilcox,
-                       Selection_Treatment = factor(Selection_Treatment,
                                           levels=c("A", "C", "L", "N",
                                                    "P", "B", "S", "BS")))
 
@@ -1666,18 +1644,6 @@ bind_rows(map_df(tmts, ~get_wilcox_growth(., "Respiration")),
           map_df(tmts, ~get_wilcox_growth(., "Cass")),
           map_df(tmts, ~get_wilcox_growth(., "Ratio"))) %>%
     filter(p.value <= 0.1)
-
-get_wilcox_density <- function(treatment, stoich)
-{
-    control <- filter(xls_cell_size_wilcox, Selection_Treatment == "A")[[stoich]]
-    tmt <- filter(xls_cell_size_wilcox, Selection_Treatment == treatment)[[stoich]]
-    tidy(wilcox.test(x=control, y=tmt)) %>%
-        mutate(Treatment = treatment, Stoich = stoich) %>%
-        select(-method, -alternative, -statistic)
-}
-
-map_df(tmts, ~get_wilcox_density(., "Total_Biovolume"))
-
 #+END_SRC
 
 
