@@ -4,7 +4,7 @@
 
 https://github.com/manutamminen/chlamy_proteome_evolution/blob/master/workflow.org
 
-## The project also includes the following files
+## The project includes the following files
 
 | File                                        | Description                                                |
 | ------------------------------------------- | ---------------------------------------------------------- |
