@@ -14,12 +14,20 @@ https://github.com/manutamminen/chlamy_proteome_evolution/blob/master/workflow.o
   * Proteomic data: output from MaxQuant
 * id_conversion_raw.txt
   * Conversion table for different database IDs
-* annotation_table.csv
+* KEGG_Cp/annotation_table.csv
   * KEGG annotation table
-* annotation_table_chr.csv
+* KEGG_Chr/annotation_table_chr.csv
   * KEGG annotation table including organelle-encoded proteins
 * panther_annotations.csv
   * Panther annotation table
+  
+* selected_clusters.csv
+  * David annotation table
+  
+  
+* circos/
+
+
 * ChlamEE_140218_stoich_growthrates.xlsx
   * Stoichiometry data
 * ChlamEE_140218_stoich_growthrates_resp.xlsx

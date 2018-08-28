@@ -337,7 +337,26 @@ Download the KEGG annotations for chromosomal genes...
  #+END_SRC
 
 
-* Import data into R and test the mean-median differences
+* Import data into R and test the mean-median differences for Supplementary Fig. 2.
+  
+|---------------------------+----------------------|
+| Inputs                    | Outputs              |
+|---------------------------+----------------------|
+| full_prot_table.csv       | mean_vs_median.pdf   |
+| annot_genes.csv           | variance_boxplot.pdf |
+| conversion.csv            |                      |
+| full_mean_corrected.csv   |                      |
+| full_median_corrected.csv |                      |
+|---------------------------+----------------------|
+
+** This part produces the following figure components
+
+|----------------------+-----------------------|
+| PDF name             | Corresponding figure  |
+|----------------------+-----------------------|
+| variance_boxplot.pdf | Supplementary Fig. 2A |
+| mean_vs_median.pdf   | Supplementary Fig. 2B |
+|----------------------+-----------------------|
   
 **** R
 #+BEGIN_SRC R :session
@@ -420,7 +439,35 @@ dev.off()
 #+END_SRC
 
 
-* Prepare RDA plots for Figure 1 and tests.
+* Prepare the RDA plots and tests for Figure 1 and Supplementary Figs 2-5.
+
+|--------+-------------------------------|
+| Inputs | Outputs                       |
+|--------+-------------------------------|
+|        | rda_centroid_eb_treatment.pdf |
+|        | rda_centroid_eb_strain.pdf    |
+|        | polar_plot_mean.pdf           |
+|        | polar_plot_median.pdf         |
+|        | rda1_tukey.pdf                |
+|        | rda2_tukey.pdf                |
+|        | angle_tukey.pdf               |
+|        | dist_tukey.pdf                |
+|--------+-------------------------------|
+
+** This part produces the following figures / figure components
+
+|-------------------------------+-----------------------------------|
+| PDF name                      | Corresponding figure              |
+|-------------------------------+-----------------------------------|
+| rda_centroid_eb_treatment.pdf | Fig. 1A                           |
+| rda_centroid_eb_strain.pdf    | Supplementary Fig. 3              |
+| polar_plot_mean.pdf           | Fig. 1B and Supplementary Fig. 2C |
+| polar_plot_median.pdf         | Supplementary Fig. 2D             |
+| rda1_tukey.pdf                | Supplementary Fig. 4A             |
+| rda2_tukey.pdf                | Supplementary Fig. 4B             |
+| angle_tukey.pdf               | Supplementary Fig. 5A             |
+| dist_tukey.pdf                | Supplementary Fig. 5B             |
+|-------------------------------+-----------------------------------|
   
 **** R
 #+BEGIN_SRC R :session
@@ -607,6 +654,26 @@ dev.off()
 
 * Find those proteins which are significantly different from the Ancestors. Prepare the heatmaps for Figure 3.
   
+|------------------------------------+------------------------------|
+| Inputs                             | Outputs                      |
+|------------------------------------+------------------------------|
+| full_mean_corrected.csv            | org_genes.txt                |
+| full_mean_corrected_organelles.csv | panther_annotations.txt      |
+|                                    | dunnett_table.csv            |
+|                                    | dunnett_table_organelles.csv |
+|                                    | parallel.pdf                 |
+|                                    | divergent.pdf                |
+|------------------------------------+------------------------------|
+
+** This part produces the following figures / figure components
+
+|---------------+----------------------|
+| PDF name      | Corresponding figure |
+|---------------+----------------------|
+| parallel.pdf  | Part of Fig. 3       |
+| divergent.pdf | Part of Fig. 3       |
+|---------------+----------------------|
+  
 **** R
 #+BEGIN_SRC R :session
 P_VAL <- 0.05
@@ -713,9 +780,6 @@ mean_corrected <- group_by(long_corrected, Treatment, Gene) %>%
     summarise(Mean_expr=mean(Expr_level))
 dunnett_mean_corrected <- filter(mean_corrected, Gene %in% sig_proteins)
 dunnett_long_corrected <- filter(long_corrected, Gene %in% sig_proteins, Treatment != "C")
-spread(dunnett_mean_corrected, key=Treatment, value=Mean_expr) %>%
-    dplyr::select(Gene, C, B, BS, L, N, P, S) %>%
-    write_tsv("sig_pway_collage_expression.tsv", col_names=FALSE)
 
 
 # Check those dunnett-positives where the control is significantly different from zero
@@ -810,6 +874,23 @@ dev.off()
 
 
 * Prepare the plots for Figure 2; Circos configuration files provided on GitHub.
+  
+|---------------------------------+------------------------|
+| Inputs                          | Outputs                |
+|---------------------------------+------------------------|
+| Creinhardtii_281_v5.5.gene.gff3 | parallels.highlight    |
+|                                 | divergents.highlight   |
+|                                 | .hist files for Circos |
+|                                 | chrom_distr.pdf        |
+|---------------------------------+------------------------|
+
+** This part produces the following figures / figure components
+
+|-----------------+----------------------|
+| PDF name        | Corresponding figure |
+|-----------------+----------------------|
+| chrom_distr.pdf | Part of Fig. 2       |
+|-----------------+----------------------|
 
 **** R
 #+BEGIN_SRC R :session
@@ -885,6 +966,24 @@ table(sig_slcp$X3, sig_slcp$Gene) %>% chisq.test
 
 
 * Enrichment analysis. Prepare the enrichment pie charts for Figure 3.
+  
+|-------------------------+-----------------------|
+| Inputs                  | Outputs               |
+|-------------------------+-----------------------|
+| panther_annotations.txt | parallel_pos_ids.txt  |
+| conversion.csv          | parallel_neg_ids.txt  |
+| selected_clusters.csv   | divergent_pos_ids.txt |
+|                         | divergent_neg_ids.txt |
+|                         | enrichment.pdf        |
+|-------------------------+-----------------------|
+
+** This part produces the following figures / figure components
+
+|----------------+----------------------|
+| PDF name       | Corresponding figure |
+|----------------+----------------------|
+| enrichment.pdf | Part of Fig. 3       |
+|----------------+----------------------|
 
 **** R
 #+BEGIN_SRC R :session
@@ -962,6 +1061,25 @@ dev.off()
 
 
 * Map the data on the metabolic pathways for Fig. 4
+
+|------------------------------+-------------------|
+| Inputs                       | Outputs           |
+|------------------------------+-------------------|
+| annotation_table.csv         | pathway PDF files |
+| annotation_table_chr.csv     |                   |
+| id_conversion.csv            |                   |
+| conversion.csv               |                   |
+| mean_corrected.csv           |                   |
+| dunnett_table_organelles.csv |                   |
+|------------------------------+-------------------|
+
+** This part produces the following figures / figure components
+
+|-------------------+----------------------------------------|
+| PDF name          | Corresponding figure                   |
+|-------------------+----------------------------------------|
+| Pathway PDF files | Parts of Fig. 4 and Supplementary data |
+|-------------------+----------------------------------------|
   
 **** R
 #+BEGIN_SRC R :session
@@ -1301,8 +1419,104 @@ pv.out <- pathview(gene.data = pw_dunnett_matrix*1000,
 #+END_SRC
 
 
+* Stoichiometry; Supplementary Fig. 8
+  
+|----------------------------------------+----------|
+| Inputs                                 | Outputs  |
+|----------------------------------------+----------|
+| ChlamEE_140218_stoich_growthrates.xlsx | ctop.pdf |
+|                                        | cton.pdf |
+|----------------------------------------+----------|
 
-* Respiration
+** This part produces the following figures / figure components
+
+|----------+-----------------------|
+| PDF name | Corresponding figure  |
+|----------+-----------------------|
+| ctop.pdf | Supplementary Fig. 8B |
+| cton.pdf | Supplementary Fig. 8C |
+|----------+-----------------------|
+
+**** R
+#+BEGIN_SRC R :session
+xls <- read_excel("ChlamEE_140218_stoich_growthrates.xlsx")
+names(xls) <- names(xls) %>% gsub(" ", "_", .)
+xls$Ancestor <- xls$Ancestor %>% gsub(" ", "_", .)
+
+for_r1 <- dplyr::select(xls, Ancestor, Selection_Treatment, Biomass, NO3, NH4, PO4) %>%
+    mutate(NO3toBiomass = NO3 / Biomass,
+           PO4toBiomass = PO4 / Biomass) %>%
+    select(-NO3, -NH4, -PO4)
+
+for_r1$Selection_Treatment <- factor(for_r1$Selection_Treatment, levels=c("A", "C", "L", "N", "P", "B", "S", "BS"))
+
+## Plot the biomass and the ratios of NO3 and PO4 to biomass
+cols <- c("#CC5A9F", "#FF0000", "#2F8C55", "#E9EF28", "#26549C", "#333333", "#DB3C01", "#01A0C6")
+
+xls_long <- melt(xls, id.vars=c(1:12, 15:20))
+xls_long <- mutate(xls_long, Selection_Treatment = factor(Selection_Treatment,
+                                          levels=c("A", "C", "L", "N",
+                                                   "P", "B", "S", "BS")))
+
+draw_bp <- function(Treatment) filter(xls_long, variable == Treatment) %>%
+    ggplot(aes(x=Selection_Treatment, y=value, color=Selection_Treatment)) +
+    geom_boxplot() +
+    geom_point(aes(size=2)) +
+    theme(strip.text.y = element_text(angle = 0),
+          axis.title.x=element_blank(),
+          axis.title.y=element_blank(),
+          legend.position = "none",
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          axis.line = element_line(colour = "black")) +
+    scale_color_manual(values=cols)
+pdf("ctop.pdf", useDingbats = FALSE)
+draw_bp("CtoP_Molar")
+dev.off()
+pdf("cton.pdf", useDingbats = FALSE)
+draw_bp("CtoN_Molar")
+dev.off()
+
+## Test the signficance of the responses
+get_wilcox_growth <- function(treatment, stoich)
+{
+    control <- filter(for_r1, Selection_Treatment == "A")[[stoich]]
+    tmt <- filter(for_r1, Selection_Treatment == treatment)[[stoich]]
+    tidy(wilcox.test(x=control, y=tmt)) %>%
+        mutate(Treatment = treatment, Stoich = stoich) %>%
+        select(-method, -alternative, -statistic)
+}
+
+tmts <- c("B", "BS", "C", "L", "N", "P", "S")
+
+bind_rows(map_df(tmts, ~get_wilcox_growth(., "Biomass")),
+          map_df(tmts, ~get_wilcox_growth(., "NO3toBiomass")),
+          map_df(tmts, ~get_wilcox_growth(., "PO4toBiomass"))) %>%
+    filter(p.value <= 0.1)
+
+#+END_SRC
+
+
+* Respiration; Supplementary Fig. 9
+  
+|---------------------------------------------+---------------------|
+| Inputs                                      | Outputs             |
+|---------------------------------------------+---------------------|
+| ChlamEE_140218_stoich_growthrates_resp.xlsx | cass_chl.pdf        |
+| ChlamEE_dataset_12072018_updated.xlsx       | ratio.pdf           |
+|                                             | respiration_chl.pdf |
+|---------------------------------------------+---------------------|
+
+** This part produces the following figures / figure components
+
+|---------------------+-----------------------|
+| PDF name            | Corresponding figure  |
+|---------------------+-----------------------|
+| respiration_chl.pdf | Supplementary Fig. 9A |
+| cass_chl.pdf        | Supplementary Fig. 9B |
+| ratio.odf           | Supplementary Fig. 9C |
+|---------------------+-----------------------|
   
 **** R
 #+BEGIN_SRC R :session
@@ -1394,99 +1608,10 @@ get_wilcox_density <- function(treatment, stoich)
         select(-method, -alternative, -statistic)
 }
 
-tmts <- c("B", "BS", "C", "L", "N", "P", "S")
-
 map_df(tmts, ~get_wilcox_density(., "Total_Biovolume"))
 
-bind_rows(map_df(tmts, ~get_wilcox_growth(., "Respiration")),
-          map_df(tmts, ~get_wilcox_growth(., "Cass")),
-          map_df(tmts, ~get_wilcox_growth(., "Ratio"))) %>%
-    filter(p.value <= 0.1)
 #+END_SRC
 
-* Stoichiometry
-
-**** R
-#+BEGIN_SRC R :session
-xls <- read_excel("ChlamEE_140218_stoich_growthrates.xlsx")
-names(xls) <- names(xls) %>% gsub(" ", "_", .)
-xls$Ancestor <- xls$Ancestor %>% gsub(" ", "_", .)
-
-for_r1 <- dplyr::select(xls, Ancestor, Selection_Treatment, Biomass, NO3, NH4, PO4) %>%
-    mutate(NO3toBiomass = NO3 / Biomass,
-           PO4toBiomass = PO4 / Biomass) %>%
-    select(-NO3, -NH4, -PO4)
-
-for_r1$Selection_Treatment <- factor(for_r1$Selection_Treatment, levels=c("A", "C", "L", "N", "P", "B", "S", "BS"))
-
-## Plot the biomass and the ratios of NO3 and PO4 to biomass
-cols <- c("#CC5A9F", "#FF0000", "#2F8C55", "#E9EF28", "#26549C", "#333333", "#DB3C01", "#01A0C6")
-
-pdf("biomass.pdf", useDingbats = FALSE)
-ggplot(for_r1, aes(x=Selection_Treatment, y=Biomass, color=Selection_Treatment)) +
-    geom_boxplot() +
-    geom_point(aes(size=2)) +
-    theme_bw() + 
-    theme(strip.text.y = element_text(angle = 0),
-          axis.title.x=element_blank(),
-          axis.title.y=element_blank(),
-          legend.position = "none",
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          panel.background = element_blank(),
-          axis.line = element_line(colour = "black")) +
-    scale_color_manual(values=cols)
-dev.off()
-
-pdf("no3tobiomass.pdf", useDingbats = FALSE)
-ggplot(for_r1, aes(x=Selection_Treatment, y=NO3toBiomass, color=Selection_Treatment)) +
-    geom_boxplot() +
-    geom_point(aes(size=2)) +
-    theme_bw() + 
-    theme(strip.text.y = element_text(angle = 0),
-          axis.title.x=element_blank(),
-          axis.title.y=element_blank(),
-          legend.position = "none",
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          panel.background = element_blank(),
-          axis.line = element_line(colour = "black")) +
-    scale_color_manual(values=cols)
-dev.off()
-
-pdf("po4tobiomass.pdf", useDingbats = FALSE)
-ggplot(for_r1, aes(x=Selection_Treatment, y=PO4toBiomass, color=Selection_Treatment)) +
-    geom_boxplot() +
-    geom_point(aes(size=2)) +
-    theme_bw() + 
-    theme(strip.text.y = element_text(angle = 0),
-          axis.title.x=element_blank(),
-          axis.title.y=element_blank(),
-          legend.position = "none",
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          panel.background = element_blank(),
-          axis.line = element_line(colour = "black")) +
-    scale_color_manual(values=cols)
-dev.off()
-
-## Test the signficance of the responses
-get_wilcox_growth <- function(treatment, stoich)
-{
-    control <- filter(for_r1, Selection_Treatment == "A")[[stoich]]
-    tmt <- filter(for_r1, Selection_Treatment == treatment)[[stoich]]
-    tidy(wilcox.test(x=control, y=tmt)) %>%
-        mutate(Treatment = treatment, Stoich = stoich) %>%
-        select(-method, -alternative, -statistic)
-}
-
-tmts <- c("B", "BS", "C", "L", "N", "P", "S")
-
-bind_rows(map_df(tmts, ~get_wilcox_growth(., "Biomass")),
-          map_df(tmts, ~get_wilcox_growth(., "NO3toBiomass")),
-          map_df(tmts, ~get_wilcox_growth(., "PO4toBiomass"))) %>%
-    filter(p.value <= 0.1)
-#+END_SRC
 
 * Python session information
 
@@ -1509,11 +1634,11 @@ bind_rows(map_df(tmts, ~get_wilcox_growth(., "Biomass")),
 
 
 
-* Matrix products: default
+** Matrix products: default
 
-- BLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib
+ - BLAS: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRblas.0.dylib
 
-- LAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib
+ - LAPACK: /Library/Frameworks/R.framework/Versions/3.4/Resources/lib/libRlapack.dylib
 
 
 
