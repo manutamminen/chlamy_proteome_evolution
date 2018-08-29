@@ -670,7 +670,7 @@ dev.off()
 #+END_SRC
 
 
-* Find those proteins which are significantly different from the Ancestors. Prepare the heatmaps for Figure 3.
+* Find those proteins which are significantly different from the Ancestors. Prepare the heatmaps for Figure 3 and Supplementary Fig. 6.
   
 |------------------------------------+------------------------------|
 | Inputs                             | Outputs                      |
@@ -701,7 +701,6 @@ P_VAL <- 0.05
 corrected <- read_csv("full_mean_corrected.csv")
 long_corrected <- gather(corrected, key=Gene, value=Expr_level, -Treatment, -Strain) %>%
     filter(Treatment != "control")
-
 corrected_organelles <- read_csv("full_mean_corrected_organelles.csv")
 long_corrected_organelles <- gather(corrected_organelles, key=Gene,
                                    value=Expr_level, -Treatment, -Strain) %>%
@@ -712,7 +711,6 @@ non_zeros <- group_by(long_corrected, Gene) %>%
     summarise(sig=t.test(Expr_level)$p.value) %>%
     filter(sig < 0.01)
 sig_long_corrected <- long_corrected[long_corrected$Gene %in% non_zeros$Gene,]
-
 non_zeros_organelles <- group_by(long_corrected_organelles, Gene) %>%
     summarise(sig=t.test(Expr_level)$p.value) %>%
     filter(sig < P_VAL)
@@ -778,7 +776,6 @@ for (protein in proteins) {
 dunnett_table <- do.call(rbind, dunnett_tests)
 write_csv(dunnett_table, "dunnett_table.csv")
 
-
 proteins <- unique(non_zeros_organelles$Gene)
 dunnett_tests <- list()
 for (protein in proteins) {
@@ -790,7 +787,6 @@ for (protein in proteins) {
 dunnett_table <- do.call(rbind, dunnett_tests)
 write_csv(dunnett_table, "dunnett_table_organelles.csv")
 
-
 dunnett_table <- read_csv("dunnett_table.csv")
 sig_dunnett_table <- group_by(dunnett_table, protein_id) %>%
     mutate(min_p_val=min(p.value)) %>%
@@ -800,7 +796,6 @@ mean_corrected <- group_by(long_corrected, Treatment, Gene) %>%
     summarise(Mean_expr=mean(Expr_level))
 dunnett_mean_corrected <- filter(mean_corrected, Gene %in% sig_proteins)
 dunnett_long_corrected <- filter(long_corrected, Gene %in% sig_proteins, Treatment != "C")
-
 
 # Check those dunnett-positives where the control is significantly different from zero
 dunnett_long_corrected_c <- filter(long_corrected, Gene %in% sig_proteins)
@@ -818,80 +813,60 @@ friedman_tests <- do.call(rbind, friedman_tests)
 
 my_palette <- colorRampPalette(c("blue", "white", "red"))(n = 299)
 
-# Based on Friedman tests, split the Dunnett-passing proteins into those that exhibit a parallel response (Friedman p >= 0.05)...
-parallel <- friedman_tests[friedman_tests$anova_p_val >= 0.1,] %>%
-    .$Gene %>% unique
-parallel_expr <- filter(dunnett_long_corrected_c, Gene %in% parallel)
-parallel_ids <- unique(parallel_expr$Gene) %>%
-    strsplit("\\.") %>%
-    lapply(function(x) paste(x[1], x[2], sep=".")) %>%
-    do.call(rbind, .)
-parallel_wide <- group_by(parallel_expr, Treatment, Gene) %>%
-    summarise(Mean_expr=mean(Expr_level)) %>%
-    spread(key=Gene, value=Mean_expr)
-parallel_matrix <- as.matrix(parallel_wide[,-1])
-rownames(parallel_matrix) <- parallel_wide$Treatment
-parallel_matrix <- t(parallel_matrix)
-sig_dif_ctr <- filter(parallel_expr, Treatment == "C") %>%
-    group_by(Gene) %>%
-    summarise(sig=t.test(Expr_level)$p.value) %>%
-    filter(sig < P_VAL)
-sig_dif_loci <- match(sig_dif_ctr$Gene, rownames(parallel_matrix))
-parallel_rows <- rownames(parallel_matrix)
-row_frame <- data.frame(a=parallel_rows, b="", stringsAsFactors = FALSE)
-row_frame[sig_dif_loci, 'b'] <- "*"
-rownames(parallel_matrix) <- row_frame$b
-pdf("parallel.pdf") # Fig. 3a
-heatmap.2(parallel_matrix[,c('C', 'B', 'BS', 'L', 'N', 'P', 'S')],
-  main = "Category 2", # heat map title
-  notecol="black",      # change font color of cell labels to black
-  density.info="none",  # turns off density plot inside color legend
-  trace="none",         # turns off trace lines inside the heat map
-  margins =c(3,25),     # widens margins around plot
-  col=my_palette,       # use on color palette defined earlier
-  cexRow=0.5,
-  cexCol=0.5,
-  dendrogram="row",     # only draw a row dendrogram
-  Colv="NA")            # turn off column clustering
-dev.off()
-# ...or divergent response (Friedman p < 0.05)
+## Define a function to prepare the heatmap matrix
+prepare_matrix <- function(friedman)
+{
+    friedman_expr <- filter(dunnett_long_corrected_c, Gene %in% friedman)
+    friedman_ids <- unique(friedman_expr$Gene) %>%
+        strsplit("\\.") %>%
+        lapply(function(x) paste(x[1], x[2], sep=".")) %>%
+        do.call(rbind, .)
+    friedman_wide <- group_by(friedman_expr, Treatment, Gene) %>%
+        summarise(Mean_expr=mean(Expr_level)) %>%
+        spread(key=Gene, value=Mean_expr)
+    friedman_matrix <- as.matrix(friedman_wide[,-1])
+    rownames(friedman_matrix) <- friedman_wide$Treatment
+    friedman_matrix <- t(friedman_matrix)
+    sig_dif_ctr <- filter(friedman_expr, Treatment == "C") %>%
+        group_by(Gene) %>%
+        summarise(sig=t.test(Expr_level)$p.value) %>%
+        filter(sig < P_VAL)
+    sig_dif_loci <- match(sig_dif_ctr$Gene, rownames(friedman_matrix))
+    friedman_rows <- rownames(friedman_matrix)
+    row_frame <- data.frame(a=friedman_rows, b="", stringsAsFactors = FALSE)
+    row_frame[sig_dif_loci, 'b'] <- "*"
+    rownames(friedman_matrix) <- row_frame$b
+    return(friedman_matrix)
+}
 
+## Define a function to spit out the heatmap files
+draw_heatmap <- function(test_matrix, file_name, treatment_order=c('C', 'B', 'BS', 'L', 'N', 'P', 'S'))
+{
+    pdf(file_name) # Fig. 3a
+    heatmap.2(test_matrix[,treatment_order],
+              main = "Category 2", # heat map title
+              notecol="black",      # change font color of cell labels to black
+              density.info="none",  # turns off density plot inside color legend
+              trace="none",         # turns off trace lines inside the heat map
+              margins =c(3,25),     # widens margins around plot
+              col=my_palette,       # use on color palette defined earlier
+              cexRow=0.5,
+              cexCol=0.5,
+              dendrogram="row",     # only draw a row dendrogram
+              Colv="NA")            # turn off column clustering
+    dev.off()
+
+}
+    
+## Plot the convergent and divergent responses
+convergent <- friedman_tests[friedman_tests$anova_p_val >= 0.1,] %>% .$Gene %>% unique
 divergent <- friedman_tests[friedman_tests$anova_p_val < 0.1,] %>% .$Gene %>% unique
-divergent_expr <- filter(dunnett_long_corrected_c, Gene %in% divergent)
-divergent_ids <- unique(divergent_expr$Gene) %>%
-    strsplit("\\.") %>%
-    lapply(function(x) paste(x[1], x[2], sep=".")) %>%
-    do.call(rbind, .)
-divergent_wide <- group_by(divergent_expr, Treatment, Gene) %>%
-    summarise(Mean_expr=mean(Expr_level)) %>%
-    spread(key=Gene, value=Mean_expr)
-divergent_matrix <- as.matrix(divergent_wide[,-1])
-rownames(divergent_matrix) <- divergent_wide$Treatment
-divergent_matrix <- t(divergent_matrix)
-sig_dif_ctr <- filter(divergent_expr, Treatment == "C") %>%
-    group_by(Gene) %>%
-    summarise(sig=t.test(Expr_level)$p.value) %>%
-    filter(sig < P_VAL)
-sig_dif_loci <- match(sig_dif_ctr$Gene, rownames(divergent_matrix))
-divergent_rows <- rownames(divergent_matrix)
-row_frame <- data.frame(a=divergent_rows, b="", stringsAsFactors = FALSE)
-row_frame[sig_dif_loci, 'b'] <- "*"
-rownames(divergent_matrix) <- row_frame$b
-pdf("divergent.pdf") # Fig. 3b
-heatmap.2(divergent_matrix[,c('C', 'B', 'BS', 'L', 'N', 'P', 'S')],
-  main = "Category 5", # heat map title
-  notecol="black",      # change font color of cell labels to black
-  density.info="none",  # turns off density plot inside color legend
-  trace="none",         # turns off trace lines inside the heat map
-  margins =c(3,25),     # widens margins around plot
-  col=my_palette,       # use on color palette defined earlier
-  cexRow=0.5,
-  cexCol=0.5,
-  dendrogram="row",     # only draw a row dendrogram
-  Colv="NA")            # turn off column clustering
-dev.off()
+prepare_matrix(convergent) %>%
+    draw_heatmap("convergent.pdf")
+prepare_matrix(divergent) %>%
+    draw_heatmap("divergent.pdf")
 
-
+## Plot also those responses where at least one Treatment has an opposite direction from the others.
 all_prots <- c(parallel, divergent)
 opposite_expr <- filter(dunnett_long_corrected_c, Gene %in% all_prots)
 divergent_wide <- group_by(opposite_expr, Treatment, Gene) %>% summarise(Mean_expr=mean(Expr_level)) %>%
@@ -906,21 +881,9 @@ opposite_prot_ids <- rownames(opposite_matrix)
 rownames(opposite_matrix) <- panther_cre[match(rownames(opposite_matrix), panther_cre$X0), 15]
 rownames(opposite_matrix)[rownames(opposite_matrix) == ""] <- NA
 opposite_rows <- rownames(opposite_matrix)
-pdf("opposite.pdf")
-heatmap.2(opposite_matrix[,c('B', 'BS', 'L', 'N', 'P', 'S')],
-  main = "Category 2", # heat map title
-  notecol="black",      # change font color of cell labels to black
-  density.info="none",  # turns off density plot inside color legend
-  trace="none",         # turns off trace lines inside the heat map
-  margins =c(3,25),     # widens margins around plot
-  col=my_palette,       # use on color palette defined earlier
-  cexRow=0.5,
-  cexCol=0.5,
-  dendrogram="row",     # only draw a row dendrogram
-  Colv="NA")            # turn off column clustering
-dev.off()
+draw_heatmap(opposite_matrix, "opposite.pdf", c('B', 'BS', 'L', 'N', 'P', 'S'))
 
-
+## Check the opposite responses on David for enrichment
 sapply(opposite_prot_ids, function(x) strsplit(x, "\\.")) %>%
     sapply(function(x) paste(x[1], x[2], sep=".")) %>%
     match(., conversion$Genome_handle) %>%
