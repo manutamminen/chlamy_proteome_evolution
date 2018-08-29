@@ -24,6 +24,4 @@ https://github.com/manutamminen/chlamy_proteome_evolution/blob/master/workflow.o
 | circos/ideogram.conf                        |                                                            |
 | circos/image.conf                           |                                                            |
 | circos/ticks.conf                           |                                                            |
-| ChlamEE_140218_stoich_growthrates.xlsx      | Stoichiometry data                                         |
-| ChlamEE_140218_stoich_growthrates_resp.xlsx | Stoichiometry and respiration data                         |
-| ChlamEE_dataset_12072018_updated.xlsx       | Additional respiration data                                |
+| ChlamEE_phenotypic_measurements.xlsx        | Stoichiometry and respiration data                         |
