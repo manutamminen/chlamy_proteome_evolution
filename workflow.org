@@ -489,184 +489,130 @@ dev.off()
   
 **** R
 #+BEGIN_SRC R :session
-spe <- dplyr::select(prot_table, -Treatment, -Strain)
-FULL.cap <- capscale(spe ~ Treatment + Condition(Strain), data=prot_table)
+
 cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
-# Test for significant differences between Strains and Treatments
-anova(capscale(spe ~ Treatment + Condition(Strain), data=prot_table)) # Treatments: p < 0.001
-anova(capscale(spe ~ Strain + Condition(Treatment), data=prot_table)) # Strains: p = 0.762
+## Define a function that processes the RDA data and draws scatter plots with error bars
+draw_rda <- function(FULL.cap, output_file, color_column)
+{
+    CAP1 <- scores(FULL.cap, display="wa", scaling=3)[,1]
+    CAP2 <- scores(FULL.cap, display="wa", scaling=3)[,2]
+    Res.dim <- as.data.frame(scores(FULL.cap, display="wa", scaling=3)[,1:2])
+    Res.dim$Strain <- prot_table$Strain
+    Res.dim$Treatment <- prot_table$Treatment
+    group_by_(Res.dim, color_column) %>%
+        summarise(CAP1mean=mean(CAP1), CAP2mean=mean(CAP2), CAP1sd=sd(CAP1), CAP2sd=sd(CAP2)) %>%
+        ggplot(aes_string(x="CAP1mean", y="CAP2mean", color=color_column)) +
+        geom_point(data=Res.dim, aes_string(x="CAP1", y="CAP2", color=color_column)) +
+        geom_errorbarh(aes(xmin = CAP1mean - CAP1sd, xmax = CAP1mean + CAP1sd)) +
+        geom_errorbar(aes(ymin = CAP2mean - CAP2sd, ymax = CAP2mean + CAP2sd)) +
+        scale_colour_manual(values=cbbPalette) + 
+        theme_bw() + theme(legend.position="none")
+    ggsave(filename=output_file, plot=last_plot())
+ }
 
-# Plot the RDA results
-RDA1 <- scores(FULL.cap, display="wa", scaling=3)[,1]
-RDA2 <- scores(FULL.cap, display="wa", scaling=3)[,2]
+## Prepare the RDA analyses and figures
+spe <- dplyr::select(prot_table, -Treatment, -Strain)
+FULL.cap <- capscale(spe ~ Treatment + Condition(Strain), data=prot_table)
+FULL.cap_str <- capscale(spe ~ Strain + Condition(Treatment), data=prot_table)
+draw_rda(FULL.cap, "rda_centroid_eb_treatment.pdf", "Treatment")
+draw_rda(FULL.cap_str, "rda_centroid_eb_strain.pdf", "Strain")
+
+# Test for significant differences between Strains and Treatments
+anova(FULL.cap, data=prot_table) # Treatments: p < 0.001
+anova(FULL.cap_str, data=prot_table) # Strains: p = 0.762
+
+## Define a function to subtract means/medians from strain-aggregated tables
+normalize_rda <- function(Res.dim, norm_func)
+{
+    filter(Res.dim, Treatment=="control") %>%
+        group_by(Strain) %>%
+        summarise(CAP1mean=norm_func(CAP1), CAP2mean=norm_func(CAP2)) %>%
+        full_join(Res.dim, by="Strain") %>%
+        mutate(CAP1=CAP1-CAP1mean, CAP2=CAP2-CAP2mean) %>%
+        dplyr::select(-CAP1mean, -CAP2mean) %>%
+        filter(Treatment != "control")
+}
+
+## Define a function to draw the Tukey test results
+draw_tukey <- function(dist_test, output_file)
+{
+    tuk1 <- TukeyHSD(dist_test)
+    psig <- as.numeric(apply(tuk1$Treatment[,2:3],1,prod)>=0)+1
+    op <- par(mar=c(4.2,9,3.8,2))
+    pdf(output_file)
+    plot(tuk1,col=psig,yaxt="n")
+    for (j in 1:length(psig)){
+        axis(2,at=j,labels=rownames(tuk1$Treatment)[length(psig)-j+1],
+             las=1,cex.axis=.8,col.axis=psig[length(psig)-j+1])
+    }
+    par(op)
+    dev.off()
+}
+
+## Test whether there's a difference on RDA axis 1
 Res.dim <- as.data.frame(scores(FULL.cap, display="wa", scaling=3)[,1:2])
 Res.dim$Strain <- prot_table$Strain
 Res.dim$Treatment <- prot_table$Treatment
-names(Res.dim)[1:2] <- c("RDA1", "RDA2")
-pdf("rda_centroid_eb_treatment.pdf", useDingbats=FALSE)
-group_by(Res.dim, Treatment) %>%
-    summarise(RDA1mean=mean(RDA1), RDA2mean=mean(RDA2), RDA1sd=sd(RDA1), RDA2sd=sd(RDA2)) %>%
-    ggplot(aes(x=RDA1mean, y=RDA2mean, color=Treatment)) +
-    geom_point(data=Res.dim, aes(x=RDA1, y=RDA2, color=Treatment)) +
-    geom_errorbarh(aes(xmin = RDA1mean - RDA1sd, xmax = RDA1mean + RDA1sd)) +
-    geom_errorbar(aes(ymin = RDA2mean - RDA2sd, ymax = RDA2mean + RDA2sd)) +
-    scale_colour_manual(values=cbbPalette) + 
-    theme_bw() + theme(legend.position="none")
-dev.off()
+rda_norm <- normalize_rda(Res.dim, mean)
 
-spe_str <- dplyr::select(prot_table, -Treatment, -Strain)
-FULL.cap_str <- capscale(spe_str ~ Strain + Condition(Treatment), data=prot_table)
-RDA1_str <- scores(FULL.cap_str, display="wa", scaling=3)[,1]
-RDA2_str <- scores(FULL.cap_str, display="wa", scaling=3)[,2]
-Res.dim_str <- as.data.frame(scores(FULL.cap_str, display="wa", scaling=3)[,1:2])
-Res.dim_str$Strain <- prot_table$Strain
-Res.dim_str$Treatment <- prot_table$Treatment
-names(Res.dim_str)[1:2] <- c("RDA1_str", "RDA2_str")
-pdf("rda_centroid_eb_strain.pdf", useDingbats=FALSE)
-group_by(Res.dim_str, Strain) %>%
-    summarise(RDA1_strmean=mean(RDA1_str), RDA2_strmean=mean(RDA2_str),
-              RDA1_strsd=sd(RDA1_str), RDA2_strsd=sd(RDA2_str)) %>%
-    ggplot(aes(x=RDA1_strmean, y=RDA2_strmean, color=Strain)) +
-    geom_point(data=Res.dim_str, aes(x=RDA1_str, y=RDA2_str, color=Strain)) +
-    geom_errorbarh(aes(xmin = RDA1_strmean - RDA1_strsd, xmax = RDA1_strmean + RDA1_strsd)) +
-    geom_errorbar(aes(ymin = RDA2_strmean - RDA2_strsd, ymax = RDA2_strmean + RDA2_strsd)) +
-    scale_colour_manual(values=cbbPalette) + 
-    theme_bw() + theme(legend.position="none")
-dev.off()
-
-# Check the overlap of the Treatments on the RDA plane
-rda_norm <- filter(Res.dim, Treatment=="control") %>%
-      group_by(Strain) %>%
-      summarise(RDA1mean=mean(RDA1), RDA2mean=mean(RDA2)) %>%
-      full_join(Res.dim, by="Strain") %>%
-      mutate(RDA1=RDA1-RDA1mean, RDA2=RDA2-RDA2mean) %>%
-      select(-RDA1mean, -RDA2mean)
-rda_norm$Treatment <- gsub("control", "ANC", rda_norm$Treatment)
-
-## Test whether there's a difference on RDA axis 1
-dist_test <- aov(lm(RDA1~Treatment, data=rda_norm))
-
-#summary(dist_test) #Calculate the p-value
-tuk1 <- TukeyHSD(dist_test)
-psig <- as.numeric(apply(tuk1$`Treatment`[,2:3],1,prod)>=0)+1
-op <- par(mar=c(4.2,9,3.8,2))
-pdf("rda1_tukey.pdf")
-plot(tuk1,col=psig,yaxt="n")
-for (j in 1:length(psig)){
-axis(2,at=j,labels=rownames(tuk1$`Treatment`)[length(psig)-j+1],
-     las=1,cex.axis=.8,col.axis=psig[length(psig)-j+1])
-}
-par(op)
-dev.off()
+dist_test <- aov(lm(CAP1~Treatment, data=rda_norm))
+draw_tukey(dist_test, "rda1_tukey2.pdf")
 
 ## Test whether there's a difference on RDA axis 2
-dist_test <- aov(lm(RDA2~Treatment, data=rda_norm))
+dist_test <- aov(lm(CAP2~Treatment, data=rda_norm))
+draw_tukey(dist_test, "rda2_tukey2.pdf")
 
-#summary(dist_test) #Calculate the p-value
-tuk <- TukeyHSD(dist_test)
-psig <- as.numeric(apply(tuk$`Treatment`[,2:3],1,prod)>=0)+1
-op <- par(mar=c(4.2,9,3.8,2))
-pdf("rda2_tukey.pdf")
-plot(tuk,col=psig,yaxt="n")
-for (j in 1:length(psig)){
-axis(2,at=j,labels=rownames(tuk$`Treatment`)[length(psig)-j+1],
-     las=1,cex.axis=.8,col.axis=psig[length(psig)-j+1])
+## Define a function to calculate the treatment angles and distances from the ancestral origin
+calculate_angles <- function(rda_norm, norm_func)
+{
+    rda_norm <- normalize_rda(rda_norm, norm_func)
+    treatment_angle <- as.factor(rda_norm$Treatment)
+    levels(treatment_angle) <- c(270, 270, 90, 270, 270, 270, 270)
+    treatment_angle <- as.numeric(as.character(treatment_angle))
+    treatment_angle[21] <- 270
+    rda_norm$Angle <- -atan(rda_norm$CAP2/rda_norm$CAP1) * 180 / pi + treatment_angle
+    rda_norm$Dist <- sqrt(rda_norm$CAP1^2 + rda_norm$CAP2^2)
+    rda_means <- group_by(rda_norm, Treatment) %>%
+        summarise(Mean_angle=mean(Angle), Mean_dist=mean(Dist))
+    rda_norm <- rbind(rda_norm, rda_norm[1,])
+    rda_norm[length(rda_norm$Angle),'Angle'] <- 360
+    rda_norm[length(rda_norm$Angle),'Dist'] <- 0
+    rda_norm <- rbind(rda_norm, rda_norm[1,])
+    rda_norm[length(rda_norm$Angle),'Angle'] <- 0
+    rda_norm[length(rda_norm$Angle),'Dist'] <- 0
+    rda_list <- list(norm=rda_norm, means=rda_means)
+    return(rda_list)
 }
-par(op)
-dev.off()
 
-## Calculate angles and distances from the Ancestor for each treatment centroid
-## Include all strain replicates
-rda_norm <- filter(Res.dim, Treatment=="control") %>%
-      group_by(Strain) %>%
-      summarise(RDA1mean=mean(RDA1), RDA2mean=mean(RDA2)) %>%
-      full_join(Res.dim, by="Strain") %>%
-      mutate(RDA1=RDA1-RDA1mean, RDA2=RDA2-RDA2mean) %>%
-      select(-RDA1mean, -RDA2mean) %>%
-      filter(Treatment != "control")
-treatment_angle <- as.factor(rda_norm$Treatment)
-levels(treatment_angle) <- c(270, 270, 90, 270, 270, 270, 270)
-treatment_angle <- as.numeric(as.character(treatment_angle))
-treatment_angle[21] <- 270
-rda_norm$Angle <- -atan(rda_norm$RDA2/rda_norm$RDA1) * 180 / pi + treatment_angle
-rda_norm$Dist <- sqrt(rda_norm$RDA1^2 + rda_norm$RDA2^2)
-rda_means <- group_by(rda_norm, Treatment) %>%
-    summarise(Mean_angle=mean(Angle), Mean_dist=mean(Dist))
-rda_norm <- rbind(rda_norm, rda_norm[1,])
-rda_norm[length(rda_norm$Angle),'Angle'] <- 360
-rda_norm[length(rda_norm$Angle),'Dist'] <- 0
-rda_norm <- rbind(rda_norm, rda_norm[1,])
-rda_norm[length(rda_norm$Angle),'Angle'] <- 0
-rda_norm[length(rda_norm$Angle),'Dist'] <- 0
-pdf("polar_plot_mean.pdf", useDingbats = FALSE)
-ggplot(rda_norm, aes(x=Angle, y=Dist, color=Treatment)) +
-    geom_point(data=rda_means,
-               aes(x=Mean_angle, y=Mean_dist, color=Treatment, size=5)) +
-    coord_polar(theta="x", start=0) +
-    scale_colour_manual(values=cbbPalette) + theme_bw()
-dev.off()
-
-## Replicate with medians instead of means
-rda_norm <- filter(Res.dim, Treatment=="control") %>%
-      group_by(Strain) %>%
-      summarise(RDA1median=median(RDA1), RDA2median=median(RDA2)) %>%
-      full_join(Res.dim, by="Strain") %>%
-      mutate(RDA1=RDA1-RDA1median, RDA2=RDA2-RDA2median) %>%
-      select(-RDA1median, -RDA2median) %>%
-      filter(Treatment != "control")
-treatment_angle <- as.factor(rda_norm$Treatment)
-levels(treatment_angle) <- c(270, 270, 90, 270, 270, 270, 270)
-treatment_angle <- as.numeric(as.character(treatment_angle))
-treatment_angle[21] <- 270
-rda_norm$Angle <- -atan(rda_norm$RDA2/rda_norm$RDA1) * 180 / pi + treatment_angle
-rda_norm$Dist <- sqrt(rda_norm$RDA1^2 + rda_norm$RDA2^2)
-rda_means <- group_by(rda_norm, Treatment) %>%
-    summarise(Mean_angle=mean(Angle), Mean_dist=mean(Dist))
-rda_norm <- rbind(rda_norm, rda_norm[1,])
-rda_norm[length(rda_norm$Angle),'Angle'] <- 360
-rda_norm[length(rda_norm$Angle),'Dist'] <- 0
-rda_norm <- rbind(rda_norm, rda_norm[1,])
-rda_norm[length(rda_norm$Angle),'Angle'] <- 0
-rda_norm[length(rda_norm$Angle),'Dist'] <- 0
-pdf("polar_plot_median.pdf", useDingbats = FALSE)
-ggplot(rda_norm, aes(x=Angle, y=Dist, color=Treatment)) +
-    geom_point(data=rda_means,
-               aes(x=Mean_angle, y=Mean_dist, color=Treatment, size=5)) +
-    coord_polar(theta="x", start=0) +
-    scale_colour_manual(values=cbbPalette) + theme_bw()
-dev.off()
-
-## Test whether the group angles are significantly different
-angle_test <- aov(lm(Angle~Treatment, data=rda_norm))
-#summary(angle_test) #Calculate the p-value
-tuk <- TukeyHSD(angle_test)
-psig <- as.numeric(apply(tuk$`Treatment`[,2:3],1,prod)>=0)+1
-op <- par(mar=c(4.2,9,3.8,2))
-pdf("angle_tukey.pdf")
-plot(tuk,col=psig,yaxt="n")
-for (j in 1:length(psig)){
-axis(2,at=j,labels=rownames(tuk$`Treatment`)[length(psig)-j+1],
-     las=1,cex.axis=.8,col.axis=psig[length(psig)-j+1])
+## Define a function to draw the polar plots
+draw_angles <- function(rda_list, output_file)
+{
+    rda_norm <- rda_list[['norm']]
+    rda_means <- rda_list[['means']]
+    ggplot() +
+        geom_point(data=rda_norm, aes(x=Angle, y=Dist, color=Treatment)) + 
+        geom_point(data=rda_means,
+                   aes(x=Mean_angle, y=Mean_dist, color=Treatment, size=5)) +
+        coord_polar(theta="x", start=0) +
+        scale_colour_manual(values=cbbPalette) + theme_bw()
+    ggsave(filename=output_file, plot=last_plot())
 }
-par(op)
-dev.off()
 
-## Test whether the group angles are significantly different
-dist_test <- aov(lm(Dist~Treatment, data=rda_norm))
-#summary(dist_test) #Calculate the p-value
-tuk <- TukeyHSD(dist_test)
-psig <- as.numeric(apply(tuk$`Treatment`[,2:3],1,prod)>=0)+1
-op <- par(mar=c(4.2,9,3.8,2))
-pdf("dist_tukey.pdf")
-plot(tuk,col=psig,yaxt="n")
-for (j in 1:length(psig)){
-axis(2,at=j,labels=rownames(tuk$`Treatment`)[length(psig)-j+1],
-     las=1,cex.axis=.8,col.axis=psig[length(psig)-j+1])
-}
-par(op)
-dev.off()
+## Draw the polar plots
+calculate_angles(Res.dim, mean) %>%
+    draw_angles("polar_plot_mean.pdf")
 
+calculate_angles(Res.dim, median) %>%
+    draw_angles("polar_plot_median.pdf")
+
+## Perform Tukey tests to check which treatments are significantly different in their direction or distances
+angle_norm <- calculate_angles(Res.dim, mean)[['norm']]
+dist_test <- aov(lm(Angle~Treatment, data=angle_norm))
+draw_tukey(dist_test, "angle_tukey.pdf")
+
+dist_test <- aov(lm(Dist~Treatment, data=angle_norm))
+draw_tukey(dist_test, "dist_tukey.pdf")
 #+END_SRC
 
 
