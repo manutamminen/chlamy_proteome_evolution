@@ -739,8 +739,8 @@ data.frame(a=perm_list) %>% ggplot(aes(x=a)) + geom_density() + theme_bw()
 # Out of 1000 permutations, not a single one exceeds 1304. Therefore p < 0.001.
 
 # Then use Dunnett tests to check where at least one of the expressed proteins is significantly different from the controls
-test_dunnett <- function(protein) {
-    current <- filter(long_corrected, Gene == protein)
+test_dunnett <- function(corrected, protein) {
+    current <- filter(corrected, Gene == protein)
     controls <- filter(current, Treatment == "C")
     controls$Treatment <- "A"
     rest <- filter(current, Treatment != "C")
@@ -751,41 +751,29 @@ test_dunnett <- function(protein) {
     tidy(test_summary)
     }
 
-test_dunnett_organelles <- function(protein) {
-    current <- filter(long_corrected_organelles, Gene == protein)
-    controls <- filter(current, Treatment == "C")
-    controls$Treatment <- "A"
-    rest <- filter(current, Treatment != "C")
-    test_data <- rbind(controls, rest)
-    test_data$Treatment <- as.factor(test_data$Treatment)
-    fit <- aov(Expr_level ~ Treatment, test_data)
-    test_summary <- summary(glht(fit, linfct=mcp(Treatment="Dunnett")))
-    tidy(test_summary)
+write_dunnett_table <- function(zero_list, corrected, output_file)
+{
+    proteins <- unique(zero_list$Gene)
+    dunnett_tests <- list()
+    for (protein in proteins) {
+        print(protein)
+        test_table <- test_dunnett(corrected, protein)
+        test_table$protein_id <- protein
+        dunnett_tests[[protein]] <- test_table
     }
+    dunnett_table <- do.call(rbind, dunnett_tests)
+    write_csv(dunnett_table, output_file)
+}
 
+write_dunnett_table(non_zeros,
+                    long_corrected,
+                    "dunnett_table.csv")
+write_dunnett_table(non_zeros_organelles,
+                    long_corrected_organelles,
+                    "dunnett_table_organelles.csv")
+    
 ## Test for difference to the controls: Dunnett test
 ## Prepare this again with a new corrected table with untruncated protein names!!
-proteins <- unique(non_zeros$Gene)
-dunnett_tests <- list()
-for (protein in proteins) {
-    print(protein)
-    test_table <- test_dunnett(protein)
-    test_table$protein_id <- protein
-    dunnett_tests[[protein]] <- test_table
-    }
-dunnett_table <- do.call(rbind, dunnett_tests)
-write_csv(dunnett_table, "dunnett_table.csv")
-
-proteins <- unique(non_zeros_organelles$Gene)
-dunnett_tests <- list()
-for (protein in proteins) {
-    print(protein)
-    test_table <- test_dunnett_organelles(protein)
-    test_table$protein_id <- protein
-    dunnett_tests[[protein]] <- test_table
-    }
-dunnett_table <- do.call(rbind, dunnett_tests)
-write_csv(dunnett_table, "dunnett_table_organelles.csv")
 
 dunnett_table <- read_csv("dunnett_table.csv")
 sig_dunnett_table <- group_by(dunnett_table, protein_id) %>%
