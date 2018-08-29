@@ -684,7 +684,8 @@ data.frame(a=perm_list) %>% ggplot(aes(x=a)) + geom_density() + theme_bw()
 # This is significantly different from the observed value of 1304
 # Out of 1000 permutations, not a single one exceeds 1304. Therefore p < 0.001.
 
-# Then use Dunnett tests to check where at least one of the expressed proteins is significantly different from the controls
+# Then use Dunnett tests to check where at least one of the expressed proteins is 
+## significantly different from the controls
 test_dunnett <- function(corrected, protein) {
     current <- filter(corrected, Gene == protein)
     controls <- filter(current, Treatment == "C")
@@ -720,7 +721,6 @@ write_dunnett_table(non_zeros_organelles,
     
 ## Test for difference to the controls: Dunnett test
 ## Prepare this again with a new corrected table with untruncated protein names!!
-
 dunnett_table <- read_csv("dunnett_table.csv")
 sig_dunnett_table <- group_by(dunnett_table, protein_id) %>%
     mutate(min_p_val=min(p.value)) %>%
@@ -734,7 +734,8 @@ dunnett_long_corrected <- filter(long_corrected, Gene %in% sig_proteins, Treatme
 # Check those dunnett-positives where the control is significantly different from zero
 dunnett_long_corrected_c <- filter(long_corrected, Gene %in% sig_proteins)
 
-# Perform Friedman tests for each gene (excluding the control) to check whether the response is parallel
+# Perform Friedman tests for each gene (excluding the control) to check whether the 
+## response is parallel
 friedman_tests <- list()
 for (gene in unique(dunnett_long_corrected$Gene)) {
     grp <- filter(dunnett_long_corrected, Treatment != "C", Gene == gene)
@@ -776,18 +777,18 @@ prepare_matrix <- function(friedman)
 ## Define a function to spit out the heatmap files
 draw_heatmap <- function(test_matrix, file_name, treatment_order=c('C', 'B', 'BS', 'L', 'N', 'P', 'S'))
 {
-    pdf(file_name) # Fig. 3a
+    pdf(file_name)
     heatmap.2(test_matrix[,treatment_order],
-              main = "Category 2", # heat map title
-              notecol="black",      # change font color of cell labels to black
-              density.info="none",  # turns off density plot inside color legend
-              trace="none",         # turns off trace lines inside the heat map
-              margins =c(3,25),     # widens margins around plot
-              col=my_palette,       # use on color palette defined earlier
+              main = "Category 2", 
+              notecol="black",
+              density.info="none",
+              trace="none",
+              margins =c(3,25),
+              col=my_palette,
               cexRow=0.5,
               cexCol=0.5,
-              dendrogram="row",     # only draw a row dendrogram
-              Colv="NA")            # turn off column clustering
+              dendrogram="row",
+              Colv="NA")
     dev.off()
 
 }
@@ -1180,97 +1181,97 @@ plot_paths <- function(gene_data, pathway_id, out_suffix, coef=1000)
 }
 
 ## Carbon fixation in photosynthetic organisms
-pathview(gene_data=pw_matrix,
+plot_paths(gene_data=pw_matrix,
          pathway_id = "00710",
          out_suffix = "Photos_fixation")
-pathview(gene_data=pw_matrix_organelles,
+plot_paths(gene_data=pw_matrix_organelles,
          pathway_id = "00710",
          out_suffix = "Photos_fixation_org")
-pathview(gene_data=pw_dunnett_matrix_organelles,
+plot_paths(gene_data=pw_dunnett_matrix_organelles,
          pathway_id = "00710",
          out_suffix = "Photos_fixation_dunnett_org")
-pathview(gene_data=sig_matrix,
+plot_paths(gene_data=sig_matrix,
          pathway_id = "00710",
          out_suffix = "Photos_sigs")
 
 ## Photosynthesis
-pathview(gene_data=pw_matrix_organelles,
+plot_paths(gene_data=pw_matrix_organelles,
          pathway_id = "00195",
          out_suffix = "Photos_org")
-pathview(gene_data=pw_dunnett_matrix_organelles,
+plot_paths(gene_data=pw_dunnett_matrix_organelles,
          pathway_id = "00195",
          out_suffix = "Photos_dunnett_org")
-pathview(gene_data=pw_matrix_organelles,
+plot_paths(gene_data=pw_matrix_organelles,
          pathway_id = "00196",
          out_suffix = "Photos2_org")
-pathview(gene_data=pw_dunnett_matrix_organelles,
+plot_paths(gene_data=pw_dunnett_matrix_organelles,
          pathway_id = "00196",
          out_suffix = "Photos2_dunnett_org")
-pathview(gene_data=sig_matrix,
+plot_paths(gene_data=sig_matrix,
          pathway_id = "00196",
          out_suffix = "Photos2_sigs")
 
 #Glycolysis/Gluconeogenesis
-pathview(gene_data=pw_matrix,
+plot_paths(gene_data=pw_matrix,
          pathway_id = "00010",
          out_suffix = "Glycolysis")
-pathview(gene_data=pw_matrix_organelles,
+plot_paths(gene_data=pw_matrix_organelles,
          pathway_id = "00010",
          out_suffix = "Glycolysis_org")
-pathview(gene_data=pw_dunnett_matrix_organelles,
+plot_paths(gene_data=pw_dunnett_matrix_organelles,
          pathway_id = "00010",
          out_suffix = "Glycolysis_dunnett_org")
-pathview(gene_data=sig_matrix,
+plot_paths(gene_data=sig_matrix,
          pathway_id = "00010",
          out_suffix = "Glycolysis_sigs")
 
 #TCA cycle
-pathview(gene_data=pw_matrix,
+plot_paths(gene_data=pw_matrix,
          pathway_id = "00020",
          out_suffix = "TCA")
-pathview(gene_data=pw_matrix_organelles,
+plot_paths(gene_data=pw_matrix_organelles,
          pathway_id = "00020",
          out_suffix = "TCA_org")
-pathview(gene_data=pw_dunnett_matrix_organelles,
+plot_paths(gene_data=pw_dunnett_matrix_organelles,
          pathway_id = "00020",
          out_suffix = "TCA_dunnett_org")
-pathview(gene_data=sig_matrix,
+plot_paths(gene_data=sig_matrix,
          pathway_id = "00020",
          out_suffix = "TCA_sigs")
 
 #Pentose phosphate pathway
-pathview(gene_data=pw_matrix,
+plot_paths(gene_data=pw_matrix,
          pathway_id = "00030",
          out_suffix = "Pentose")
-pathview(gene_data=pw_matrix_organelles,
+plot_paths(gene_data=pw_matrix_organelles,
          pathway_id = "00030",
          out_suffix = "Pentose_org")
-pathview(gene_data=pw_dunnett_matrix_organelles,
+plot_paths(gene_data=pw_dunnett_matrix_organelles,
          pathway_id = "00030",
          out_suffix = "Pentose_dunnett_org")
-pathview(gene_data=sig_matrix,
+plot_paths(gene_data=sig_matrix,
          pathway_id = "00030",
          out_suffix = "Pentose_sigs")
 
 #Starch and sucrose metabolism
-pathview(gene_data=pw_matrix,
+plot_paths(gene_data=pw_matrix,
          pathway_id = "00500",
          out_suffix = "Starch")
-pathview(gene_data=pw_matrix_organelles,
+plot_paths(gene_data=pw_matrix_organelles,
          pathway_id = "00500",
          out_suffix = "Starch_org")
-pathview(gene_data=pw_dunnett_matrix_organelles,
+plot_paths(gene_data=pw_dunnett_matrix_organelles,
          pathway_id = "00500",
          out_suffix = "Starch_dunnett_org")
-pathview(gene_data=sig_matrix,
+plot_paths(gene_data=sig_matrix,
          pathway_id = "00500",
          out_suffix = "Starch_sigs")
 
 #Nitrogen metabolism
-pathview(gene_data=pw_matrix,
+plot_paths(gene_data=pw_matrix,
          pathway_id = "00910",
          out_suffix = "Nitrogen")
-pathview(gene_data=pw_dunnett_matrix,
+plot_paths(gene_data=pw_dunnett_matrix,
          pathway_id = "00910",
          out_suffix = "Nitrogen_dunnett")
 #+END_SRC
