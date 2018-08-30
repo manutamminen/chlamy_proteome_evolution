@@ -1400,13 +1400,13 @@ bind_rows(map_df(tmts, ~wilcoxon_test(., "CtoN_Molar")),
 
 
 
-*** locale:
+** locale:
 
 [1] C
 
 
 
-*** attached base packages:
+** attached base packages:
 
 [1] stats4    parallel  stats     graphics  grDevices utils     datasets 
 
@@ -1414,7 +1414,7 @@ bind_rows(map_df(tmts, ~wilcoxon_test(., "CtoN_Molar")),
 
 
 
-*** other attached packages:
+** other attached packages:
 
  [1] pathview_1.18.2      org.Hs.eg.db_3.5.0   AnnotationDbi_1.40.0
 
@@ -1440,7 +1440,7 @@ bind_rows(map_df(tmts, ~wilcoxon_test(., "CtoN_Molar")),
 
 
 
-*** loaded via a namespace (and not attached):
+** loaded via a namespace (and not attached):
 
  [1] bitops_1.0-6       bit64_0.9-7        lubridate_1.7.4    httr_1.3.1        
 
