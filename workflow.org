@@ -1297,8 +1297,8 @@ plot_paths(gene_data=pw_dunnett_matrix,
 |---------------------+-----------------------|
 | PDF name            | Corresponding figure  |
 |---------------------+-----------------------|
-| ctop.pdf            | Supplementary Fig. 7B |
-| cton.pdf            | Supplementary Fig. 7C |
+| ctop.pdf            | Supplementary Fig. 7A |
+| cton.pdf            | Supplementary Fig. 7B |
 | respiration_chl.pdf | Supplementary Fig. 8A |
 | cass_chl.pdf        | Supplementary Fig. 8B |
 | ratio.pdf           | Supplementary Fig. 8C |
