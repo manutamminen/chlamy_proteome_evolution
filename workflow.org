@@ -72,13 +72,17 @@ conversion.to_csv("conversion.csv", index=None)
 
 * Extract the normalized Razor protein hits
   
+This is the starting point of the processing of the MaxQuant output files.
+proteinGroups.txt contains all peptide hist while proteinGroupsGoodColNames.csv 
+excludes organelle hits.
+  
 |-------------------------------+-----------------------------------------|
 | Inputs                        | Outputs                                 |
 |-------------------------------+-----------------------------------------|
 | proteinGroupsGoodColNames.csv | good_prot_hits_norm.csv                 |
 | proteinGroups.txt             | good_prot_hits_norm_organelles.csv      |
-| proteinGroupsGoodColNames.csv | full_good_prot_hits_norm.csv            |
-| proteinGroups.txt             | full_good_prot_hits_norm_organelles.csv |
+|                               | full_good_prot_hits_norm.csv            |
+|                               | full_good_prot_hits_norm_organelles.csv |
 |                               | prot_table.csv                          |
 |                               | prot_table_organelles.csv               |
 |                               | full_prot_table.csv                     |
