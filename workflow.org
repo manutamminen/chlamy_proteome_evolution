@@ -1328,7 +1328,7 @@ draw_bp <- function(Treatment, output_file)
         geom_boxplot() +
         geom_point(aes(size=2)) +
         theme_classic() + 
-        theme(legend.position = "none") +
+        theme(legend.position="none") +
         scale_color_manual(values=cols)
     ggsave(output_file, plot=last_plot())
 }
