@@ -1277,7 +1277,7 @@ plot_paths(gene_data=pw_dunnett_matrix,
 #+END_SRC
 
 
-* Stoichiometry and Respiration; Supplementary Figs. 8 and 9
+* Stoichiometry and Respiration; Supplementary Figs. 7, 8 and 9
   
 |--------------------------------------+---------------------|
 | Inputs                               | Outputs             |
@@ -1294,11 +1294,12 @@ plot_paths(gene_data=pw_dunnett_matrix,
 |---------------------+-----------------------|
 | PDF name            | Corresponding figure  |
 |---------------------+-----------------------|
-| ctop.pdf            | Supplementary Fig. 8B |
-| cton.pdf            | Supplementary Fig. 8C |
-| respiration_chl.pdf | Supplementary Fig. 9A |
-| cass_chl.pdf        | Supplementary Fig. 9B |
-| ratio.odf           | Supplementary Fig. 9C |
+| ctop.pdf            | Supplementary Fig. 7B |
+| cton.pdf            | Supplementary Fig. 7C |
+| respiration_chl.pdf | Supplementary Fig. 8A |
+| cass_chl.pdf        | Supplementary Fig. 8B |
+| ratio.odf           | Supplementary Fig. 8C |
+|                     |                       |
 |---------------------+-----------------------|
 
 **** R
@@ -1306,15 +1307,16 @@ plot_paths(gene_data=pw_dunnett_matrix,
 ## Read in the phenotype data and prepare for plotting and Wilcoxon tests
 xls <- read_excel("ChlamEE_phenotypic_measurements.xlsx") %>%
     mutate(Ratio = (2*Cass) / Respiration,
+           NO3toBiomass = NO3 / Biomass,
+           PO4toBiomass = PO4 / Biomass,
            Selection_Treatment = factor(Selection_Treatment,
                                         levels=c("A", "C", "L", "N",
                                                  "P", "B", "S", "BS")))
-xls_long <- gather(xls, key=variable, value=value, Respiration, Ratio,
-                  Cass, CtoP_Molar, CtoN_Molar, Cass_Chl, Respiration_Chl)
+xls_long <- gather(xls, key=variable, value=value, -Ancestor, -Selection_Treatment)
 cols <- c("#CC5A9F", "#FF0000", "#2F8C55", "#E9EF28", "#26549C", "#333333", "#DB3C01", "#01A0C6")
 
 ## Define a plotting function to prepare boxplots for each variable
-draw_bp <- function(Treatment)
+draw_bp <- function(Treatment, output_file)
 {
     filter(xls_long, variable == Treatment) %>%
     ggplot(aes(x=Selection_Treatment, y=value, color=Selection_Treatment)) +
@@ -1329,43 +1331,45 @@ draw_bp <- function(Treatment)
           panel.background = element_blank(),
           axis.line = element_line(colour = "black")) +
     scale_color_manual(values=cols)
+    ggsave(output_file, plot=last_plot())
 }
 
-pdf("ctop.pdf", useDingbats = FALSE)
-draw_bp("CtoP_Molar")
-dev.off()
-pdf("cton.pdf", useDingbats = FALSE)
-draw_bp("CtoN_Molar")
-dev.off()
-pdf("cass_chl.pdf", useDingbats = FALSE)
-draw_bp("Cass_Chl")
-dev.off()
-pdf("ratio.pdf", useDingbats = FALSE)
-draw_bp("Ratio")
-dev.off()
-pdf("respiration_chl.pdf", useDingbats = FALSE)
-draw_bp("Respiration_Chl")
-dev.off()
+## Draw the boxplots of the phenotypic measurements
+draw_bp("CtoP_Molar", "ctop.pdf")
+draw_bp("CtoN_Molar", "ctop.pdf")
+draw_bp("Cass_Chl", "cass_chl.pdf")
+draw_bp("Ratio", "ratio.pdf")
+draw_bp("Respiration_Chl", "respiration_chl.pdf")
+draw_bp("Biomass", "biomass.pdf")
+draw_bp("NO3toBiomass", "no3tobiomass.pdf")
+draw_bp("PO4toBiomass", "po4tobiomass.pdf")
 
 ## Define a function to test the signficance of the responses
-get_wilcox_growth <- function(treatment, stoich)
+## using two-sided Wilcoxon tests
+wilcoxon_test <- function(treatment, stoich)
 {
     control <- filter(xls, Selection_Treatment == "A")[[stoich]]
     tmt <- filter(xls, Selection_Treatment == treatment)[[stoich]]
     tidy(wilcox.test(x=control, y=tmt)) %>%
         mutate(Treatment = treatment, Stoich = stoich) %>%
-        select(-method, -alternative, -statistic)
+        dplyr::select(-method, -alternative, -statistic)
 }
 
 tmts <- c("B", "BS", "C", "L", "N", "P", "S")
 
-bind_rows(map_df(tmts, ~get_wilcox_growth(., "CtoN_Molar")),
-          map_df(tmts, ~get_wilcox_growth(., "CtoP_Molar")),
-          map_df(tmts, ~get_wilcox_growth(., "Respiration")),
-          map_df(tmts, ~get_wilcox_growth(., "Cass")),
-          map_df(tmts, ~get_wilcox_growth(., "Ratio"))) %>%
+## Perform the Wilcoxon tests for each treatment against the ancestors
+bind_rows(map_df(tmts, ~wilcoxon_test(., "CtoN_Molar")),
+          map_df(tmts, ~wilcoxon_test(., "CtoP_Molar")),
+          map_df(tmts, ~wilcoxon_test(., "Respiration")),
+          map_df(tmts, ~wilcoxon_test(., "Cass")),
+          map_df(tmts, ~wilcoxon_test(., "Ratio")),
+          map_df(tmts, ~wilcoxon_test(., "Biomass")),
+          map_df(tmts, ~wilcoxon_test(., "NO3toBiomass")),
+          map_df(tmts, ~wilcoxon_test(., "PO4toBiomass"))) %>%
     filter(p.value <= 0.1)
 #+END_SRC
+
+#+RESULTS:
 
 
 * Python session information
