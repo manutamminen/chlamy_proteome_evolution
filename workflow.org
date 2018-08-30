@@ -1287,6 +1287,9 @@ plot_paths(gene_data=pw_dunnett_matrix,
 |                                      | cass_chl.pdf        |
 |                                      | ratio.pdf           |
 |                                      | respiration_chl.pdf |
+|                                      | biomass.pdf         |
+|                                      | no3tobiomass.pdf    |
+|                                      | po4tobiomass.pdf    |
 |--------------------------------------+---------------------|
 
 ** This part produces the following figures / figure components
@@ -1298,8 +1301,10 @@ plot_paths(gene_data=pw_dunnett_matrix,
 | cton.pdf            | Supplementary Fig. 7C |
 | respiration_chl.pdf | Supplementary Fig. 8A |
 | cass_chl.pdf        | Supplementary Fig. 8B |
-| ratio.odf           | Supplementary Fig. 8C |
-|                     |                       |
+| ratio.pdf           | Supplementary Fig. 8C |
+| biomass.pdf         | Supplementary Fig. 9A |
+| no3tobiomass.pdf    | Supplementary Fig. 9B |
+| po4tobiomass.pdf    | Supplementary Fig. 9C |
 |---------------------+-----------------------|
 
 **** R
