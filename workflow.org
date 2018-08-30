@@ -1324,18 +1324,12 @@ cols <- c("#CC5A9F", "#FF0000", "#2F8C55", "#E9EF28", "#26549C", "#333333", "#DB
 draw_bp <- function(Treatment, output_file)
 {
     filter(xls_long, variable == Treatment) %>%
-    ggplot(aes(x=Selection_Treatment, y=value, color=Selection_Treatment)) +
-    geom_boxplot() +
-    geom_point(aes(size=2)) +
-    theme(strip.text.y = element_text(angle = 0),
-          axis.title.x=element_blank(),
-          axis.title.y=element_blank(),
-          legend.position = "none",
-          panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          panel.background = element_blank(),
-          axis.line = element_line(colour = "black")) +
-    scale_color_manual(values=cols)
+        ggplot(aes(x=Selection_Treatment, y=value, color=Selection_Treatment)) +
+        geom_boxplot() +
+        geom_point(aes(size=2)) +
+        theme_classic() + 
+        theme(legend.position = "none") +
+        scale_color_manual(values=cols)
     ggsave(output_file, plot=last_plot())
 }
 
