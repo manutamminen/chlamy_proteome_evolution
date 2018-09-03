@@ -359,27 +359,18 @@ Download the KEGG annotations for chromosomal genes...
  #+END_SRC
 
 
-* Import data into R and test the mean-median differences for Supplementary Fig. 2.
+* Import data into R
   
-|---------------------------+----------------------|
-| Inputs                    | Outputs              |
-|---------------------------+----------------------|
-| full_prot_table.csv       | mean_vs_median.pdf   |
-| annot_genes.csv           | variance_boxplot.pdf |
-| conversion.csv            |                      |
-| full_mean_corrected.csv   |                      |
-| full_median_corrected.csv |                      |
-|---------------------------+----------------------|
+|---------------------------+---------|
+| Inputs                    | Outputs |
+|---------------------------+---------|
+| full_prot_table.csv       |         |
+| annot_genes.csv           |         |
+| conversion.csv            |         |
+| full_mean_corrected.csv   |         |
+| full_median_corrected.csv |         |
+|---------------------------+---------|
 
-** This part produces the following figure components
-
-|----------------------+-----------------------|
-| PDF name             | Corresponding figure  |
-|----------------------+-----------------------|
-| variance_boxplot.pdf | Supplementary Fig. 2A |
-| mean_vs_median.pdf   | Supplementary Fig. 2B |
-|----------------------+-----------------------|
-  
 **** R
 #+BEGIN_SRC R :session
 library(tidyverse)
@@ -421,47 +412,14 @@ mean_long_corrected <- gather(mean_corrected, key=Gene, value=Expr_level,
                              -Treatment, -Strain) %>%
     filter(Treatment != "control")
 
-median_corrected <- read_csv("full_median_corrected.csv")
-median_long_corrected <- gather(median_corrected, key=Gene, value=Expr_level,
-                               -Treatment, -Strain) %>%
-    filter(Treatment != "control")
-
-median_control_long_corrected <- gather(median_corrected, key=Gene,
-                                       value=Expr_level, -Treatment, -Strain) %>%
-    filter(Treatment == "control")
-
 mean_control_long_corrected <- gather(mean_corrected, key=Gene,
                                      value=Expr_level, -Treatment, -Strain) %>%
     filter(Treatment == "control")
 
-mean_vs_median <- data.frame(Mean_val=mean_control_long_corrected$Expr_level,
-                            Median_val=median_control_long_corrected$Expr_level)
-
-pdf("mean_vs_median.pdf")
-ggplot(mean_vs_median, aes(x=Mean_val, y=Median_val)) +
-    geom_point() +
-    geom_smooth(method = "lm") +
-    theme_bw()
-dev.off()
-
-summary(lm(Mean_val~Median_val, data=mean_vs_median))
-explained_variance <- eigenvals(FULL.cap)[1:7] %>% sum
-
-pdf("variance_boxplot.pdf")
-filter(long_prot_table, Treatment == "control") %>%
-    group_by(Strain, Gene) %>%
-    summarise(Var=var(Expression)) %>%
-    ggplot(aes(x=1, y=Var)) +
-    geom_boxplot(outlier.size = 0.1, outlier.alpha = 0.5) +
-    geom_jitter(alpha=0.05) +
-    scale_y_log10() +
-    theme_bw()
-dev.off()
-
 #+END_SRC
 
 
-* Prepare the RDA plots and tests for Figure 1 and Supplementary Figs 2-5.
+* Prepare the RDA plots and tests for Figure 1 and Supplementary Figs 2-4.
 
 |--------+-------------------------------|
 | Inputs | Outputs                       |
@@ -469,7 +427,6 @@ dev.off()
 |        | rda_centroid_eb_treatment.pdf |
 |        | rda_centroid_eb_strain.pdf    |
 |        | polar_plot_mean.pdf           |
-|        | polar_plot_median.pdf         |
 |        | rda1_tukey.pdf                |
 |        | rda2_tukey.pdf                |
 |        | angle_tukey.pdf               |
@@ -478,18 +435,17 @@ dev.off()
 
 ** This part produces the following figures / figure components
 
-|-------------------------------+-----------------------------------|
-| PDF name                      | Corresponding figure              |
-|-------------------------------+-----------------------------------|
-| rda_centroid_eb_treatment.pdf | Fig. 1A                           |
-| rda_centroid_eb_strain.pdf    | Supplementary Fig. 3              |
-| polar_plot_mean.pdf           | Fig. 1B and Supplementary Fig. 2C |
-| polar_plot_median.pdf         | Supplementary Fig. 2D             |
-| rda1_tukey.pdf                | Supplementary Fig. 4A             |
-| rda2_tukey.pdf                | Supplementary Fig. 4B             |
-| angle_tukey.pdf               | Supplementary Fig. 5A             |
-| dist_tukey.pdf                | Supplementary Fig. 5B             |
-|-------------------------------+-----------------------------------|
+|-------------------------------+-----------------------|
+| PDF name                      | Corresponding figure  |
+|-------------------------------+-----------------------|
+| rda_centroid_eb_treatment.pdf | Fig. 1A               |
+| rda_centroid_eb_strain.pdf    | Supplementary Fig. 2  |
+| polar_plot_mean.pdf           | Fig. 1B               |
+| rda1_tukey.pdf                | Supplementary Fig. 3A |
+| rda2_tukey.pdf                | Supplementary Fig. 3B |
+| angle_tukey.pdf               | Supplementary Fig. 4A |
+| dist_tukey.pdf                | Supplementary Fig. 4B |
+|-------------------------------+-----------------------|
   
 **** R
 #+BEGIN_SRC R :session
@@ -519,6 +475,7 @@ draw_rda <- function(FULL.cap, output_file, color_column)
 spe <- dplyr::select(prot_table, -Treatment, -Strain)
 FULL.cap <- capscale(spe ~ Treatment + Condition(Strain), data=prot_table)
 FULL.cap_str <- capscale(spe ~ Strain + Condition(Treatment), data=prot_table)
+
 draw_rda(FULL.cap, "rda_centroid_eb_treatment.pdf", "Treatment")
 draw_rda(FULL.cap_str, "rda_centroid_eb_strain.pdf", "Strain")
 
@@ -559,6 +516,15 @@ Res.dim <- as.data.frame(scores(FULL.cap, display="wa", scaling=3)[,1:2])
 Res.dim$Strain <- prot_table$Strain
 Res.dim$Treatment <- prot_table$Treatment
 rda_norm <- normalize_rda(Res.dim, mean)
+
+## Test whether normality assumption holds for the data;
+## set the significance at p < 0.05
+group_by(Res.dim, Treatment) %>%
+    summarise(p_cap1 = tidy(shapiro.test(CAP1))$p.value,
+              p_cap2 = tidy(shapiro.test(CAP2))$p.value,
+              sig_cap1 = p_cap1 < 0.05,
+              sig_cap2 = p_cap2 < 0.05)
+## Only violated by CAP2 of Low light treatment (p = 0.0326)
 
 dist_test <- aov(lm(CAP1~Treatment, data=rda_norm))
 draw_tukey(dist_test, "rda1_tukey2.pdf")
@@ -606,9 +572,6 @@ draw_angles <- function(rda_list, output_file)
 ## Draw the polar plots
 calculate_angles(Res.dim, mean) %>%
     draw_angles("polar_plot_mean.pdf")
-
-calculate_angles(Res.dim, median) %>%
-    draw_angles("polar_plot_median.pdf")
 
 ## Perform Tukey tests to check which treatments are significantly different in their direction or distances
 angle_norm <- calculate_angles(Res.dim, mean)[['norm']]
@@ -1334,7 +1297,7 @@ draw_bp <- function(Treatment, output_file)
         theme_classic() + 
         theme(legend.position="none") +
         scale_color_manual(values=cols)
-    ggsave(output_file, plot=last_plot())
+    ggsave(output_file, plot=last_plot(), useDingbats=FALSE)
 }
 
 ## Draw the boxplots of the phenotypic measurements
