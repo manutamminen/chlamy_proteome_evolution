@@ -368,7 +368,6 @@ Download the KEGG annotations for chromosomal genes...
 | annot_genes.csv           |         |
 | conversion.csv            |         |
 | full_mean_corrected.csv   |         |
-| full_median_corrected.csv |         |
 |---------------------------+---------|
 
 **** R
