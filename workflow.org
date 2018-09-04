@@ -603,7 +603,7 @@ draw_tukey(dist_test, "dist_tukey.pdf")
 |---------------+------------------------------|
 | parallel.pdf  | Part of Fig. 3               |
 | divergent.pdf | Part of Fig. 3               |
-| opposite.pdf  | Part of Supplementary Fig. 6 |
+| opposite.pdf  | Part of Supplementary Fig. 5 |
 |---------------+------------------------------|
   
 **** R
@@ -907,7 +907,7 @@ table(sig_slcp$X3, sig_slcp$Gene) %>% chisq.test
 | PDF name         | Corresponding figure         |
 |------------------+------------------------------|
 | enrichment.pdf   | Part of Fig. 3               |
-| opposite_pie.pdf | Part of Supplementary Fig. 6 |
+| opposite_pie.pdf | Part of Supplementary Fig. 5 |
 |------------------+------------------------------|
 
 **** R
@@ -1007,11 +1007,11 @@ dev.off()
 
 ** This part produces the following figures / figure components
 
-|-------------------+----------------------------------------|
-| PDF name          | Corresponding figure                   |
-|-------------------+----------------------------------------|
-| Pathway PDF files | Parts of Fig. 4 and Supplementary data |
-|-------------------+----------------------------------------|
+|-------------------+------------------------------------------|
+| PDF name          | Corresponding figure                     |
+|-------------------+------------------------------------------|
+| Pathway PDF files | Parts of Fig. 4 and Supplementary Data 1 |
+|-------------------+------------------------------------------|
   
 **** R
 #+BEGIN_SRC R :session
@@ -1263,14 +1263,14 @@ plot_paths(gene_data=pw_dunnett_matrix,
 |---------------------+-----------------------|
 | PDF name            | Corresponding figure  |
 |---------------------+-----------------------|
-| ctop.pdf            | Supplementary Fig. 7A |
-| cton.pdf            | Supplementary Fig. 7B |
-| respiration_chl.pdf | Supplementary Fig. 8A |
-| cass_chl.pdf        | Supplementary Fig. 8B |
-| ratio.pdf           | Supplementary Fig. 8C |
-| biomass.pdf         | Supplementary Fig. 9A |
-| no3tobiomass.pdf    | Supplementary Fig. 9B |
-| po4tobiomass.pdf    | Supplementary Fig. 9C |
+| ctop.pdf            | Supplementary Fig. 6A |
+| cton.pdf            | Supplementary Fig. 6B |
+| respiration_chl.pdf | Supplementary Fig. 7A |
+| cass_chl.pdf        | Supplementary Fig. 7B |
+| ratio.pdf           | Supplementary Fig. 7C |
+| biomass.pdf         | Supplementary Fig. 8A |
+| no3tobiomass.pdf    | Supplementary Fig. 8B |
+| po4tobiomass.pdf    | Supplementary Fig. 8C |
 |---------------------+-----------------------|
 
 **** R
