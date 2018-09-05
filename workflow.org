@@ -525,6 +525,22 @@ group_by(Res.dim, Treatment) %>%
               sig_cap2 = p_cap2 < 0.05)
 ## Only violated by CAP2 of Low light treatment (p = 0.0326)
 
+## Test the similarity of the variances
+lapply(c("S", "B", "L", "N", "P", "BS", "C"),
+       function(x) filter(Res.dim, Treatment == "control" | Treatment == x) %>%
+                   var.test(CAP1 ~ Treatment, data=.) %>%
+                   tidy) %>%
+    bind_rows  %>%
+    .$p.value
+
+lapply(c("S", "B", "L", "N", "P", "BS", "C"),
+       function(x) filter(Res.dim, Treatment == "control" | Treatment == x) %>%
+                   var.test(CAP2 ~ Treatment, data=.) %>%
+                   tidy) %>%
+    bind_rows  %>%
+    .$p.value
+## Only violated by P on CAP2 (p = 0.035). Otherwise p > 0.5
+
 dist_test <- aov(lm(CAP1~Treatment, data=rda_norm))
 draw_tukey(dist_test, "rda1_tukey2.pdf")
 
