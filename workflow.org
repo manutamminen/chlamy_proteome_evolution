@@ -1336,11 +1336,26 @@ wilcoxon_test <- function(treatment, stoich, alt)
         dplyr::select(-method, -alternative, -statistic)
 }
 
-tmts <- c("B", "BS", "C", "L", "N", "P", "S")
-adj_p_vals <- function(p_table) sapply(p.adjust.methods, function(meth) p.adjust(p_table$p.value, meth))
-add_p_vals <- function(p_table) cbind(p_table, adj_p_vals(p_table))
-adjust_wilcoxon <- function(column, hypothesis) map_df(tmts, ~wilcoxon_test(., column, hypothesis)) %>% add_p_vals
-                                                       
+## And define some utulity functions to adjust the p-values
+adj_p_vals <- function(p_table)
+{
+    sapply(p.adjust.methods,
+           function(meth) p.adjust(p_table$p.value, meth))
+}
+
+
+add_p_vals <- function(p_table)
+{
+    cbind(p_table, adj_p_vals(p_table))
+}
+
+adjust_wilcoxon <- function(column, hypothesis)
+{
+    map_df(c("B", "BS", "C", "L", "N", "P", "S"),
+           ~wilcoxon_test(., column, hypothesis)) %>%
+        add_p_vals
+}
+
 
 ## Perform the Wilcoxon tests for each treatment against the ancestors
 bind_rows(adjust_wilcoxon("CtoN_Molar", "less"),
