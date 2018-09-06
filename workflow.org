@@ -1259,7 +1259,7 @@ plot_paths(gene_data=pw_dunnett_matrix,
 #+END_SRC
 
 
-* Stoichiometry and Respiration; Supplementary Figs. 7, 8 and 9
+* Stoichiometry and Respiration; Supplementary Figs. 6, 7 and 8
   
 |--------------------------------------+---------------------|
 | Inputs                               | Outputs             |
@@ -1327,27 +1327,33 @@ draw_bp("PO4toBiomass", "po4tobiomass.pdf")
 
 ## Define a function to test the signficance of the responses
 ## using two-sided Wilcoxon tests
-wilcoxon_test <- function(treatment, stoich)
+wilcoxon_test <- function(treatment, stoich, alt)
 {
     control <- filter(xls, Selection_Treatment == "A")[[stoich]]
     tmt <- filter(xls, Selection_Treatment == treatment)[[stoich]]
-    tidy(wilcox.test(x=control, y=tmt)) %>%
+    tidy(wilcox.test(x=control, y=tmt, alternative=alt)) %>%
         mutate(Treatment = treatment, Stoich = stoich) %>%
         dplyr::select(-method, -alternative, -statistic)
 }
 
 tmts <- c("B", "BS", "C", "L", "N", "P", "S")
+adj_p_vals <- function(p_table) sapply(p.adjust.methods, function(meth) p.adjust(p_table$p.value, meth))
+add_p_vals <- function(p_table) cbind(p_table, adj_p_vals(p_table))
+adjust_wilcoxon <- function(column, hypothesis) map_df(tmts, ~wilcoxon_test(., column, hypothesis)) %>% add_p_vals
+                                                       
 
 ## Perform the Wilcoxon tests for each treatment against the ancestors
-bind_rows(map_df(tmts, ~wilcoxon_test(., "CtoN_Molar")),
-          map_df(tmts, ~wilcoxon_test(., "CtoP_Molar")),
-          map_df(tmts, ~wilcoxon_test(., "Respiration")),
-          map_df(tmts, ~wilcoxon_test(., "Cass")),
-          map_df(tmts, ~wilcoxon_test(., "Ratio")),
-          map_df(tmts, ~wilcoxon_test(., "Biomass")),
-          map_df(tmts, ~wilcoxon_test(., "NO3toBiomass")),
-          map_df(tmts, ~wilcoxon_test(., "PO4toBiomass"))) %>%
-    filter(p.value <= 0.1)
+bind_rows(adjust_wilcoxon("CtoN_Molar", "less"),
+          adjust_wilcoxon("CtoP_Molar", "less"),
+          adjust_wilcoxon("Respiration", "greater"),
+          adjust_wilcoxon("Cass", "greater"),
+          adjust_wilcoxon("Ratio", "two.sided"),
+          adjust_wilcoxon("Biomass", "two.sided"),
+          adjust_wilcoxon("NO3toBiomass", "two.sided"),
+          adjust_wilcoxon("PO4toBiomass", "two.sided")) %>%
+    filter(fdr < 0.1) %>%
+    dplyr::select(Treatment, Stoich, fdr)
+
 #+END_SRC
 
 #+RESULTS:
