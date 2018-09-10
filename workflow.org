@@ -634,10 +634,15 @@ long_corrected_organelles <- gather(corrected_organelles, key=Gene,
                                    value=Expr_level, -Treatment, -Strain) %>%
     filter(Treatment != "control")
 
+# Test the normality assumption
+group_by(long_corrected, Gene) %>%
+    summarise(p_val = shapiro.test(Expr_level)$p.value) %>%
+    ggplot(aes(x=p_val)) + geom_density() + scale_x_log10()
+
 # Prepare t-tests to test which groups significantly differ from zero
 non_zeros <- group_by(long_corrected, Gene) %>%
     summarise(sig=t.test(Expr_level)$p.value) %>%
-    filter(sig < 0.01)
+    filter(sig < P_VAL)
 sig_long_corrected <- long_corrected[long_corrected$Gene %in% non_zeros$Gene,]
 non_zeros_organelles <- group_by(long_corrected_organelles, Gene) %>%
     summarise(sig=t.test(Expr_level)$p.value) %>%
