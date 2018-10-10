@@ -1,0 +1,3049 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MaxQuantParams xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" aifSilWeight="0" aifIsoWeight="0" aifTopx="0" aifCorrelation="0" aifCorrelationFirstPass="0" aifMinMass="0" aifMsmsTol="0" aifSecondPass="false" aifIterative="false" aifThresholdFdr="0" writeMsScansTable="true" writeMsmsScansTable="true" writePasefMsmsScansTable="true" writeAccumulatedPasefMsmsScansTable="true" writeMs3ScansTable="true" writeAllPeptidesTable="true" writeMzRangeTable="true" writeMzTab="false" disableMd5="false" connected="false" cacheBinInds="true" etdIncludeB="false" complementaryTmtCollapseNplets="true" connectedScore0="0.800000011920929" connectedScore1="0.800000011920929" connectedScore2="0.800000011920929">
+   <name>Session1</name>
+   <maxQuantVersion>1.6.1.0</maxQuantVersion>
+   <tempFolder>E:\temp</tempFolder>
+   <numThreads>8</numThreads>
+   <sendEmail>false</sendEmail>
+   <fixedCombinedFolder>E:\data\prot_pipe_out</fixedCombinedFolder>
+   <ionCountIntensities>false</ionCountIntensities>
+   <verboseColumnHeaders>false</verboseColumnHeaders>
+   <fullMinMz>-1.7976931348623157E+308</fullMinMz>
+   <fullMaxMz>1.7976931348623157E+308</fullMaxMz>
+   <calcPeakProperties>false</calcPeakProperties>
+   <showCentroidMassDifferences>false</showCentroidMassDifferences>
+   <showIsotopeMassDifferences>false</showIsotopeMassDifferences>
+   <useDotNetCore>false</useDotNetCore>
+   <filePaths>
+      <string>E:\data\chlamy_evolution_proteomics\10 Sample #18\10_Sample_n18_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\10 Sample #18\10_Sample_n18_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\10 Sample #18\10_Sample_n18_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\10 Sample #18\10_Sample_n18_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\10 Sample #18\10_Sample_n18_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\10 Sample #18\10_Sample_n18_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\10 Sample #18\10_Sample_n18_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\10 Sample #18\10_Sample_n18_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\10 Sample #18\10_Sample_n18_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\10 Sample #18\10_Sample_n18_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\10 Sample #18\10_Sample_n18_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\11 Sample #19\11_Sample_n19_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\11 Sample #19\11_Sample_n19_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\11 Sample #19\11_Sample_n19_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\11 Sample #19\11_Sample_n19_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\11 Sample #19\11_Sample_n19_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\11 Sample #19\11_Sample_n19_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\11 Sample #19\11_Sample_n19_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\11 Sample #19\11_Sample_n19_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\11 Sample #19\11_Sample_n19_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\11 Sample #19\11_Sample_n19_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\11 Sample #19\11_Sample_n19_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\12 Sample #33\12_Sample_n33_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\12 Sample #33\12_Sample_n33_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\12 Sample #33\12_Sample_n33_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\12 Sample #33\12_Sample_n33_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\12 Sample #33\12_Sample_n33_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\12 Sample #33\12_Sample_n33_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\12 Sample #33\12_Sample_n33_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\12 Sample #33\12_Sample_n33_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\12 Sample #33\12_Sample_n33_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\12 Sample #33\12_Sample_n33_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\12 Sample #33\12_Sample_n33_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\13 Sample #21\13_Sample_n21_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\13 Sample #21\13_Sample_n21_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\13 Sample #21\13_Sample_n21_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\13 Sample #21\13_Sample_n21_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\13 Sample #21\13_Sample_n21_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\13 Sample #21\13_Sample_n21_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\13 Sample #21\13_Sample_n21_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\13 Sample #21\13_Sample_n21_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\13 Sample #21\13_Sample_n21_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\13 Sample #21\13_Sample_n21_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\13 Sample #21\13_Sample_n21_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\14 Sample #26\14_Sample_n26_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\14 Sample #26\14_Sample_n26_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\14 Sample #26\14_Sample_n26_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\14 Sample #26\14_Sample_n26_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\14 Sample #26\14_Sample_n26_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\14 Sample #26\14_Sample_n26_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\14 Sample #26\14_Sample_n26_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\14 Sample #26\14_Sample_n26_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\14 Sample #26\14_Sample_n26_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\14 Sample #26\14_Sample_n26_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\14 Sample #26\14_Sample_n26_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\15 Sample #23\15_Sample_n23_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\15 Sample #23\15_Sample_n23_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\15 Sample #23\15_Sample_n23_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\15 Sample #23\15_Sample_n23_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\15 Sample #23\15_Sample_n23_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\15 Sample #23\15_Sample_n23_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\15 Sample #23\15_Sample_n23_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\15 Sample #23\15_Sample_n23_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\15 Sample #23\15_Sample_n23_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\15 Sample #23\15_Sample_n23_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\15 Sample #23\15_Sample_n23_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\16 Sample #3\16_Sample_n3_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\16 Sample #3\16_Sample_n3_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\16 Sample #3\16_Sample_n3_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\16 Sample #3\16_Sample_n3_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\16 Sample #3\16_Sample_n3_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\16 Sample #3\16_Sample_n3_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\16 Sample #3\16_Sample_n3_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\16 Sample #3\16_Sample_n3_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\16 Sample #3\16_Sample_n3_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\16 Sample #3\16_Sample_n3_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\16 Sample #3\16_Sample_n3_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\17 Sample #20\17_Sample_n20_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\17 Sample #20\17_Sample_n20_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\17 Sample #20\17_Sample_n20_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\17 Sample #20\17_Sample_n20_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\17 Sample #20\17_Sample_n20_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\17 Sample #20\17_Sample_n20_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\17 Sample #20\17_Sample_n20_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\17 Sample #20\17_Sample_n20_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\17 Sample #20\17_Sample_n20_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\17 Sample #20\17_Sample_n20_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\17 Sample #20\17_Sample_n20_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\18 Sample #11\18_Sample_n11_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\18 Sample #11\18_Sample_n11_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\18 Sample #11\18_Sample_n11_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\18 Sample #11\18_Sample_n11_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\18 Sample #11\18_Sample_n11_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\18 Sample #11\18_Sample_n11_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\18 Sample #11\18_Sample_n11_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\18 Sample #11\18_Sample_n11_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\18 Sample #11\18_Sample_n11_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\18 Sample #11\18_Sample_n11_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\18 Sample #11\18_Sample_n11_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\19 Sample #17\19_Sample_n17_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\19 Sample #17\19_Sample_n17_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\19 Sample #17\19_Sample_n17_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\19 Sample #17\19_Sample_n17_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\19 Sample #17\19_Sample_n17_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\19 Sample #17\19_Sample_n17_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\19 Sample #17\19_Sample_n17_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\19 Sample #17\19_Sample_n17_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\19 Sample #17\19_Sample_n17_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\19 Sample #17\19_Sample_n17_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\19 Sample #17\19_Sample_n17_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\20 Sample #4\20_Sample_n4_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\20 Sample #4\20_Sample_n4_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\20 Sample #4\20_Sample_n4_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\20 Sample #4\20_Sample_n4_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\20 Sample #4\20_Sample_n4_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\20 Sample #4\20_Sample_n4_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\20 Sample #4\20_Sample_n4_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\20 Sample #4\20_Sample_n4_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\20 Sample #4\20_Sample_n4_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\20 Sample #4\20_Sample_n4_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\20 Sample #4\20_Sample_n4_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\21 Sample #31\21_Sample_n31_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\21 Sample #31\21_Sample_n31_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\21 Sample #31\21_Sample_n31_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\21 Sample #31\21_Sample_n31_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\21 Sample #31\21_Sample_n31_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\21 Sample #31\21_Sample_n31_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\21 Sample #31\21_Sample_n31_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\21 Sample #31\21_Sample_n31_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\21 Sample #31\21_Sample_n31_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\21 Sample #31\21_Sample_n31_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\21 Sample #31\21_Sample_n31_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\22 Sample #14\22_Sample_n14_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\22 Sample #14\22_Sample_n14_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\22 Sample #14\22_Sample_n14_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\22 Sample #14\22_Sample_n14_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\22 Sample #14\22_Sample_n14_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\22 Sample #14\22_Sample_n14_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\22 Sample #14\22_Sample_n14_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\22 Sample #14\22_Sample_n14_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\22 Sample #14\22_Sample_n14_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\22 Sample #14\22_Sample_n14_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\22 Sample #14\22_Sample_n14_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\23 Sample #10\23_Sample_n10_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\23 Sample #10\23_Sample_n10_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\23 Sample #10\23_Sample_n10_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\23 Sample #10\23_Sample_n10_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\23 Sample #10\23_Sample_n10_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\23 Sample #10\23_Sample_n10_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\23 Sample #10\23_Sample_n10_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\23 Sample #10\23_Sample_n10_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\23 Sample #10\23_Sample_n10_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\23 Sample #10\23_Sample_n10_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\23 Sample #10\23_Sample_n10_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\24 Sample #30\24_Sample_n30_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\24 Sample #30\24_Sample_n30_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\24 Sample #30\24_Sample_n30_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\24 Sample #30\24_Sample_n30_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\24 Sample #30\24_Sample_n30_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\24 Sample #30\24_Sample_n30_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\24 Sample #30\24_Sample_n30_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\24 Sample #30\24_Sample_n30_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\24 Sample #30\24_Sample_n30_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\24 Sample #30\24_Sample_n30_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\24 Sample #30\24_Sample_n30_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\25 Sample #2\25_Sample_n2_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\25 Sample #2\25_Sample_n2_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\25 Sample #2\25_Sample_n2_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\25 Sample #2\25_Sample_n2_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\25 Sample #2\25_Sample_n2_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\25 Sample #2\25_Sample_n2_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\25 Sample #2\25_Sample_n2_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\25 Sample #2\25_Sample_n2_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\25 Sample #2\25_Sample_n2_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\25 Sample #2\25_Sample_n2_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\25 Sample #2\25_Sample_n2_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\26 Sample #15\26_Sample_n15_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\26 Sample #15\26_Sample_n15_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\26 Sample #15\26_Sample_n15_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\26 Sample #15\26_Sample_n15_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\26 Sample #15\26_Sample_n15_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\26 Sample #15\26_Sample_n15_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\26 Sample #15\26_Sample_n15_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\26 Sample #15\26_Sample_n15_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\26 Sample #15\26_Sample_n15_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\26 Sample #15\26_Sample_n15_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\26 Sample #15\26_Sample_n15_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #5\27_Sample_n5_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #5\27_Sample_n5_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #5\27_Sample_n5_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #5\27_Sample_n5_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #5\27_Sample_n5_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #5\27_Sample_n5_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #5\27_Sample_n5_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #5\27_Sample_n5_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #5\27_Sample_n5_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #5\27_Sample_n5_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #5\27_Sample_n5_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #9\27_Sample_n9_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #9\27_Sample_n9_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #9\27_Sample_n9_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #9\27_Sample_n9_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #9\27_Sample_n9_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #9\27_Sample_n9_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #9\27_Sample_n9_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #9\27_Sample_n9_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #9\27_Sample_n9_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #9\27_Sample_n9_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\27 Sample #9\27_Sample_n9_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\28 Sample #35\28_Sample_n35_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\28 Sample #35\28_Sample_n35_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\28 Sample #35\28_Sample_n35_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\28 Sample #35\28_Sample_n35_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\28 Sample #35\28_Sample_n35_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\28 Sample #35\28_Sample_n35_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\28 Sample #35\28_Sample_n35_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\28 Sample #35\28_Sample_n35_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\28 Sample #35\28_Sample_n35_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\28 Sample #35\28_Sample_n35_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\28 Sample #35\28_Sample_n35_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\29 Sample #1\29_Sample_n1_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\29 Sample #1\29_Sample_n1_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\29 Sample #1\29_Sample_n1_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\29 Sample #1\29_Sample_n1_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\29 Sample #1\29_Sample_n1_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\29 Sample #1\29_Sample_n1_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\29 Sample #1\29_Sample_n1_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\29 Sample #1\29_Sample_n1_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\29 Sample #1\29_Sample_n1_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\29 Sample #1\29_Sample_n1_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\29 Sample #1\29_Sample_n1_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\3 Sample 1690 1a neu Kalibriert\3_Sample_1690_1a_neu_Kalibriert_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\3 Sample 1690 1a neu Kalibriert\3_Sample_1690_1a_neu_Kalibriert_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\3 Sample 1690 1a neu Kalibriert\3_Sample_1690_1a_neu_Kalibriert_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\3 Sample 1690 1a neu Kalibriert\3_Sample_1690_1a_neu_Kalibriert_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\3 Sample 1690 1a neu Kalibriert\3_Sample_1690_1a_neu_Kalibriert_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\3 Sample 1690 1a neu Kalibriert\3_Sample_1690_1a_neu_Kalibriert_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\3 Sample 1690 1a neu Kalibriert\3_Sample_1690_1a_neu_Kalibriert_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\3 Sample 1690 1a neu Kalibriert\3_Sample_1690_1a_neu_Kalibriert_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\3 Sample 1690 1a neu Kalibriert\3_Sample_1690_1a_neu_Kalibriert_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\3 Sample 1690 1a neu Kalibriert\3_Sample_1690_1a_neu_Kalibriert_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\3 Sample 1690 1a neu Kalibriert\3_Sample_1690_1a_neu_Kalibriert_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\30 Sample #28\30_Sample_n28_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\30 Sample #28\30_Sample_n28_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\30 Sample #28\30_Sample_n28_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\30 Sample #28\30_Sample_n28_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\30 Sample #28\30_Sample_n28_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\30 Sample #28\30_Sample_n28_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\30 Sample #28\30_Sample_n28_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\30 Sample #28\30_Sample_n28_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\30 Sample #28\30_Sample_n28_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\30 Sample #28\30_Sample_n28_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\30 Sample #28\30_Sample_n28_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\31 Sample #16\31_Sample_n16_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\31 Sample #16\31_Sample_n16_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\31 Sample #16\31_Sample_n16_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\31 Sample #16\31_Sample_n16_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\31 Sample #16\31_Sample_n16_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\31 Sample #16\31_Sample_n16_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\31 Sample #16\31_Sample_n16_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\31 Sample #16\31_Sample_n16_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\31 Sample #16\31_Sample_n16_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\31 Sample #16\31_Sample_n16_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\31 Sample #16\31_Sample_n16_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\32 Sample #27\32_Sample_n27_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\32 Sample #27\32_Sample_n27_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\32 Sample #27\32_Sample_n27_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\32 Sample #27\32_Sample_n27_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\32 Sample #27\32_Sample_n27_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\32 Sample #27\32_Sample_n27_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\32 Sample #27\32_Sample_n27_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\32 Sample #27\32_Sample_n27_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\32 Sample #27\32_Sample_n27_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\32 Sample #27\32_Sample_n27_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\32 Sample #27\32_Sample_n27_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\33 Sample #29\33_Sample_n29_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\33 Sample #29\33_Sample_n29_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\33 Sample #29\33_Sample_n29_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\33 Sample #29\33_Sample_n29_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\33 Sample #29\33_Sample_n29_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\33 Sample #29\33_Sample_n29_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\33 Sample #29\33_Sample_n29_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\33 Sample #29\33_Sample_n29_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\33 Sample #29\33_Sample_n29_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\33 Sample #29\33_Sample_n29_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\33 Sample #29\33_Sample_n29_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\34 Sample #13\34_Sample_n13_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\34 Sample #13\34_Sample_n13_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\34 Sample #13\34_Sample_n13_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\34 Sample #13\34_Sample_n13_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\34 Sample #13\34_Sample_n13_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\34 Sample #13\34_Sample_n13_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\34 Sample #13\34_Sample_n13_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\34 Sample #13\34_Sample_n13_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\34 Sample #13\34_Sample_n13_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\34 Sample #13\34_Sample_n13_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\34 Sample #13\34_Sample_n13_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\35 Sample #6\35_Sample_n6_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\35 Sample #6\35_Sample_n6_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\35 Sample #6\35_Sample_n6_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\35 Sample #6\35_Sample_n6_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\35 Sample #6\35_Sample_n6_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\35 Sample #6\35_Sample_n6_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\35 Sample #6\35_Sample_n6_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\35 Sample #6\35_Sample_n6_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\35 Sample #6\35_Sample_n6_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\35 Sample #6\35_Sample_n6_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\35 Sample #6\35_Sample_n6_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\36 Sample #25\36_Sample_n25_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\36 Sample #25\36_Sample_n25_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\36 Sample #25\36_Sample_n25_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\36 Sample #25\36_Sample_n25_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\36 Sample #25\36_Sample_n25_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\36 Sample #25\36_Sample_n25_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\36 Sample #25\36_Sample_n25_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\36 Sample #25\36_Sample_n25_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\36 Sample #25\36_Sample_n25_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\36 Sample #25\36_Sample_n25_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\36 Sample #25\36_Sample_n25_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\37 Sample #8\37_Sample_n8_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\37 Sample #8\37_Sample_n8_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\37 Sample #8\37_Sample_n8_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\37 Sample #8\37_Sample_n8_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\37 Sample #8\37_Sample_n8_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\37 Sample #8\37_Sample_n8_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\37 Sample #8\37_Sample_n8_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\37 Sample #8\37_Sample_n8_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\37 Sample #8\37_Sample_n8_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\37 Sample #8\37_Sample_n8_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\37 Sample #8\37_Sample_n8_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\38 Sample #12\38_Sample_n12_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\38 Sample #12\38_Sample_n12_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\38 Sample #12\38_Sample_n12_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\38 Sample #12\38_Sample_n12_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\38 Sample #12\38_Sample_n12_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\38 Sample #12\38_Sample_n12_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\38 Sample #12\38_Sample_n12_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\38 Sample #12\38_Sample_n12_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\38 Sample #12\38_Sample_n12_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\38 Sample #12\38_Sample_n12_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\38 Sample #12\38_Sample_n12_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\39 Sample Anc1690\39_Sample_Anc1690_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\39 Sample Anc1690\39_Sample_Anc1690_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\39 Sample Anc1690\39_Sample_Anc1690_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\39 Sample Anc1690\39_Sample_Anc1690_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\39 Sample Anc1690\39_Sample_Anc1690_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\39 Sample Anc1690\39_Sample_Anc1690_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\39 Sample Anc1690\39_Sample_Anc1690_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\39 Sample Anc1690\39_Sample_Anc1690_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\39 Sample Anc1690\39_Sample_Anc1690_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\39 Sample Anc1690\39_Sample_Anc1690_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\39 Sample Anc1690\39_Sample_Anc1690_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\4 Sample Anc2\4_Sample_Anc2_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\4 Sample Anc2\4_Sample_Anc2_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\4 Sample Anc2\4_Sample_Anc2_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\4 Sample Anc2\4_Sample_Anc2_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\4 Sample Anc2\4_Sample_Anc2_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\4 Sample Anc2\4_Sample_Anc2_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\4 Sample Anc2\4_Sample_Anc2_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\4 Sample Anc2\4_Sample_Anc2_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\4 Sample Anc2\4_Sample_Anc2_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\4 Sample Anc2\4_Sample_Anc2_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\4 Sample Anc2\4_Sample_Anc2_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\40 Sample Anc5\40_Sample_Anc5_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\40 Sample Anc5\40_Sample_Anc5_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\40 Sample Anc5\40_Sample_Anc5_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\40 Sample Anc5\40_Sample_Anc5_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\40 Sample Anc5\40_Sample_Anc5_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\40 Sample Anc5\40_Sample_Anc5_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\40 Sample Anc5\40_Sample_Anc5_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\40 Sample Anc5\40_Sample_Anc5_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\40 Sample Anc5\40_Sample_Anc5_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\40 Sample Anc5\40_Sample_Anc5_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\40 Sample Anc5\40_Sample_Anc5_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\41 Sample #22\41_Sample_n22_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\41 Sample #22\41_Sample_n22_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\41 Sample #22\41_Sample_n22_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\41 Sample #22\41_Sample_n22_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\41 Sample #22\41_Sample_n22_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\41 Sample #22\41_Sample_n22_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\41 Sample #22\41_Sample_n22_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\41 Sample #22\41_Sample_n22_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\41 Sample #22\41_Sample_n22_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\41 Sample #22\41_Sample_n22_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\41 Sample #22\41_Sample_n22_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\42 Sample #24\42_Sample_n24_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\42 Sample #24\42_Sample_n24_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\42 Sample #24\42_Sample_n24_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\42 Sample #24\42_Sample_n24_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\42 Sample #24\42_Sample_n24_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\42 Sample #24\42_Sample_n24_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\42 Sample #24\42_Sample_n24_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\42 Sample #24\42_Sample_n24_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\42 Sample #24\42_Sample_n24_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\42 Sample #24\42_Sample_n24_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\42 Sample #24\42_Sample_n24_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\43 Sample Anc2\43_Sample_Anc2_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\43 Sample Anc2\43_Sample_Anc2_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\43 Sample Anc2\43_Sample_Anc2_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\43 Sample Anc2\43_Sample_Anc2_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\43 Sample Anc2\43_Sample_Anc2_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\43 Sample Anc2\43_Sample_Anc2_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\43 Sample Anc2\43_Sample_Anc2_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\43 Sample Anc2\43_Sample_Anc2_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\43 Sample Anc2\43_Sample_Anc2_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\43 Sample Anc2\43_Sample_Anc2_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\43 Sample Anc2\43_Sample_Anc2_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\44 Sample #5\44_Sample_n5_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\44 Sample #5\44_Sample_n5_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\44 Sample #5\44_Sample_n5_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\44 Sample #5\44_Sample_n5_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\44 Sample #5\44_Sample_n5_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\44 Sample #5\44_Sample_n5_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\44 Sample #5\44_Sample_n5_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\44 Sample #5\44_Sample_n5_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\44 Sample #5\44_Sample_n5_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\44 Sample #5\44_Sample_n5_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\44 Sample #5\44_Sample_n5_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\45 Sample Anc3\45_Sample_Anc3_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\45 Sample Anc3\45_Sample_Anc3_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\45 Sample Anc3\45_Sample_Anc3_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\45 Sample Anc3\45_Sample_Anc3_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\45 Sample Anc3\45_Sample_Anc3_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\45 Sample Anc3\45_Sample_Anc3_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\45 Sample Anc3\45_Sample_Anc3_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\45 Sample Anc3\45_Sample_Anc3_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\45 Sample Anc3\45_Sample_Anc3_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\45 Sample Anc3\45_Sample_Anc3_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\45 Sample Anc3\45_Sample_Anc3_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\46 Sample Anc4\46_Sample_Anc4_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\46 Sample Anc4\46_Sample_Anc4_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\46 Sample Anc4\46_Sample_Anc4_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\46 Sample Anc4\46_Sample_Anc4_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\46 Sample Anc4\46_Sample_Anc4_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\46 Sample Anc4\46_Sample_Anc4_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\46 Sample Anc4\46_Sample_Anc4_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\46 Sample Anc4\46_Sample_Anc4_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\46 Sample Anc4\46_Sample_Anc4_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\46 Sample Anc4\46_Sample_Anc4_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\46 Sample Anc4\46_Sample_Anc4_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\47 Sample #34\47_Sample_n34_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\47 Sample #34\47_Sample_n34_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\47 Sample #34\47_Sample_n34_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\47 Sample #34\47_Sample_n34_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\47 Sample #34\47_Sample_n34_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\47 Sample #34\47_Sample_n34_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\47 Sample #34\47_Sample_n34_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\47 Sample #34\47_Sample_n34_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\47 Sample #34\47_Sample_n34_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\47 Sample #34\47_Sample_n34_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\47 Sample #34\47_Sample_n34_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\48 Sample Anc3\48_Sample_Anc3_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\48 Sample Anc3\48_Sample_Anc3_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\48 Sample Anc3\48_Sample_Anc3_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\48 Sample Anc3\48_Sample_Anc3_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\48 Sample Anc3\48_Sample_Anc3_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\48 Sample Anc3\48_Sample_Anc3_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\48 Sample Anc3\48_Sample_Anc3_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\48 Sample Anc3\48_Sample_Anc3_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\48 Sample Anc3\48_Sample_Anc3_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\48 Sample Anc3\48_Sample_Anc3_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\48 Sample Anc3\48_Sample_Anc3_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\49 Sample Anc4\49_Sample_Anc4_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\49 Sample Anc4\49_Sample_Anc4_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\49 Sample Anc4\49_Sample_Anc4_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\49 Sample Anc4\49_Sample_Anc4_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\49 Sample Anc4\49_Sample_Anc4_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\49 Sample Anc4\49_Sample_Anc4_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\49 Sample Anc4\49_Sample_Anc4_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\49 Sample Anc4\49_Sample_Anc4_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\49 Sample Anc4\49_Sample_Anc4_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\49 Sample Anc4\49_Sample_Anc4_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\49 Sample Anc4\49_Sample_Anc4_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\5 Sample Anc3\5_Sample_Anc3_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\5 Sample Anc3\5_Sample_Anc3_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\5 Sample Anc3\5_Sample_Anc3_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\5 Sample Anc3\5_Sample_Anc3_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\5 Sample Anc3\5_Sample_Anc3_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\5 Sample Anc3\5_Sample_Anc3_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\5 Sample Anc3\5_Sample_Anc3_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\5 Sample Anc3\5_Sample_Anc3_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\5 Sample Anc3\5_Sample_Anc3_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\5 Sample Anc3\5_Sample_Anc3_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\5 Sample Anc3\5_Sample_Anc3_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\50 Sample Anc2\50_Sample_Anc2_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\50 Sample Anc2\50_Sample_Anc2_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\50 Sample Anc2\50_Sample_Anc2_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\50 Sample Anc2\50_Sample_Anc2_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\50 Sample Anc2\50_Sample_Anc2_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\50 Sample Anc2\50_Sample_Anc2_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\50 Sample Anc2\50_Sample_Anc2_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\50 Sample Anc2\50_Sample_Anc2_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\50 Sample Anc2\50_Sample_Anc2_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\50 Sample Anc2\50_Sample_Anc2_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\50 Sample Anc2\50_Sample_Anc2_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\51 Sample Anc5\51_Sample_Anc5_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\51 Sample Anc5\51_Sample_Anc5_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\51 Sample Anc5\51_Sample_Anc5_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\51 Sample Anc5\51_Sample_Anc5_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\51 Sample Anc5\51_Sample_Anc5_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\51 Sample Anc5\51_Sample_Anc5_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\51 Sample Anc5\51_Sample_Anc5_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\51 Sample Anc5\51_Sample_Anc5_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\51 Sample Anc5\51_Sample_Anc5_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\51 Sample Anc5\51_Sample_Anc5_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\51 Sample Anc5\51_Sample_Anc5_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\52 Sample Anc1690\52_Sample_Anc1690_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\52 Sample Anc1690\52_Sample_Anc1690_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\52 Sample Anc1690\52_Sample_Anc1690_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\52 Sample Anc1690\52_Sample_Anc1690_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\52 Sample Anc1690\52_Sample_Anc1690_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\52 Sample Anc1690\52_Sample_Anc1690_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\52 Sample Anc1690\52_Sample_Anc1690_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\52 Sample Anc1690\52_Sample_Anc1690_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\52 Sample Anc1690\52_Sample_Anc1690_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\52 Sample Anc1690\52_Sample_Anc1690_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\52 Sample Anc1690\52_Sample_Anc1690_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\6 Sample 4\6_Sample_4_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\6 Sample 4\6_Sample_4_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\6 Sample 4\6_Sample_4_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\6 Sample 4\6_Sample_4_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\6 Sample 4\6_Sample_4_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\6 Sample 4\6_Sample_4_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\6 Sample 4\6_Sample_4_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\6 Sample 4\6_Sample_4_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\6 Sample 4\6_Sample_4_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\6 Sample 4\6_Sample_4_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\6 Sample 4\6_Sample_4_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\7 Sample Anc5\7_Sample_Anc5_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\7 Sample Anc5\7_Sample_Anc5_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\7 Sample Anc5\7_Sample_Anc5_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\7 Sample Anc5\7_Sample_Anc5_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\7 Sample Anc5\7_Sample_Anc5_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\7 Sample Anc5\7_Sample_Anc5_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\7 Sample Anc5\7_Sample_Anc5_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\7 Sample Anc5\7_Sample_Anc5_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\7 Sample Anc5\7_Sample_Anc5_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\7 Sample Anc5\7_Sample_Anc5_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\7 Sample Anc5\7_Sample_Anc5_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\8 Sample #7\8_Sample_n7_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\8 Sample #7\8_Sample_n7_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\8 Sample #7\8_Sample_n7_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\8 Sample #7\8_Sample_n7_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\8 Sample #7\8_Sample_n7_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\8 Sample #7\8_Sample_n7_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\8 Sample #7\8_Sample_n7_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\8 Sample #7\8_Sample_n7_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\8 Sample #7\8_Sample_n7_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\8 Sample #7\8_Sample_n7_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\8 Sample #7\8_Sample_n7_9.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\9 Sample #32\9_Sample_n32_0.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\9 Sample #32\9_Sample_n32_1.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\9 Sample #32\9_Sample_n32_10.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\9 Sample #32\9_Sample_n32_2.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\9 Sample #32\9_Sample_n32_3.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\9 Sample #32\9_Sample_n32_4.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\9 Sample #32\9_Sample_n32_5.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\9 Sample #32\9_Sample_n32_6.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\9 Sample #32\9_Sample_n32_7.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\9 Sample #32\9_Sample_n32_8.raw</string>
+      <string>E:\data\chlamy_evolution_proteomics\9 Sample #32\9_Sample_n32_9.raw</string>
+   </filePaths>
+   <experiments>
+      <string>10 Sample #18</string>
+      <string>10 Sample #18</string>
+      <string>10 Sample #18</string>
+      <string>10 Sample #18</string>
+      <string>10 Sample #18</string>
+      <string>10 Sample #18</string>
+      <string>10 Sample #18</string>
+      <string>10 Sample #18</string>
+      <string>10 Sample #18</string>
+      <string>10 Sample #18</string>
+      <string>10 Sample #18</string>
+      <string>11 Sample #19</string>
+      <string>11 Sample #19</string>
+      <string>11 Sample #19</string>
+      <string>11 Sample #19</string>
+      <string>11 Sample #19</string>
+      <string>11 Sample #19</string>
+      <string>11 Sample #19</string>
+      <string>11 Sample #19</string>
+      <string>11 Sample #19</string>
+      <string>11 Sample #19</string>
+      <string>11 Sample #19</string>
+      <string>12 Sample #33</string>
+      <string>12 Sample #33</string>
+      <string>12 Sample #33</string>
+      <string>12 Sample #33</string>
+      <string>12 Sample #33</string>
+      <string>12 Sample #33</string>
+      <string>12 Sample #33</string>
+      <string>12 Sample #33</string>
+      <string>12 Sample #33</string>
+      <string>12 Sample #33</string>
+      <string>12 Sample #33</string>
+      <string>13 Sample #21</string>
+      <string>13 Sample #21</string>
+      <string>13 Sample #21</string>
+      <string>13 Sample #21</string>
+      <string>13 Sample #21</string>
+      <string>13 Sample #21</string>
+      <string>13 Sample #21</string>
+      <string>13 Sample #21</string>
+      <string>13 Sample #21</string>
+      <string>13 Sample #21</string>
+      <string>13 Sample #21</string>
+      <string>14 Sample #26</string>
+      <string>14 Sample #26</string>
+      <string>14 Sample #26</string>
+      <string>14 Sample #26</string>
+      <string>14 Sample #26</string>
+      <string>14 Sample #26</string>
+      <string>14 Sample #26</string>
+      <string>14 Sample #26</string>
+      <string>14 Sample #26</string>
+      <string>14 Sample #26</string>
+      <string>14 Sample #26</string>
+      <string>15 Sample #23</string>
+      <string>15 Sample #23</string>
+      <string>15 Sample #23</string>
+      <string>15 Sample #23</string>
+      <string>15 Sample #23</string>
+      <string>15 Sample #23</string>
+      <string>15 Sample #23</string>
+      <string>15 Sample #23</string>
+      <string>15 Sample #23</string>
+      <string>15 Sample #23</string>
+      <string>15 Sample #23</string>
+      <string>16 Sample #3</string>
+      <string>16 Sample #3</string>
+      <string>16 Sample #3</string>
+      <string>16 Sample #3</string>
+      <string>16 Sample #3</string>
+      <string>16 Sample #3</string>
+      <string>16 Sample #3</string>
+      <string>16 Sample #3</string>
+      <string>16 Sample #3</string>
+      <string>16 Sample #3</string>
+      <string>16 Sample #3</string>
+      <string>17 Sample #20</string>
+      <string>17 Sample #20</string>
+      <string>17 Sample #20</string>
+      <string>17 Sample #20</string>
+      <string>17 Sample #20</string>
+      <string>17 Sample #20</string>
+      <string>17 Sample #20</string>
+      <string>17 Sample #20</string>
+      <string>17 Sample #20</string>
+      <string>17 Sample #20</string>
+      <string>17 Sample #20</string>
+      <string>18 Sample #11</string>
+      <string>18 Sample #11</string>
+      <string>18 Sample #11</string>
+      <string>18 Sample #11</string>
+      <string>18 Sample #11</string>
+      <string>18 Sample #11</string>
+      <string>18 Sample #11</string>
+      <string>18 Sample #11</string>
+      <string>18 Sample #11</string>
+      <string>18 Sample #11</string>
+      <string>18 Sample #11</string>
+      <string>19 Sample #17</string>
+      <string>19 Sample #17</string>
+      <string>19 Sample #17</string>
+      <string>19 Sample #17</string>
+      <string>19 Sample #17</string>
+      <string>19 Sample #17</string>
+      <string>19 Sample #17</string>
+      <string>19 Sample #17</string>
+      <string>19 Sample #17</string>
+      <string>19 Sample #17</string>
+      <string>19 Sample #17</string>
+      <string>20 Sample #4</string>
+      <string>20 Sample #4</string>
+      <string>20 Sample #4</string>
+      <string>20 Sample #4</string>
+      <string>20 Sample #4</string>
+      <string>20 Sample #4</string>
+      <string>20 Sample #4</string>
+      <string>20 Sample #4</string>
+      <string>20 Sample #4</string>
+      <string>20 Sample #4</string>
+      <string>20 Sample #4</string>
+      <string>21 Sample #31</string>
+      <string>21 Sample #31</string>
+      <string>21 Sample #31</string>
+      <string>21 Sample #31</string>
+      <string>21 Sample #31</string>
+      <string>21 Sample #31</string>
+      <string>21 Sample #31</string>
+      <string>21 Sample #31</string>
+      <string>21 Sample #31</string>
+      <string>21 Sample #31</string>
+      <string>21 Sample #31</string>
+      <string>22 Sample #14</string>
+      <string>22 Sample #14</string>
+      <string>22 Sample #14</string>
+      <string>22 Sample #14</string>
+      <string>22 Sample #14</string>
+      <string>22 Sample #14</string>
+      <string>22 Sample #14</string>
+      <string>22 Sample #14</string>
+      <string>22 Sample #14</string>
+      <string>22 Sample #14</string>
+      <string>22 Sample #14</string>
+      <string>23 Sample #10</string>
+      <string>23 Sample #10</string>
+      <string>23 Sample #10</string>
+      <string>23 Sample #10</string>
+      <string>23 Sample #10</string>
+      <string>23 Sample #10</string>
+      <string>23 Sample #10</string>
+      <string>23 Sample #10</string>
+      <string>23 Sample #10</string>
+      <string>23 Sample #10</string>
+      <string>23 Sample #10</string>
+      <string>24 Sample #30</string>
+      <string>24 Sample #30</string>
+      <string>24 Sample #30</string>
+      <string>24 Sample #30</string>
+      <string>24 Sample #30</string>
+      <string>24 Sample #30</string>
+      <string>24 Sample #30</string>
+      <string>24 Sample #30</string>
+      <string>24 Sample #30</string>
+      <string>24 Sample #30</string>
+      <string>24 Sample #30</string>
+      <string>25 Sample #2</string>
+      <string>25 Sample #2</string>
+      <string>25 Sample #2</string>
+      <string>25 Sample #2</string>
+      <string>25 Sample #2</string>
+      <string>25 Sample #2</string>
+      <string>25 Sample #2</string>
+      <string>25 Sample #2</string>
+      <string>25 Sample #2</string>
+      <string>25 Sample #2</string>
+      <string>25 Sample #2</string>
+      <string>26 Sample #15</string>
+      <string>26 Sample #15</string>
+      <string>26 Sample #15</string>
+      <string>26 Sample #15</string>
+      <string>26 Sample #15</string>
+      <string>26 Sample #15</string>
+      <string>26 Sample #15</string>
+      <string>26 Sample #15</string>
+      <string>26 Sample #15</string>
+      <string>26 Sample #15</string>
+      <string>26 Sample #15</string>
+      <string>27 Sample #5</string>
+      <string>27 Sample #5</string>
+      <string>27 Sample #5</string>
+      <string>27 Sample #5</string>
+      <string>27 Sample #5</string>
+      <string>27 Sample #5</string>
+      <string>27 Sample #5</string>
+      <string>27 Sample #5</string>
+      <string>27 Sample #5</string>
+      <string>27 Sample #5</string>
+      <string>27 Sample #5</string>
+      <string>27 Sample #9</string>
+      <string>27 Sample #9</string>
+      <string>27 Sample #9</string>
+      <string>27 Sample #9</string>
+      <string>27 Sample #9</string>
+      <string>27 Sample #9</string>
+      <string>27 Sample #9</string>
+      <string>27 Sample #9</string>
+      <string>27 Sample #9</string>
+      <string>27 Sample #9</string>
+      <string>27 Sample #9</string>
+      <string>28 Sample #35</string>
+      <string>28 Sample #35</string>
+      <string>28 Sample #35</string>
+      <string>28 Sample #35</string>
+      <string>28 Sample #35</string>
+      <string>28 Sample #35</string>
+      <string>28 Sample #35</string>
+      <string>28 Sample #35</string>
+      <string>28 Sample #35</string>
+      <string>28 Sample #35</string>
+      <string>28 Sample #35</string>
+      <string>29 Sample #1</string>
+      <string>29 Sample #1</string>
+      <string>29 Sample #1</string>
+      <string>29 Sample #1</string>
+      <string>29 Sample #1</string>
+      <string>29 Sample #1</string>
+      <string>29 Sample #1</string>
+      <string>29 Sample #1</string>
+      <string>29 Sample #1</string>
+      <string>29 Sample #1</string>
+      <string>29 Sample #1</string>
+      <string>3 Sample 1690 1a neu Kalibriert</string>
+      <string>3 Sample 1690 1a neu Kalibriert</string>
+      <string>3 Sample 1690 1a neu Kalibriert</string>
+      <string>3 Sample 1690 1a neu Kalibriert</string>
+      <string>3 Sample 1690 1a neu Kalibriert</string>
+      <string>3 Sample 1690 1a neu Kalibriert</string>
+      <string>3 Sample 1690 1a neu Kalibriert</string>
+      <string>3 Sample 1690 1a neu Kalibriert</string>
+      <string>3 Sample 1690 1a neu Kalibriert</string>
+      <string>3 Sample 1690 1a neu Kalibriert</string>
+      <string>3 Sample 1690 1a neu Kalibriert</string>
+      <string>30 Sample #28</string>
+      <string>30 Sample #28</string>
+      <string>30 Sample #28</string>
+      <string>30 Sample #28</string>
+      <string>30 Sample #28</string>
+      <string>30 Sample #28</string>
+      <string>30 Sample #28</string>
+      <string>30 Sample #28</string>
+      <string>30 Sample #28</string>
+      <string>30 Sample #28</string>
+      <string>30 Sample #28</string>
+      <string>31 Sample #16</string>
+      <string>31 Sample #16</string>
+      <string>31 Sample #16</string>
+      <string>31 Sample #16</string>
+      <string>31 Sample #16</string>
+      <string>31 Sample #16</string>
+      <string>31 Sample #16</string>
+      <string>31 Sample #16</string>
+      <string>31 Sample #16</string>
+      <string>31 Sample #16</string>
+      <string>31 Sample #16</string>
+      <string>32 Sample #27</string>
+      <string>32 Sample #27</string>
+      <string>32 Sample #27</string>
+      <string>32 Sample #27</string>
+      <string>32 Sample #27</string>
+      <string>32 Sample #27</string>
+      <string>32 Sample #27</string>
+      <string>32 Sample #27</string>
+      <string>32 Sample #27</string>
+      <string>32 Sample #27</string>
+      <string>32 Sample #27</string>
+      <string>33 Sample #29</string>
+      <string>33 Sample #29</string>
+      <string>33 Sample #29</string>
+      <string>33 Sample #29</string>
+      <string>33 Sample #29</string>
+      <string>33 Sample #29</string>
+      <string>33 Sample #29</string>
+      <string>33 Sample #29</string>
+      <string>33 Sample #29</string>
+      <string>33 Sample #29</string>
+      <string>33 Sample #29</string>
+      <string>34 Sample #13</string>
+      <string>34 Sample #13</string>
+      <string>34 Sample #13</string>
+      <string>34 Sample #13</string>
+      <string>34 Sample #13</string>
+      <string>34 Sample #13</string>
+      <string>34 Sample #13</string>
+      <string>34 Sample #13</string>
+      <string>34 Sample #13</string>
+      <string>34 Sample #13</string>
+      <string>34 Sample #13</string>
+      <string>35 Sample #6</string>
+      <string>35 Sample #6</string>
+      <string>35 Sample #6</string>
+      <string>35 Sample #6</string>
+      <string>35 Sample #6</string>
+      <string>35 Sample #6</string>
+      <string>35 Sample #6</string>
+      <string>35 Sample #6</string>
+      <string>35 Sample #6</string>
+      <string>35 Sample #6</string>
+      <string>35 Sample #6</string>
+      <string>36 Sample #25</string>
+      <string>36 Sample #25</string>
+      <string>36 Sample #25</string>
+      <string>36 Sample #25</string>
+      <string>36 Sample #25</string>
+      <string>36 Sample #25</string>
+      <string>36 Sample #25</string>
+      <string>36 Sample #25</string>
+      <string>36 Sample #25</string>
+      <string>36 Sample #25</string>
+      <string>36 Sample #25</string>
+      <string>37 Sample #8</string>
+      <string>37 Sample #8</string>
+      <string>37 Sample #8</string>
+      <string>37 Sample #8</string>
+      <string>37 Sample #8</string>
+      <string>37 Sample #8</string>
+      <string>37 Sample #8</string>
+      <string>37 Sample #8</string>
+      <string>37 Sample #8</string>
+      <string>37 Sample #8</string>
+      <string>37 Sample #8</string>
+      <string>38 Sample #12</string>
+      <string>38 Sample #12</string>
+      <string>38 Sample #12</string>
+      <string>38 Sample #12</string>
+      <string>38 Sample #12</string>
+      <string>38 Sample #12</string>
+      <string>38 Sample #12</string>
+      <string>38 Sample #12</string>
+      <string>38 Sample #12</string>
+      <string>38 Sample #12</string>
+      <string>38 Sample #12</string>
+      <string>39 Sample Anc1690</string>
+      <string>39 Sample Anc1690</string>
+      <string>39 Sample Anc1690</string>
+      <string>39 Sample Anc1690</string>
+      <string>39 Sample Anc1690</string>
+      <string>39 Sample Anc1690</string>
+      <string>39 Sample Anc1690</string>
+      <string>39 Sample Anc1690</string>
+      <string>39 Sample Anc1690</string>
+      <string>39 Sample Anc1690</string>
+      <string>39 Sample Anc1690</string>
+      <string>4 Sample Anc2</string>
+      <string>4 Sample Anc2</string>
+      <string>4 Sample Anc2</string>
+      <string>4 Sample Anc2</string>
+      <string>4 Sample Anc2</string>
+      <string>4 Sample Anc2</string>
+      <string>4 Sample Anc2</string>
+      <string>4 Sample Anc2</string>
+      <string>4 Sample Anc2</string>
+      <string>4 Sample Anc2</string>
+      <string>4 Sample Anc2</string>
+      <string>40 Sample Anc5</string>
+      <string>40 Sample Anc5</string>
+      <string>40 Sample Anc5</string>
+      <string>40 Sample Anc5</string>
+      <string>40 Sample Anc5</string>
+      <string>40 Sample Anc5</string>
+      <string>40 Sample Anc5</string>
+      <string>40 Sample Anc5</string>
+      <string>40 Sample Anc5</string>
+      <string>40 Sample Anc5</string>
+      <string>40 Sample Anc5</string>
+      <string>41 Sample #22</string>
+      <string>41 Sample #22</string>
+      <string>41 Sample #22</string>
+      <string>41 Sample #22</string>
+      <string>41 Sample #22</string>
+      <string>41 Sample #22</string>
+      <string>41 Sample #22</string>
+      <string>41 Sample #22</string>
+      <string>41 Sample #22</string>
+      <string>41 Sample #22</string>
+      <string>41 Sample #22</string>
+      <string>42 Sample #24</string>
+      <string>42 Sample #24</string>
+      <string>42 Sample #24</string>
+      <string>42 Sample #24</string>
+      <string>42 Sample #24</string>
+      <string>42 Sample #24</string>
+      <string>42 Sample #24</string>
+      <string>42 Sample #24</string>
+      <string>42 Sample #24</string>
+      <string>42 Sample #24</string>
+      <string>42 Sample #24</string>
+      <string>43 Sample Anc2</string>
+      <string>43 Sample Anc2</string>
+      <string>43 Sample Anc2</string>
+      <string>43 Sample Anc2</string>
+      <string>43 Sample Anc2</string>
+      <string>43 Sample Anc2</string>
+      <string>43 Sample Anc2</string>
+      <string>43 Sample Anc2</string>
+      <string>43 Sample Anc2</string>
+      <string>43 Sample Anc2</string>
+      <string>43 Sample Anc2</string>
+      <string>44 Sample #5</string>
+      <string>44 Sample #5</string>
+      <string>44 Sample #5</string>
+      <string>44 Sample #5</string>
+      <string>44 Sample #5</string>
+      <string>44 Sample #5</string>
+      <string>44 Sample #5</string>
+      <string>44 Sample #5</string>
+      <string>44 Sample #5</string>
+      <string>44 Sample #5</string>
+      <string>44 Sample #5</string>
+      <string>45 Sample Anc3</string>
+      <string>45 Sample Anc3</string>
+      <string>45 Sample Anc3</string>
+      <string>45 Sample Anc3</string>
+      <string>45 Sample Anc3</string>
+      <string>45 Sample Anc3</string>
+      <string>45 Sample Anc3</string>
+      <string>45 Sample Anc3</string>
+      <string>45 Sample Anc3</string>
+      <string>45 Sample Anc3</string>
+      <string>45 Sample Anc3</string>
+      <string>46 Sample Anc4</string>
+      <string>46 Sample Anc4</string>
+      <string>46 Sample Anc4</string>
+      <string>46 Sample Anc4</string>
+      <string>46 Sample Anc4</string>
+      <string>46 Sample Anc4</string>
+      <string>46 Sample Anc4</string>
+      <string>46 Sample Anc4</string>
+      <string>46 Sample Anc4</string>
+      <string>46 Sample Anc4</string>
+      <string>46 Sample Anc4</string>
+      <string>47 Sample #34</string>
+      <string>47 Sample #34</string>
+      <string>47 Sample #34</string>
+      <string>47 Sample #34</string>
+      <string>47 Sample #34</string>
+      <string>47 Sample #34</string>
+      <string>47 Sample #34</string>
+      <string>47 Sample #34</string>
+      <string>47 Sample #34</string>
+      <string>47 Sample #34</string>
+      <string>47 Sample #34</string>
+      <string>48 Sample Anc3</string>
+      <string>48 Sample Anc3</string>
+      <string>48 Sample Anc3</string>
+      <string>48 Sample Anc3</string>
+      <string>48 Sample Anc3</string>
+      <string>48 Sample Anc3</string>
+      <string>48 Sample Anc3</string>
+      <string>48 Sample Anc3</string>
+      <string>48 Sample Anc3</string>
+      <string>48 Sample Anc3</string>
+      <string>48 Sample Anc3</string>
+      <string>49 Sample Anc4</string>
+      <string>49 Sample Anc4</string>
+      <string>49 Sample Anc4</string>
+      <string>49 Sample Anc4</string>
+      <string>49 Sample Anc4</string>
+      <string>49 Sample Anc4</string>
+      <string>49 Sample Anc4</string>
+      <string>49 Sample Anc4</string>
+      <string>49 Sample Anc4</string>
+      <string>49 Sample Anc4</string>
+      <string>49 Sample Anc4</string>
+      <string>5 Sample Anc3</string>
+      <string>5 Sample Anc3</string>
+      <string>5 Sample Anc3</string>
+      <string>5 Sample Anc3</string>
+      <string>5 Sample Anc3</string>
+      <string>5 Sample Anc3</string>
+      <string>5 Sample Anc3</string>
+      <string>5 Sample Anc3</string>
+      <string>5 Sample Anc3</string>
+      <string>5 Sample Anc3</string>
+      <string>5 Sample Anc3</string>
+      <string>50 Sample Anc2</string>
+      <string>50 Sample Anc2</string>
+      <string>50 Sample Anc2</string>
+      <string>50 Sample Anc2</string>
+      <string>50 Sample Anc2</string>
+      <string>50 Sample Anc2</string>
+      <string>50 Sample Anc2</string>
+      <string>50 Sample Anc2</string>
+      <string>50 Sample Anc2</string>
+      <string>50 Sample Anc2</string>
+      <string>50 Sample Anc2</string>
+      <string>51 Sample Anc5</string>
+      <string>51 Sample Anc5</string>
+      <string>51 Sample Anc5</string>
+      <string>51 Sample Anc5</string>
+      <string>51 Sample Anc5</string>
+      <string>51 Sample Anc5</string>
+      <string>51 Sample Anc5</string>
+      <string>51 Sample Anc5</string>
+      <string>51 Sample Anc5</string>
+      <string>51 Sample Anc5</string>
+      <string>51 Sample Anc5</string>
+      <string>52 Sample Anc1690</string>
+      <string>52 Sample Anc1690</string>
+      <string>52 Sample Anc1690</string>
+      <string>52 Sample Anc1690</string>
+      <string>52 Sample Anc1690</string>
+      <string>52 Sample Anc1690</string>
+      <string>52 Sample Anc1690</string>
+      <string>52 Sample Anc1690</string>
+      <string>52 Sample Anc1690</string>
+      <string>52 Sample Anc1690</string>
+      <string>52 Sample Anc1690</string>
+      <string>6 Sample 4</string>
+      <string>6 Sample 4</string>
+      <string>6 Sample 4</string>
+      <string>6 Sample 4</string>
+      <string>6 Sample 4</string>
+      <string>6 Sample 4</string>
+      <string>6 Sample 4</string>
+      <string>6 Sample 4</string>
+      <string>6 Sample 4</string>
+      <string>6 Sample 4</string>
+      <string>6 Sample 4</string>
+      <string>7 Sample Anc5</string>
+      <string>7 Sample Anc5</string>
+      <string>7 Sample Anc5</string>
+      <string>7 Sample Anc5</string>
+      <string>7 Sample Anc5</string>
+      <string>7 Sample Anc5</string>
+      <string>7 Sample Anc5</string>
+      <string>7 Sample Anc5</string>
+      <string>7 Sample Anc5</string>
+      <string>7 Sample Anc5</string>
+      <string>7 Sample Anc5</string>
+      <string>8 Sample #7</string>
+      <string>8 Sample #7</string>
+      <string>8 Sample #7</string>
+      <string>8 Sample #7</string>
+      <string>8 Sample #7</string>
+      <string>8 Sample #7</string>
+      <string>8 Sample #7</string>
+      <string>8 Sample #7</string>
+      <string>8 Sample #7</string>
+      <string>8 Sample #7</string>
+      <string>8 Sample #7</string>
+      <string>9 Sample #32</string>
+      <string>9 Sample #32</string>
+      <string>9 Sample #32</string>
+      <string>9 Sample #32</string>
+      <string>9 Sample #32</string>
+      <string>9 Sample #32</string>
+      <string>9 Sample #32</string>
+      <string>9 Sample #32</string>
+      <string>9 Sample #32</string>
+      <string>9 Sample #32</string>
+      <string>9 Sample #32</string>
+   </experiments>
+   <fractions>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+      <short>0</short>
+      <short>1</short>
+      <short>10</short>
+      <short>2</short>
+      <short>3</short>
+      <short>4</short>
+      <short>5</short>
+      <short>6</short>
+      <short>7</short>
+      <short>8</short>
+      <short>9</short>
+   </fractions>
+   <ptms>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+      <boolean>false</boolean>
+   </ptms>
+   <paramGroupIndices>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+      <int>0</int>
+   </paramGroupIndices>
+   <parameterGroups>
+      <parameterGroup>
+         <maxCharge>7</maxCharge>
+         <minPeakLen>2</minPeakLen>
+         <useMs1Centroids>false</useMs1Centroids>
+         <useMs2Centroids>false</useMs2Centroids>
+         <cutPeaks>true</cutPeaks>
+         <gapScans>1</gapScans>
+         <minTime>NaN</minTime>
+         <maxTime>NaN</maxTime>
+         <matchType>MatchFromAndTo</matchType>
+         <centroidMatchTol>8</centroidMatchTol>
+         <centroidMatchTolInPpm>true</centroidMatchTolInPpm>
+         <centroidHalfWidth>35</centroidHalfWidth>
+         <centroidHalfWidthInPpm>true</centroidHalfWidthInPpm>
+         <valleyFactor>1.4</valleyFactor>
+         <isotopeValleyFactor>1.2</isotopeValleyFactor>
+         <advancedPeakSplitting>false</advancedPeakSplitting>
+         <intensityThreshold>0</intensityThreshold>
+         <msInstrument>0</msInstrument>
+         <intensityDetermination>0</intensityDetermination>
+         <labelMods>
+            <string />
+         </labelMods>
+         <reQuantify>false</reQuantify>
+         <lfqSkipNorm>false</lfqSkipNorm>
+         <lfqMinEdgesPerNode>3</lfqMinEdgesPerNode>
+         <lfqAvEdgesPerNode>6</lfqAvEdgesPerNode>
+         <lfqMaxFeatures>100000</lfqMaxFeatures>
+         <neucodeMaxPpm>0</neucodeMaxPpm>
+         <neucodeResolution>0</neucodeResolution>
+         <neucodeResolutionInMda>false</neucodeResolutionInMda>
+         <neucodeInSilicoLowRes>false</neucodeInSilicoLowRes>
+         <fastLfq>true</fastLfq>
+         <lfqRestrictFeatures>false</lfqRestrictFeatures>
+         <lfqMinRatioCount>2</lfqMinRatioCount>
+         <maxLabeledAa>0</maxLabeledAa>
+         <maxNmods>5</maxNmods>
+         <maxMissedCleavages>2</maxMissedCleavages>
+         <multiplicity>1</multiplicity>
+         <enzymes>
+            <string>Trypsin/P</string>
+         </enzymes>
+         <enzymesFirstSearch />
+         <useEnzymeFirstSearch>false</useEnzymeFirstSearch>
+         <useVariableModificationsFirstSearch>false</useVariableModificationsFirstSearch>
+         <variableModifications>
+            <string>Oxidation (M)</string>
+            <string>Acetyl (Protein N-term)</string>
+         </variableModifications>
+         <useMultiModification>false</useMultiModification>
+         <multiModifications />
+         <isobaricLabels />
+         <neucodeLabels />
+         <variableModificationsFirstSearch />
+         <hasAdditionalVariableModifications>false</hasAdditionalVariableModifications>
+         <additionalVariableModifications />
+         <additionalVariableModificationProteins />
+         <doMassFiltering>true</doMassFiltering>
+         <firstSearchTol>20</firstSearchTol>
+         <mainSearchTol>4.5</mainSearchTol>
+         <searchTolInPpm>true</searchTolInPpm>
+         <isotopeMatchTol>2</isotopeMatchTol>
+         <isotopeMatchTolInPpm>true</isotopeMatchTolInPpm>
+         <isotopeTimeCorrelation>0.6</isotopeTimeCorrelation>
+         <theorIsotopeCorrelation>0.6</theorIsotopeCorrelation>
+         <recalibrationInPpm>true</recalibrationInPpm>
+         <intensityDependentCalibration>false</intensityDependentCalibration>
+         <minScoreForCalibration>70</minScoreForCalibration>
+         <matchLibraryFile>false</matchLibraryFile>
+         <libraryFile />
+         <matchLibraryMassTolPpm>0</matchLibraryMassTolPpm>
+         <matchLibraryTimeTolMin>0</matchLibraryTimeTolMin>
+         <matchLabelTimeTolMin>0</matchLabelTimeTolMin>
+         <reporterMassTolerance>NaN</reporterMassTolerance>
+         <reporterPif>NaN</reporterPif>
+         <filterPif>false</filterPif>
+         <reporterFraction>NaN</reporterFraction>
+         <reporterBasePeakRatio>NaN</reporterBasePeakRatio>
+         <timsHalfWidth>0</timsHalfWidth>
+         <timsStep>0</timsStep>
+         <timsResolution>0</timsResolution>
+         <timsMinMsmsIntensity>0</timsMinMsmsIntensity>
+         <timsRemovePrecursor>true</timsRemovePrecursor>
+         <timsIsobaricLabels>false</timsIsobaricLabels>
+         <timsCollapseMsms>true</timsCollapseMsms>
+         <crosslinkSearch>false</crosslinkSearch>
+         <minPepLenXl>4</minPepLenXl>
+         <minPairedPepLenXl>6</minPairedPepLenXl>
+         <crosslinkOnlyIntraProtein>false</crosslinkOnlyIntraProtein>
+         <crosslinkMaxMonoUnsaturated>0</crosslinkMaxMonoUnsaturated>
+         <crosslinkMaxMonoSaturated>0</crosslinkMaxMonoSaturated>
+         <crosslinkMaxDiUnsaturated>0</crosslinkMaxDiUnsaturated>
+         <crosslinkMaxDiSaturated>0</crosslinkMaxDiSaturated>
+         <crosslinkUseSeparateFasta>false</crosslinkUseSeparateFasta>
+         <crosslinkFastaFiles />
+         <crosslinkMode>PeptidesWithCleavedLinker</crosslinkMode>
+         <lcmsRunType>Standard</lcmsRunType>
+         <lfqMode>1</lfqMode>
+         <enzymeMode>0</enzymeMode>
+         <complementaryReporterType>0</complementaryReporterType>
+         <neucodeIntensityMode>0</neucodeIntensityMode>
+         <enzymeModeFirstSearch>0</enzymeModeFirstSearch>
+      </parameterGroup>
+   </parameterGroups>
+   <fixedModifications>
+      <string>Carbamidomethyl (C)</string>
+   </fixedModifications>
+   <fastaFiles>
+      <string>E:\polybox\projects\mixTox\genomic\cre_all_proteins.fa</string>
+   </fastaFiles>
+   <fastaFilesProteogenomics />
+   <fastaFilesFirstSearch />
+   <fixedSearchFolder>E:\db_indices\andromeda</fixedSearchFolder>
+   <andromedaCacheSize>350000</andromedaCacheSize>
+   <advancedRatios>true</advancedRatios>
+   <pvalThres>0.005</pvalThres>
+   <neucodeRatioBasedQuantification>false</neucodeRatioBasedQuantification>
+   <neucodeStabilizeLargeRatios>false</neucodeStabilizeLargeRatios>
+   <rtShift>false</rtShift>
+   <separateLfq>false</separateLfq>
+   <lfqStabilizeLargeRatios>true</lfqStabilizeLargeRatios>
+   <lfqRequireMsms>true</lfqRequireMsms>
+   <decoyMode>revert</decoyMode>
+   <boxCarMode>all</boxCarMode>
+   <includeContaminants>true</includeContaminants>
+   <maxPeptideMass>4600</maxPeptideMass>
+   <epsilonMutationScore>true</epsilonMutationScore>
+   <mutatedPeptidesSeparately>true</mutatedPeptidesSeparately>
+   <proteogenomicPeptidesSeparately>true</proteogenomicPeptidesSeparately>
+   <minDeltaScoreUnmodifiedPeptides>0</minDeltaScoreUnmodifiedPeptides>
+   <minDeltaScoreModifiedPeptides>6</minDeltaScoreModifiedPeptides>
+   <minScoreUnmodifiedPeptides>0</minScoreUnmodifiedPeptides>
+   <minScoreModifiedPeptides>40</minScoreModifiedPeptides>
+   <secondPeptide>true</secondPeptide>
+   <matchBetweenRuns>true</matchBetweenRuns>
+   <matchUnidentifiedFeatures>false</matchUnidentifiedFeatures>
+   <matchBetweenRunsFdr>false</matchBetweenRunsFdr>
+   <dependentPeptides>true</dependentPeptides>
+   <dependentPeptideFdr>0.01</dependentPeptideFdr>
+   <dependentPeptideMassBin>0.0065</dependentPeptideMassBin>
+   <dependentPeptidesBetweenRuns>false</dependentPeptidesBetweenRuns>
+   <dependentPeptidesWithinExperiment>false</dependentPeptidesWithinExperiment>
+   <dependentPeptidesWithinParameterGroup>false</dependentPeptidesWithinParameterGroup>
+   <dependentPeptidesRestrictFractions>false</dependentPeptidesRestrictFractions>
+   <dependentPeptidesFractionDifference>0</dependentPeptidesFractionDifference>
+   <msmsConnection>false</msmsConnection>
+   <ibaq>true</ibaq>
+   <top3>false</top3>
+   <independentEnzymes>false</independentEnzymes>
+   <useDeltaScore>false</useDeltaScore>
+   <splitProteinGroupsByTaxonomy>false</splitProteinGroupsByTaxonomy>
+   <taxonomyLevel>Species</taxonomyLevel>
+   <avalon>false</avalon>
+   <nModColumns>3</nModColumns>
+   <ibaqLogFit>true</ibaqLogFit>
+   <razorProteinFdr>true</razorProteinFdr>
+   <deNovoSequencing>false</deNovoSequencing>
+   <deNovoVarMods>true</deNovoVarMods>
+   <massDifferenceSearch>false</massDifferenceSearch>
+   <isotopeCalc>false</isotopeCalc>
+   <intensityPredictionsFile />
+   <minPepLen>7</minPepLen>
+   <xPsmFdr>0</xPsmFdr>
+   <peptideFdr>0.01</peptideFdr>
+   <proteinFdr>0.01</proteinFdr>
+   <siteFdr>0.01</siteFdr>
+   <lfqSitePeptide>false</lfqSitePeptide>
+   <minPeptideLengthForUnspecificSearch>8</minPeptideLengthForUnspecificSearch>
+   <maxPeptideLengthForUnspecificSearch>25</maxPeptideLengthForUnspecificSearch>
+   <useNormRatiosForOccupancy>true</useNormRatiosForOccupancy>
+   <minPeptides>1</minPeptides>
+   <minRazorPeptides>1</minRazorPeptides>
+   <minUniquePeptides>0</minUniquePeptides>
+   <useCounterparts>false</useCounterparts>
+   <advancedSiteIntensities>true</advancedSiteIntensities>
+   <customProteinQuantification>false</customProteinQuantification>
+   <customProteinQuantificationFile />
+   <minRatioCount>2</minRatioCount>
+   <restrictProteinQuantification>false</restrictProteinQuantification>
+   <restrictMods />
+   <matchingTimeWindow>0.7</matchingTimeWindow>
+   <alignmentTimeWindow>20</alignmentTimeWindow>
+   <numberOfCandidatesMultiplexedMsms>25</numberOfCandidatesMultiplexedMsms>
+   <numberOfCandidatesMsms>15</numberOfCandidatesMsms>
+   <massDifferenceMods />
+   <mainSearchMaxCombinations>200</mainSearchMaxCombinations>
+   <stackPeaks>false</stackPeaks>
+   <ms2PrecursorShift>0</ms2PrecursorShift>
+   <complementaryIonPpm>20</complementaryIonPpm>
+   <variationParseRule />
+   <useSeriesReporters>false</useSeriesReporters>
+   <msmsParamsArray>
+      <msmsParams Name="FTMS" MatchToleranceInPpm="true" DeisotopeToleranceInPpm="true" DeNovoToleranceInPpm="true" Deisotope="true" Topx="12" TopxInterval="100" HigherCharges="true" IncludeWater="true" IncludeAmmonia="true" DependentLosses="true" Recalibration="false">
+         <MatchTolerance>20</MatchTolerance>
+         <DeisotopeTolerance>7</DeisotopeTolerance>
+         <DeNovoTolerance>10</DeNovoTolerance>
+      </msmsParams>
+      <msmsParams Name="ITMS" MatchToleranceInPpm="false" DeisotopeToleranceInPpm="false" DeNovoToleranceInPpm="false" Deisotope="false" Topx="8" TopxInterval="100" HigherCharges="true" IncludeWater="true" IncludeAmmonia="true" DependentLosses="true" Recalibration="false">
+         <MatchTolerance>0.5</MatchTolerance>
+         <DeisotopeTolerance>0.15</DeisotopeTolerance>
+         <DeNovoTolerance>0.25</DeNovoTolerance>
+      </msmsParams>
+      <msmsParams Name="TOF" MatchToleranceInPpm="true" DeisotopeToleranceInPpm="false" DeNovoToleranceInPpm="false" Deisotope="true" Topx="10" TopxInterval="100" HigherCharges="true" IncludeWater="true" IncludeAmmonia="true" DependentLosses="true" Recalibration="false">
+         <MatchTolerance>40</MatchTolerance>
+         <DeisotopeTolerance>0.01</DeisotopeTolerance>
+         <DeNovoTolerance>0.02</DeNovoTolerance>
+      </msmsParams>
+      <msmsParams Name="Unknown" MatchToleranceInPpm="false" DeisotopeToleranceInPpm="false" DeNovoToleranceInPpm="false" Deisotope="false" Topx="8" TopxInterval="100" HigherCharges="true" IncludeWater="true" IncludeAmmonia="true" DependentLosses="true" Recalibration="false">
+         <MatchTolerance>0.5</MatchTolerance>
+         <DeisotopeTolerance>0.15</DeisotopeTolerance>
+         <DeNovoTolerance>0.25</DeNovoTolerance>
+      </msmsParams>
+   </msmsParamsArray>
+   <compositionPrediction>0</compositionPrediction>
+   <quantMode>1</quantMode>
+   <variationMode>none</variationMode>
+</MaxQuantParams>
