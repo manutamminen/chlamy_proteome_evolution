@@ -762,7 +762,8 @@ prepare_matrix <- function(friedman)
 }
 
 ## Define a function to spit out the heatmap files
-draw_heatmap <- function(test_matrix, file_name, treatment_order=c('C', 'B', 'BS', 'L', 'N', 'P', 'S'))
+draw_heatmap <- function(test_matrix, file_name,
+                         treatment_order=c('C', 'B', 'BS', 'L', 'N', 'P', 'S'))
 {
     pdf(file_name)
     heatmap.2(test_matrix[,treatment_order],
@@ -897,7 +898,6 @@ dplyr::select(sig_zeros, X3, X4, X5, Mean_expr) %>%
     write_tsv("circos/divergents.highlight", col_names=FALSE)
 
 #Test the distribution of the changes across chromosomes; chi square test
-## cat_tot <- c(cat2_tmp, cat3_tmp, cat4, cat5) %>% strsplit("\\.") %>% lapply(function(x) paste(x[1], x[2], sep=".")) %>% do.call(rbind, .) %>% as.character
 cat_tot <- c(divergent_ids, parallel_ids) %>%
     strsplit("\\.") %>%
     lapply(function(x) paste(x[1], x[2], sep=".")) %>%
