@@ -1,5 +1,9 @@
 # Code and data for the _Chlamydomonas reinhardtii_ proteome evolution experiment
 
+## The project results are published at
+
+https://www.nature.com/articles/s41467-018-07106-z
+
 ## The project code is available at
 
 https://github.com/manutamminen/chlamy_proteome_evolution/blob/master/workflow.org
