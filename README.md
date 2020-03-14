@@ -8,7 +8,7 @@ https://www.nature.com/articles/s41467-018-07106-z
 
 https://github.com/manutamminen/chlamy_proteome_evolution/blob/master/workflow.org
 
-## The project includes the following files
+## The project includes the following data files
 
 | File                                        | Description                                                |
 | ------------------------------------------- | ------------------------------------------------------------- |
